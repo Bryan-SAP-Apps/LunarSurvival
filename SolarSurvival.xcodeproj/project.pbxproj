@@ -11,6 +11,8 @@
 		048E9A282CD8771E00105FD3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A272CD8771E00105FD3 /* ContentView.swift */; };
 		048E9A2A2CD8771F00105FD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048E9A292CD8771F00105FD3 /* Assets.xcassets */; };
 		048E9A2D2CD8771F00105FD3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048E9A2C2CD8771F00105FD3 /* Preview Assets.xcassets */; };
+		048E9A362CDDA77500105FD3 /* Level2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A352CDDA77500105FD3 /* Level2.swift */; };
+		048E9A382CDDA78500105FD3 /* PlatformCollectibles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A372CDDA78500105FD3 /* PlatformCollectibles.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		048E9A272CD8771E00105FD3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		048E9A292CD8771F00105FD3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		048E9A2C2CD8771F00105FD3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		048E9A352CDDA77500105FD3 /* Level2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level2.swift; sourceTree = "<group>"; };
+		048E9A372CDDA78500105FD3 /* PlatformCollectibles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformCollectibles.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +39,7 @@
 		048E9A192CD8771D00105FD3 = {
 			isa = PBXGroup;
 			children = (
+				048E9A372CDDA78500105FD3 /* PlatformCollectibles.swift */,
 				048E9A242CD8771E00105FD3 /* SolarSurvival */,
 				048E9A232CD8771E00105FD3 /* Products */,
 			);
@@ -53,6 +58,7 @@
 			children = (
 				048E9A252CD8771E00105FD3 /* SolarSurvivalApp.swift */,
 				048E9A272CD8771E00105FD3 /* ContentView.swift */,
+				048E9A352CDDA77500105FD3 /* Level2.swift */,
 				048E9A292CD8771F00105FD3 /* Assets.xcassets */,
 				048E9A2B2CD8771F00105FD3 /* Preview Content */,
 			);
@@ -138,7 +144,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				048E9A282CD8771E00105FD3 /* ContentView.swift in Sources */,
+				048E9A362CDDA77500105FD3 /* Level2.swift in Sources */,
 				048E9A262CD8771E00105FD3 /* SolarSurvivalApp.swift in Sources */,
+				048E9A382CDDA78500105FD3 /* PlatformCollectibles.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

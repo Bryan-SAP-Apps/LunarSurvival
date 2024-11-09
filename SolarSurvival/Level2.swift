@@ -1,6 +1,15 @@
+//
+//  SwiftUIView.swift
+//  SolarSurvival
+//
+//  Created by Bryan Nguyen on 7/11/24.
+//
+
 import SwiftUI
 
-struct ContentView: View {
+struct NextLevelView: View {
+//    @AppStorage("hhh") var level1x = 50
+//    @AppStorage("hhh") var goLevel1 = false
     @StateObject private var gameState = GameState()
     @State private var isJumping = false
     @State private var gravity = CGFloat(50)
@@ -24,26 +33,25 @@ struct ContentView: View {
         Collectible(position: CGPoint(x: 420, y: 180)),
         Collectible(position: CGPoint(x: 620, y: 130)),
     ]
-
+        
     let groundLevel: CGFloat = 300
     let jumpStrength: CGFloat = -15
     let frameDuration = 0.016
 
     var body: some View {
         NavigationStack{
-                NavigationLink(destination: NextLevelView(), isActive: $endPoint){
+                NavigationLink(destination: ContentView(), isActive: $endPoint){
+                    
                     EmptyView()
                 }.onAppear {
-                    gameState.currentLevel = 1
-                    if gameState.playerPosition.x != 100 {
-                            gameState.playerPosition.x = 750 // Set position when coming back
-                        }
-//
+                    // Set current level to 2 and adjust player position for this level
+                    gameState.currentLevel = 2
+                    gameState.playerPosition = CGPoint(x: 51, y: 300) // New start position in this level
                 }
             
             ZStack {
                 // Background
-                Color.blue.ignoresSafeArea()
+                Color.orange.ignoresSafeArea()
                 
                 // Ground
                 Rectangle()
@@ -138,7 +146,7 @@ struct ContentView: View {
         isMovingLeft = false
     }
     
-    func startMovingRight() {print(gameState.playerPosition.x)
+    func startMovingRight() {
         isMovingRight = true
     }
     
@@ -153,13 +161,14 @@ struct ContentView: View {
     }
 
     func updateGame() {
-       
-        if gameState.playerPosition.x >= 750 { // Condition to trigger navigation
-                endPoint = true
-            gameState.savedPositions[gameState.currentLevel] = gameState.playerPosition  // Save position
-            print("this is gamestate", gameState.savedPositions)
-            
-            }
+        if gameState.playerPosition.x <= 50 { // Condition to trigger navigation
+                   endPoint = true
+            gameState.playerPosition = CGPoint(x: 750, y: 300)
+                    
+               }
+//        if goLevel1 == true{
+//            level1x = 700
+//        }
         
         // Apply gravity and update player's position
         if isJumping {
@@ -173,7 +182,7 @@ struct ContentView: View {
         // Check if player has landed on the ground
         if !currentlyOnPlatform {
                 velocity += gravity * frameDuration
-            gameState.playerPosition.y += velocity
+                gameState.playerPosition.y += velocity
             }
         
         if gameState.playerPosition.y >= groundLevel {
@@ -244,8 +253,6 @@ struct ContentView: View {
 }
 
 // Platform model
-
-
 #Preview {
-    ContentView()
+    NextLevelView()
 }

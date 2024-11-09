@@ -7,12 +7,18 @@
 
 import SwiftUI
 
-struct PlatformCollectibles: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+class GameState: ObservableObject {
+    @Published var playerPosition = CGPoint(x: 100, y: 300)
+    @Published var currentLevel: Int = 1 // Track which level/view is active
+    @Published var savedPositions: [Int: CGPoint] = [:]
+}
+struct Platform {
+    var position: CGPoint
+    var size: CGSize
 }
 
-#Preview {
-    PlatformCollectibles()
+// Collectible model
+struct Collectible {
+    var position: CGPoint
 }
+
