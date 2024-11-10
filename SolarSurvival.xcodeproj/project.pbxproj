@@ -13,6 +13,7 @@
 		048E9A2D2CD8771F00105FD3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048E9A2C2CD8771F00105FD3 /* Preview Assets.xcassets */; };
 		048E9A362CDDA77500105FD3 /* Level2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A352CDDA77500105FD3 /* Level2.swift */; };
 		048E9A382CDDA78500105FD3 /* PlatformCollectibles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A372CDDA78500105FD3 /* PlatformCollectibles.swift */; };
+		048E9A3A2CE0A84D00105FD3 /* ProgressBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A392CE0A84D00105FD3 /* ProgressBuilding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		048E9A2C2CD8771F00105FD3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		048E9A352CDDA77500105FD3 /* Level2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level2.swift; sourceTree = "<group>"; };
 		048E9A372CDDA78500105FD3 /* PlatformCollectibles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformCollectibles.swift; sourceTree = "<group>"; };
+		048E9A392CE0A84D00105FD3 /* ProgressBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBuilding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		048E9A242CD8771E00105FD3 /* SolarSurvival */ = {
 			isa = PBXGroup;
 			children = (
+				048E9A392CE0A84D00105FD3 /* ProgressBuilding.swift */,
 				048E9A252CD8771E00105FD3 /* SolarSurvivalApp.swift */,
 				048E9A272CD8771E00105FD3 /* ContentView.swift */,
 				048E9A352CDDA77500105FD3 /* Level2.swift */,
@@ -144,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				048E9A282CD8771E00105FD3 /* ContentView.swift in Sources */,
+				048E9A3A2CE0A84D00105FD3 /* ProgressBuilding.swift in Sources */,
 				048E9A362CDDA77500105FD3 /* Level2.swift in Sources */,
 				048E9A262CD8771E00105FD3 /* SolarSurvivalApp.swift in Sources */,
 				048E9A382CDDA78500105FD3 /* PlatformCollectibles.swift in Sources */,
@@ -288,6 +292,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -317,6 +322,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
