@@ -8,7 +8,7 @@
 import SwiftUI
 
 class GameState: ObservableObject {
-    @Published var playerPosition = CGPoint(x: 100, y: 300)
+    @Published var playerPosition = CGPoint(x: 200, y: 300)
     @Published var currentLevel: Int = 1 // Track which level/view is active
     @Published var savedPositions: [Int: CGPoint] = [:]
 }

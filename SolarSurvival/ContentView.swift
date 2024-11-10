@@ -10,8 +10,8 @@ struct ContentView: View {
     @State private var isMovingRight = false
     @State private var isOnPlatform = false
     @State private var endPoint = false
-//    @State private var currentlyOnPlatform = true// Track if player is on a platform
-
+    //    @State private var currentlyOnPlatform = true// Track if player is on a platform
+    
     // Define platforms
     @State private var platforms: [Platform] = [
         Platform(position: CGPoint(x: 200, y: 250), size: CGSize(width: 150, height: 20)),
@@ -24,22 +24,22 @@ struct ContentView: View {
         Collectible(position: CGPoint(x: 420, y: 180)),
         Collectible(position: CGPoint(x: 620, y: 130)),
     ]
-
+    
     let groundLevel: CGFloat = 300
     let jumpStrength: CGFloat = -15
     let frameDuration = 0.016
-
+    
     var body: some View {
         NavigationStack{
-                NavigationLink(destination: NextLevelView(), isActive: $endPoint){
-                    EmptyView()
-                }.onAppear {
-                    gameState.currentLevel = 1
-                    if gameState.playerPosition.x != 100 {
-                            gameState.playerPosition.x = 750 // Set position when coming back
-                        }
-//
+            NavigationLink(destination: NextLevelView(), isActive: $endPoint){
+                EmptyView()
+            }.onAppear {
+                gameState.currentLevel = 1
+                if gameState.playerPosition.x != 200 {
+                    gameState.playerPosition.x = 750 // Set position when coming back
                 }
+                //
+            }
             
             ZStack {
                 // Background
@@ -82,7 +82,10 @@ struct ContentView: View {
                 // Controls
                 VStack {
                     Spacer()
+                    
+                    Spacer()
                     HStack {
+                        
                         Button(action: { }) {
                             Text("←")
                                 .font(.largeTitle)
@@ -94,7 +97,6 @@ struct ContentView: View {
                             .onChanged { _ in startMovingLeft() }
                             .onEnded { _ in stopMovingLeft() })
                         
-                        Spacer()
                         
                         Button(action: {print(gameState.playerPosition.x) }) {
                             Text("→")
@@ -106,17 +108,21 @@ struct ContentView: View {
                         .simultaneousGesture(DragGesture(minimumDistance: 0)
                             .onChanged { _ in startMovingRight() }
                             .onEnded { _ in stopMovingRight() })
+                        Spacer()
+                        Spacer()
+                        Spacer()
+                        Button(action: { jump()
+                            print(isJumping)}) {
+                                Text("↑")
+                                    .font(.largeTitle)
+                                    .padding()
+                                    .background(Color.white.opacity(0.8))
+                                    .cornerRadius(10)
+                            }
+                    }.padding()
                     }
-                    Button(action: { jump()
-                        print(isJumping)}) {
-                            Text("↑")
-                                .font(.largeTitle)
-                                .padding()
-                                .background(Color.white.opacity(0.8))
-                                .cornerRadius(10)
-                        }
-                }
-                .padding()
+                    
+        
             }
             .onAppear {
                 startGameLoop()
@@ -145,36 +151,36 @@ struct ContentView: View {
     func stopMovingRight() {
         isMovingRight = false
     }
-
+    
     func startGameLoop() {
         Timer.scheduledTimer(withTimeInterval: frameDuration, repeats: true) { _ in
             updateGame()
         }
     }
-
+    
     func updateGame() {
-       
+        
         if gameState.playerPosition.x >= 750 { // Condition to trigger navigation
-                endPoint = true
+            endPoint = true
             gameState.savedPositions[gameState.currentLevel] = gameState.playerPosition  // Save position
             print("this is gamestate", gameState.savedPositions)
             
-            }
+        }
         
         // Apply gravity and update player's position
         if isJumping {
             velocity += gravity * frameDuration
             gameState.playerPosition.y += velocity
         }
-
+        
         // Reset `isOnPlatform` to check each frame if player is on a platform
         var currentlyOnPlatform = false
-
+        
         // Check if player has landed on the ground
         if !currentlyOnPlatform {
-                velocity += gravity * frameDuration
+            velocity += gravity * frameDuration
             gameState.playerPosition.y += velocity
-            }
+        }
         
         if gameState.playerPosition.y >= groundLevel {
             gameState.playerPosition.y = groundLevel
@@ -196,10 +202,10 @@ struct ContentView: View {
                 }
             }
         }
-
+        
         // Update `isOnPlatform` based on whether the player is on any platform or the ground
         isOnPlatform = currentlyOnPlatform
-
+        
         // Move player left or right if buttons are pressed
         if isMovingLeft {
             movePlayer(left: true)
@@ -207,11 +213,11 @@ struct ContentView: View {
         if isMovingRight {
             movePlayer(left: false)
         }
-
+        
         // Check for collectible items
         checkCollectibleCollision()
     }
-
+    
     func jump() {
         // Only allow jumping if the player is either on the ground or on a platform
         if !isJumping && (gameState.playerPosition.y >= groundLevel || isOnPlatform) {
@@ -220,16 +226,16 @@ struct ContentView: View {
             isOnPlatform = false // Set to false so gravity takes over after the jump
         }
     }
-
-
-
-
-
+    
+    
+    
+    
+    
     func movePlayer(left: Bool) {
         gameState.playerPosition.x += left ? -10 : 10
         gameState.playerPosition.x = max(20, min(gameState.playerPosition.x, 1380))
     }
-
+    
     func checkCollectibleCollision() {
         for index in collectibles.indices {
             let collectible = collectibles[index]

@@ -46,7 +46,7 @@ struct NextLevelView: View {
                 }.onAppear {
                     // Set current level to 2 and adjust player position for this level
                     gameState.currentLevel = 2
-                    gameState.playerPosition = CGPoint(x: 51, y: 300) // New start position in this level
+                    gameState.playerPosition = CGPoint(x: 200, y: 300) // New start position in this level
                 }
             
             ZStack {
@@ -90,7 +90,10 @@ struct NextLevelView: View {
                 // Controls
                 VStack {
                     Spacer()
+                    
+                    Spacer()
                     HStack {
+                        
                         Button(action: { }) {
                             Text("←")
                                 .font(.largeTitle)
@@ -102,7 +105,6 @@ struct NextLevelView: View {
                             .onChanged { _ in startMovingLeft() }
                             .onEnded { _ in stopMovingLeft() })
                         
-                        Spacer()
                         
                         Button(action: {print(gameState.playerPosition.x) }) {
                             Text("→")
@@ -114,16 +116,19 @@ struct NextLevelView: View {
                         .simultaneousGesture(DragGesture(minimumDistance: 0)
                             .onChanged { _ in startMovingRight() }
                             .onEnded { _ in stopMovingRight() })
+                        Spacer()
+                        Spacer()
+                        Spacer()
+                        Button(action: { jump()
+                            print(isJumping)}) {
+                                Text("↑")
+                                    .font(.largeTitle)
+                                    .padding()
+                                    .background(Color.white.opacity(0.8))
+                                    .cornerRadius(10)
+                            }
+                    }.padding()
                     }
-                    Button(action: { jump()
-                        print(isJumping)}) {
-                            Text("↑")
-                                .font(.largeTitle)
-                                .padding()
-                                .background(Color.white.opacity(0.8))
-                                .cornerRadius(10)
-                        }
-                }
                 .padding()
             }
             .onAppear {
