@@ -41,7 +41,6 @@
 		048E9A192CD8771D00105FD3 = {
 			isa = PBXGroup;
 			children = (
-				048E9A372CDDA78500105FD3 /* PlatformCollectibles.swift */,
 				048E9A242CD8771E00105FD3 /* SolarSurvival */,
 				048E9A232CD8771E00105FD3 /* Products */,
 			);
@@ -58,6 +57,7 @@
 		048E9A242CD8771E00105FD3 /* SolarSurvival */ = {
 			isa = PBXGroup;
 			children = (
+				048E9A372CDDA78500105FD3 /* PlatformCollectibles.swift */,
 				048E9A392CE0A84D00105FD3 /* ProgressBuilding.swift */,
 				048E9A252CD8771E00105FD3 /* SolarSurvivalApp.swift */,
 				048E9A272CD8771E00105FD3 /* ContentView.swift */,
