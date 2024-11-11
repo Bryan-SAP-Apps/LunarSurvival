@@ -12,14 +12,13 @@ struct NextLevelView: View {
 //    @AppStorage("hhh") var goLevel1 = false
     @StateObject private var gameState = GameState()
     @State private var isJumping = false
-    @State private var gravity = CGFloat(50)
+    @State private var gravity = CGFloat(5)
     @State private var velocity = CGFloat(0)
     @State private var score = 0
     @State private var isMovingLeft = false
     @State private var isMovingRight = false
     @State private var isOnPlatform = false
     @State private var endPoint = false
-//    @State private var currentlyOnPlatform = true// Track if player is on a platform
 
     // Define platforms
     @State private var platforms: [Platform] = [
@@ -35,7 +34,7 @@ struct NextLevelView: View {
     ]
         
     let groundLevel: CGFloat = 300
-    let jumpStrength: CGFloat = -15
+    let jumpStrength: CGFloat = -5
     let frameDuration = 0.016
 
     var body: some View {

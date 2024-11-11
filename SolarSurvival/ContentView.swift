@@ -3,16 +3,14 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var gameState = GameState()
     @State private var isJumping = false
-    @State private var gravity = CGFloat(50)
+    @State private var gravity = CGFloat(5)
     @State private var velocity = CGFloat(0)
     @State private var score = 0
     @State private var isMovingLeft = false
     @State private var isMovingRight = false
     @State private var isOnPlatform = false
     @State private var endPoint = false
-    //    @State private var currentlyOnPlatform = true// Track if player is on a platform
     
-    // Define platforms
     @State private var platforms: [Platform] = [
         Platform(position: CGPoint(x: 200, y: 250), size: CGSize(width: 150, height: 20)),
         Platform(position: CGPoint(x: 400, y: 200), size: CGSize(width: 150, height: 20)),
@@ -26,7 +24,7 @@ struct ContentView: View {
     ]
     
     let groundLevel: CGFloat = 300
-    let jumpStrength: CGFloat = -15
+    let jumpStrength: CGFloat = -5
     let frameDuration = 0.016
     
     var body: some View {
@@ -173,7 +171,7 @@ struct ContentView: View {
             gameState.playerPosition.y += velocity
         }
         
-        // Reset `isOnPlatform` to check each frame if player is on a platform
+        // Reset isOnPlatform to check each frame if player is on a platform
         var currentlyOnPlatform = false
         
         // Check if player has landed on the ground
@@ -203,7 +201,7 @@ struct ContentView: View {
             }
         }
         
-        // Update `isOnPlatform` based on whether the player is on any platform or the ground
+        // Update isOnPlatform based on whether the player is on any platform or the ground
         isOnPlatform = currentlyOnPlatform
         
         // Move player left or right if buttons are pressed
