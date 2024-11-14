@@ -31,6 +31,7 @@
 		D96186D72CE593A70088C94B /* Astronaut building2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = D96186D62CE593A70088C94B /* Astronaut building2.mp4 */; };
 		D96186D92CE593B40088C94B /* Rocket on earth2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = D96186D82CE593B40088C94B /* Rocket on earth2.mp4 */; };
 		D96186DB2CE593D00088C94B /* MainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96186DA2CE593D00088C94B /* MainPage.swift */; };
+		D96186DD2CE595860088C94B /* Homepage mp4.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = D96186DC2CE595860088C94B /* Homepage mp4.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		D96186D62CE593A70088C94B /* Astronaut building2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Astronaut building2.mp4"; sourceTree = "<group>"; };
 		D96186D82CE593B40088C94B /* Rocket on earth2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rocket on earth2.mp4"; sourceTree = "<group>"; };
 		D96186DA2CE593D00088C94B /* MainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPage.swift; sourceTree = "<group>"; };
+		D96186DC2CE595860088C94B /* Homepage mp4.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Homepage mp4.mp4"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				D96186C22CE58BD50088C94B /* IMG_0236-removebg-preview.png */,
 				D96186C32CE58BD50088C94B /* IMG_0237-removebg-preview.png */,
 				D96186C42CE58BD50088C94B /* IMG_0239-removebg-preview 3.png */,
+				D96186DC2CE595860088C94B /* Homepage mp4.mp4 */,
 				D96186D62CE593A70088C94B /* Astronaut building2.mp4 */,
 				D96186D82CE593B40088C94B /* Rocket on earth2.mp4 */,
 				048E9A2B2CD8771F00105FD3 /* Preview Content */,
@@ -186,6 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D96186D72CE593A70088C94B /* Astronaut building2.mp4 in Resources */,
+				D96186DD2CE595860088C94B /* Homepage mp4.mp4 in Resources */,
 				D96186C52CE58BD50088C94B /* IMG_0234-removebg-preview.png in Resources */,
 				D96186C62CE58BD50088C94B /* IMG_0237-removebg-preview.png in Resources */,
 				D96186C82CE58BD50088C94B /* IMG_0233-removebg-preview.png in Resources */,
