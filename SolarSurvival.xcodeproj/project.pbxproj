@@ -32,6 +32,7 @@
 		D96186D92CE593B40088C94B /* Rocket on earth2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = D96186D82CE593B40088C94B /* Rocket on earth2.mp4 */; };
 		D96186DB2CE593D00088C94B /* MainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96186DA2CE593D00088C94B /* MainPage.swift */; };
 		D96186DD2CE595860088C94B /* Homepage mp4.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = D96186DC2CE595860088C94B /* Homepage mp4.mp4 */; };
+		D96186E72CE779B50088C94B /* CongratView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96186E62CE779AD0088C94B /* CongratView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		D96186D82CE593B40088C94B /* Rocket on earth2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rocket on earth2.mp4"; sourceTree = "<group>"; };
 		D96186DA2CE593D00088C94B /* MainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPage.swift; sourceTree = "<group>"; };
 		D96186DC2CE595860088C94B /* Homepage mp4.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Homepage mp4.mp4"; sourceTree = "<group>"; };
+		D96186E62CE779AD0088C94B /* CongratView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 				048E9A252CD8771E00105FD3 /* SolarSurvivalApp.swift */,
 				048E9A272CD8771E00105FD3 /* ContentView.swift */,
 				048E9A352CDDA77500105FD3 /* Level2.swift */,
+				D96186E62CE779AD0088C94B /* CongratView.swift */,
 				048E9A292CD8771F00105FD3 /* Assets.xcassets */,
 				D96186B52CE58BD50088C94B /* Homepage img2.png */,
 				D96186B82CE58BD50088C94B /* IMG_0220-removebg-preview.png */,
@@ -223,6 +226,7 @@
 				048E9A262CD8771E00105FD3 /* SolarSurvivalApp.swift in Sources */,
 				048E9A382CDDA78500105FD3 /* PlatformCollectibles.swift in Sources */,
 				D96186DB2CE593D00088C94B /* MainPage.swift in Sources */,
+				D96186E72CE779B50088C94B /* CongratView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
