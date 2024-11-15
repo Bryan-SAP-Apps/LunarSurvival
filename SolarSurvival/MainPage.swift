@@ -14,7 +14,7 @@ struct SwiftUIView: View {
     
     var body: some View {
         NavigationStack {
-            Color(red: 0.3, green: 0.1, blue: 0.82)
+            Color(red: 0.01, green: 0.1, blue: 0.4)
                 .ignoresSafeArea()
                 .overlay(
                     VStack{
