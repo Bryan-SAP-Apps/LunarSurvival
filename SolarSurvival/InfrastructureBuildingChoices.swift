@@ -11,8 +11,7 @@ import SwiftUI
 struct InfrastructureBuildingChoices: View {
     var body: some View {
         ZStack {
-            // Background Color
-            Image("moon surface img")
+    
             VStack {
                 // Top Text
                 Text("Build a piece of infrastructure")
@@ -24,7 +23,7 @@ struct InfrastructureBuildingChoices: View {
 
                 Spacer()
 
-                // 2x3 Buttons Grid
+            
                 VStack(spacing: 20) {
                     HStack(spacing: 20) {
                         Button(action: {}) {
@@ -110,6 +109,9 @@ struct InfrastructureBuildingChoices: View {
         }
         .frame(idealWidth: .infinity, idealHeight: .infinity)
         .preferredColorScheme(.dark)
+        .background(){
+            Image("moon surface img")
+        }
     }
 }
 
