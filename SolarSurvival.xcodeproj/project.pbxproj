@@ -13,9 +13,6 @@
 		048E9A2D2CD8771F00105FD3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048E9A2C2CD8771F00105FD3 /* Preview Assets.xcassets */; };
 		048E9A382CDDA78500105FD3 /* PlatformCollectibles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A372CDDA78500105FD3 /* PlatformCollectibles.swift */; };
 		048E9A3A2CE0A84D00105FD3 /* ProgressBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A392CE0A84D00105FD3 /* ProgressBuilding.swift */; };
-		048E9A412CE8314300105FD3 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 048E9A402CE8314300105FD3 /* SDWebImage */; };
-		048E9A432CE8314300105FD3 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 048E9A422CE8314300105FD3 /* SDWebImageMapKit */; };
-		048E9A462CE831C700105FD3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 048E9A452CE831C700105FD3 /* SDWebImageSwiftUI */; };
 		048E9A482CE8337100105FD3 /* Homepage.gif in Resources */ = {isa = PBXBuildFile; fileRef = 048E9A472CE8337100105FD3 /* Homepage.gif */; };
 		048E9A4A2CE835FE00105FD3 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A492CE835FE00105FD3 /* HomePage.swift */; };
 		59BAA8012CE83D190023EA90 /* NextLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BAA8002CE83D0F0023EA90 /* NextLevelView.swift */; };
@@ -81,9 +78,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				048E9A462CE831C700105FD3 /* SDWebImageSwiftUI in Frameworks */,
-				048E9A432CE8314300105FD3 /* SDWebImageMapKit in Frameworks */,
-				048E9A412CE8314300105FD3 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,9 +162,6 @@
 			);
 			name = SolarSurvival;
 			packageProductDependencies = (
-				048E9A402CE8314300105FD3 /* SDWebImage */,
-				048E9A422CE8314300105FD3 /* SDWebImageMapKit */,
-				048E9A452CE831C700105FD3 /* SDWebImageSwiftUI */,
 			);
 			productName = SolarSurvival;
 			productReference = 048E9A222CD8771E00105FD3 /* SolarSurvival.app */;
@@ -484,24 +475,6 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		048E9A402CE8314300105FD3 /* SDWebImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 048E9A3F2CE8314300105FD3 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
-		};
-		048E9A422CE8314300105FD3 /* SDWebImageMapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 048E9A3F2CE8314300105FD3 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImageMapKit;
-		};
-		048E9A452CE831C700105FD3 /* SDWebImageSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 048E9A442CE831C700105FD3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
-			productName = SDWebImageSwiftUI;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 048E9A1A2CD8771D00105FD3 /* Project object */;
 }
