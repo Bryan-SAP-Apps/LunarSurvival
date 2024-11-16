@@ -5,6 +5,7 @@
 //  Created by T Krobot on 15/11/24.
 //
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct CongratView: View {
     @State private var isNavigated = false // State variable to control navigation
@@ -14,7 +15,7 @@ struct CongratView: View {
     @State var infra = 4
     @State var resources = 22
     @State var distance = 10
-    
+    @State var isAnimated = true
     
     
     var body: some View {
@@ -37,27 +38,30 @@ struct CongratView: View {
                                     
                                     
                                     Text("Days survived: \(days)")
-                                        .font(.title)
+                                        .font(.title2)
                                     
                                         .foregroundColor(.white)
-                                    Spacer()
+                                        .padding()
+                                    
                                     Text("Infrastructure built: \(infra)")
-                                        .font(.title)
+                                        .font(.title2)
                                     
                                         .foregroundColor(.white)
                                     Spacer()
+                                    
                                 }
                                 Spacer()
                                 VStack{
                                     
                                     
-                                    Text("Total resources collected: \(resources)")
-                                        .font(.title)
+                                    Text("Total resources \n collected: \(resources)")
+                                        .font(.title2)
                                     
                                         .foregroundColor(.white)
-                                    Spacer()
-                                    Text("Total distance traveled while scavenging: \(distance)km")
-                                        .font(.title)
+                                        .padding()
+                                    
+                                    Text("Total distance traveled \n while scavenging: \(distance)km")
+                                        .font(.title2)
                                     
                                         .foregroundColor(.white)
                                     Spacer()
@@ -78,8 +82,8 @@ struct CongratView: View {
                             Text("Restart game")
                                 .font(.title)
                                 .padding()
-                                .padding(.trailing, 55)
-                                .padding(.leading, 60)
+                                .padding(.trailing, 20)
+                                .padding(.leading, 20)
                                 .background(Color.blue)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
@@ -88,6 +92,13 @@ struct CongratView: View {
                             
                         }
                     }
+                    }
+                        VStack{
+                            
+                            AnimatedImage(name: "Rocket on earthidk.png", isAnimating: $isAnimated)
+                                .resizable()
+                                .scaledToFit()
+                                
                     }
                     }
                 )
@@ -103,4 +114,3 @@ struct CongratView: View {
 #Preview {
     CongratView()
 }
-
