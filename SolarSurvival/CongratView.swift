@@ -95,9 +95,10 @@ struct CongratView: View {
                     }
                         VStack{
                             
-                            AnimatedImage(name: "Rocket on earthidk.png", isAnimating: $isAnimated)
+                            AnimatedImage(name: "Rocket1.png", isAnimating: $isAnimated)
                                 .resizable()
                                 .scaledToFit()
+                                .padding(.top, 35)
                                 
                     }
                     }

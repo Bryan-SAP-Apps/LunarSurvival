@@ -38,8 +38,8 @@
 		D96186E72CE779B50088C94B /* CongratView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96186E62CE779AD0088C94B /* CongratView.swift */; };
 		D9EFF5F62CE83B3C000EDAD8 /* astronaut1.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EFF5F42CE83B3C000EDAD8 /* astronaut1.png */; };
 		D9EFF5F72CE83B3C000EDAD8 /* Astronaut2.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EFF5F52CE83B3C000EDAD8 /* Astronaut2.png */; };
-		D9EFF5F92CE83B66000EDAD8 /* Rocket on earthidk.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EFF5F82CE83B66000EDAD8 /* Rocket on earthidk.png */; };
 		D9EFF5FB2CE83CEC000EDAD8 /* moon surface img.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EFF5FA2CE83CEC000EDAD8 /* moon surface img.png */; };
+		D9EFF5FF2CE8448E000EDAD8 /* Rocket1.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EFF5FE2CE8448E000EDAD8 /* Rocket1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,8 +72,8 @@
 		D96186E62CE779AD0088C94B /* CongratView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratView.swift; sourceTree = "<group>"; };
 		D9EFF5F42CE83B3C000EDAD8 /* astronaut1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = astronaut1.png; sourceTree = "<group>"; };
 		D9EFF5F52CE83B3C000EDAD8 /* Astronaut2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Astronaut2.png; sourceTree = "<group>"; };
-		D9EFF5F82CE83B66000EDAD8 /* Rocket on earthidk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rocket on earthidk.png"; sourceTree = "<group>"; };
 		D9EFF5FA2CE83CEC000EDAD8 /* moon surface img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moon surface img.png"; sourceTree = "<group>"; };
+		D9EFF5FE2CE8448E000EDAD8 /* Rocket1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rocket1.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,7 +135,7 @@
 				D96186C42CE58BD50088C94B /* IMG_0239-removebg-preview 3.png */,
 				048E9A472CE8337100105FD3 /* Homepage.gif */,
 				D96186D62CE593A70088C94B /* Astronaut building2.mp4 */,
-				D9EFF5F82CE83B66000EDAD8 /* Rocket on earthidk.png */,
+				D9EFF5FE2CE8448E000EDAD8 /* Rocket1.png */,
 				D9EFF5F42CE83B3C000EDAD8 /* astronaut1.png */,
 				D9EFF5F52CE83B3C000EDAD8 /* Astronaut2.png */,
 				048E9A2B2CD8771F00105FD3 /* Preview Content */,
@@ -225,9 +225,9 @@
 				D9EFF5FB2CE83CEC000EDAD8 /* moon surface img.png in Resources */,
 				D96186C92CE58BD50088C94B /* IMG_0220-removebg-preview.png in Resources */,
 				D96186CB2CE58BD50088C94B /* Homepage img2.png in Resources */,
+				D9EFF5FF2CE8448E000EDAD8 /* Rocket1.png in Resources */,
 				D96186CC2CE58BD50088C94B /* IMG_0235-removebg-preview 5.png in Resources */,
 				D96186CD2CE58BD50088C94B /* IMG_0239-removebg-preview 3.png in Resources */,
-				D9EFF5F92CE83B66000EDAD8 /* Rocket on earthidk.png in Resources */,
 				D9EFF5F62CE83B3C000EDAD8 /* astronaut1.png in Resources */,
 				D9EFF5F72CE83B3C000EDAD8 /* Astronaut2.png in Resources */,
 				D96186CE2CE58BD50088C94B /* IMG_0222-removebg-preview.png in Resources */,
