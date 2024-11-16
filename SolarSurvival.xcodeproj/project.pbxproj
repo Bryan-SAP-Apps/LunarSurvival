@@ -15,6 +15,7 @@
 		048E9A3A2CE0A84D00105FD3 /* ProgressBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A392CE0A84D00105FD3 /* ProgressBuilding.swift */; };
 		048E9A482CE8337100105FD3 /* Homepage.gif in Resources */ = {isa = PBXBuildFile; fileRef = 048E9A472CE8337100105FD3 /* Homepage.gif */; };
 		048E9A4A2CE835FE00105FD3 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A492CE835FE00105FD3 /* HomePage.swift */; };
+		048E9A542CE8490E00105FD3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 048E9A532CE8490E00105FD3 /* SDWebImageSwiftUI */; };
 		59BAA8012CE83D190023EA90 /* NextLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BAA8002CE83D0F0023EA90 /* NextLevelView.swift */; };
 		D96186C52CE58BD50088C94B /* IMG_0234-removebg-preview.png in Resources */ = {isa = PBXBuildFile; fileRef = D96186C02CE58BD50088C94B /* IMG_0234-removebg-preview.png */; };
 		D96186C62CE58BD50088C94B /* IMG_0237-removebg-preview.png in Resources */ = {isa = PBXBuildFile; fileRef = D96186C32CE58BD50088C94B /* IMG_0237-removebg-preview.png */; };
@@ -78,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				048E9A542CE8490E00105FD3 /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,6 +164,7 @@
 			);
 			name = SolarSurvival;
 			packageProductDependencies = (
+				048E9A532CE8490E00105FD3 /* SDWebImageSwiftUI */,
 			);
 			productName = SolarSurvival;
 			productReference = 048E9A222CD8771E00105FD3 /* SolarSurvival.app */;
@@ -475,6 +478,14 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		048E9A532CE8490E00105FD3 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 048E9A442CE831C700105FD3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 048E9A1A2CD8771D00105FD3 /* Project object */;
 }
