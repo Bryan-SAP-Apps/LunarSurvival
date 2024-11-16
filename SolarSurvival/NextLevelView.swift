@@ -1,15 +1,12 @@
 //
-//  SwiftUIView.swift
+//  NextLevelView.swift
 //  SolarSurvival
 //
-//  Created by Bryan Nguyen on 7/11/24.
+//  Created by Zicheng on 16/11/24.
 //
-
 import SwiftUI
 
 struct NextLevelView: View {
-//    @AppStorage("hhh") var level1x = 50
-//    @AppStorage("hhh") var goLevel1 = false
     @StateObject private var gameState = GameState()
     @State private var isJumping = false
     @State private var gravity = CGFloat(5)
@@ -19,8 +16,7 @@ struct NextLevelView: View {
     @State private var isMovingRight = false
     @State private var isOnPlatform = false
     @State private var endPoint = false
-
-    // Define platforms
+    
     @State private var platforms: [Platform] = [
         Platform(position: CGPoint(x: 200, y: 250), size: CGSize(width: 150, height: 20)),
         Platform(position: CGPoint(x: 400, y: 200), size: CGSize(width: 150, height: 20)),
@@ -32,25 +28,26 @@ struct NextLevelView: View {
         Collectible(position: CGPoint(x: 420, y: 180)),
         Collectible(position: CGPoint(x: 620, y: 130)),
     ]
-        
+    
     let groundLevel: CGFloat = 300
     let jumpStrength: CGFloat = -5
     let frameDuration = 0.016
-
+    
     var body: some View {
-        NavigationStack{
-                NavigationLink(destination: ContentView(), isActive: $endPoint){
-                    
-                    EmptyView()
-                }.onAppear {
-                    // Set current level to 2 and adjust player position for this level
-                    gameState.currentLevel = 2
-                    gameState.playerPosition = CGPoint(x: 200, y: 300) // New start position in this level
+        NavigationStack {
+            NavigationLink(destination: ContentView(), isActive: $endPoint) {
+                EmptyView()
+            }
+            .onAppear {
+                gameState.currentLevel += 1
+                if gameState.playerPosition.x != 200 {
+                    gameState.playerPosition.x = 750 // Set position when coming back
                 }
+            }
             
             ZStack {
                 // Background
-                Color.orange.ignoresSafeArea()
+                Color.blue.ignoresSafeArea()
                 
                 // Ground
                 Rectangle()
@@ -128,7 +125,8 @@ struct NextLevelView: View {
                             }
                     }.padding()
                     }
-                .padding()
+                    
+        
             }
             .onAppear {
                 startGameLoop()
@@ -139,8 +137,6 @@ struct NextLevelView: View {
             }
         }.navigationBarBackButtonHidden(true)
     }
-    
-    
     
     func startMovingLeft() {
         isMovingLeft = true
@@ -157,37 +153,35 @@ struct NextLevelView: View {
     func stopMovingRight() {
         isMovingRight = false
     }
-
+    
     func startGameLoop() {
         Timer.scheduledTimer(withTimeInterval: frameDuration, repeats: true) { _ in
             updateGame()
         }
     }
-
+    
     func updateGame() {
-        if gameState.playerPosition.x <= 50 { // Condition to trigger navigation
-                   endPoint = true
-            gameState.playerPosition = CGPoint(x: 750, y: 300)
-                    
-               }
-//        if goLevel1 == true{
-//            level1x = 700
-//        }
+        
+        if gameState.playerPosition.x >= 750 { // Condition to trigger navigation
+            endPoint = true
+            gameState.savedPositions[gameState.currentLevel] = gameState.playerPosition  // Save position
+            print("this is gamestate", gameState.savedPositions)
+        }
         
         // Apply gravity and update player's position
         if isJumping {
             velocity += gravity * frameDuration
             gameState.playerPosition.y += velocity
         }
-
-        // Reset `isOnPlatform` to check each frame if player is on a platform
+        
+        // Reset isOnPlatform to check each frame if player is on a platform
         var currentlyOnPlatform = false
-
+        
         // Check if player has landed on the ground
         if !currentlyOnPlatform {
-                velocity += gravity * frameDuration
-                gameState.playerPosition.y += velocity
-            }
+            velocity += gravity * frameDuration
+            gameState.playerPosition.y += velocity
+        }
         
         if gameState.playerPosition.y >= groundLevel {
             gameState.playerPosition.y = groundLevel
@@ -209,10 +203,10 @@ struct NextLevelView: View {
                 }
             }
         }
-
-        // Update `isOnPlatform` based on whether the player is on any platform or the ground
+        
+        // Update isOnPlatform based on whether the player is on any platform or the ground
         isOnPlatform = currentlyOnPlatform
-
+        
         // Move player left or right if buttons are pressed
         if isMovingLeft {
             movePlayer(left: true)
@@ -220,11 +214,11 @@ struct NextLevelView: View {
         if isMovingRight {
             movePlayer(left: false)
         }
-
+        
         // Check for collectible items
         checkCollectibleCollision()
     }
-
+    
     func jump() {
         // Only allow jumping if the player is either on the ground or on a platform
         if !isJumping && (gameState.playerPosition.y >= groundLevel || isOnPlatform) {
@@ -233,16 +227,12 @@ struct NextLevelView: View {
             isOnPlatform = false // Set to false so gravity takes over after the jump
         }
     }
-
-
-
-
-
+    
     func movePlayer(left: Bool) {
         gameState.playerPosition.x += left ? -10 : 10
         gameState.playerPosition.x = max(20, min(gameState.playerPosition.x, 1380))
     }
-
+    
     func checkCollectibleCollision() {
         for index in collectibles.indices {
             let collectible = collectibles[index]
@@ -256,7 +246,3 @@ struct NextLevelView: View {
     }
 }
 
-// Platform model
-#Preview {
-    NextLevelView()
-}
