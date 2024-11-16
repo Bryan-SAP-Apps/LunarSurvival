@@ -85,7 +85,7 @@ struct SwiftUIView: View {
                 )
             
             // Programmatic NavigationLink
-            NavigationLink(destination: ContentView(), isActive: $isNavigated) {
+            NavigationLink(destination: GameMain(), isActive: $isNavigated) {
                 EmptyView() // Use an empty view for the link
             }
         }
