@@ -8,24 +8,23 @@
 
 import SwiftUI
 
-struct InfrastructureBuildingChoices: View {
+struct UsingItemsView: View {
     var body: some View {
         ZStack {
-
             Spacer()
             // Background Color
             
             
             VStack {
                 // Top Text
-                Text("Build a piece of infrastructure")
+                Text("Build the infrastructure using items")
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                     .padding()
 Spacer()
 
-            
+                // 2x3 Buttons Grid
                 VStack(spacing: 20) {
                     HStack(spacing: 20) {
                         Button(action: {}) {
