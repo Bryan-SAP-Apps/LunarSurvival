@@ -23,8 +23,8 @@ struct InfrastructureBuildingChoices: View {
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
-                    .padding()
-Spacer()
+                    .padding(.top, 14)
+                    .padding(.all, 2)
                     .background(.black)
 
                 Spacer()
