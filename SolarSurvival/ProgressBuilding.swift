@@ -15,6 +15,7 @@ struct ProgressBuilding: View {
     @State private var timer: Timer?
     
     var body: some View {
+    NavigationStack{
         ZStack {
             VStack {
                 // Placeholder Text
@@ -122,6 +123,7 @@ struct ProgressBuilding: View {
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
+                        .foregroundStyle(.black)
                     
                     Button("Try Again") {
                         retryCount += 1
@@ -147,6 +149,7 @@ struct ProgressBuilding: View {
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
+                        .foregroundStyle(.black)
                     
                     NavigationLink(destination: GameMain()) {
                         Text("Go Back")
@@ -169,7 +172,7 @@ struct ProgressBuilding: View {
         
     }
     
-    
+}
     
     private func startTimer() {
         // Reset time and start timer
