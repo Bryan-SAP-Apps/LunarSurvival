@@ -18,10 +18,12 @@ struct UsingItemsView: View {
             VStack {
                 // Top Text
                 Text("Build the infrastructure using items")
+                    .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                     .padding()
+                    .background(Color.black)
 Spacer()
 
                 // 2x3 Buttons Grid
@@ -117,5 +119,5 @@ Spacer()
 }
 
 #Preview {
-    InfrastructureBuildingChoices()
+    UsingItemsView()
 }

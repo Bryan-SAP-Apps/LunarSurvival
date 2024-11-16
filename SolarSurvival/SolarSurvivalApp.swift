@@ -11,7 +11,7 @@ import SwiftUI
 struct SolarSurvivalApp: App {
     var body: some Scene {
         WindowGroup {
-            SwiftUIView()
+            ProgressBuilding()
         }
     }
 }

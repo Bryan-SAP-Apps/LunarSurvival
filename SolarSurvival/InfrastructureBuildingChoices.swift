@@ -19,6 +19,7 @@ struct InfrastructureBuildingChoices: View {
             VStack {
                 // Top Text
                 Text("Build a piece of infrastructure")
+                    .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
