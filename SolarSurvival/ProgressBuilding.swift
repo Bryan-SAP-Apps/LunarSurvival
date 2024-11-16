@@ -10,6 +10,8 @@ struct ProgressBuilding: View {
     @State private var isTimerRunning = true
     @State private var showPopup = false
     @State private var retryCount = 0
+    @State private var timer: Timer?
+    
     var body: some View {
         ZStack {
             
@@ -101,13 +103,13 @@ struct ProgressBuilding: View {
                                     .padding()
                                     .background(Color.white)
                                     .cornerRadius(10)
+                                    .foregroundStyle(.black)
                                 
                                 Button("Try Again") {
-                                    retryCount += 1
-                                    timeRemaining = 10.0 // Reset timer
-                                    isTimerRunning = true
-                                    showPopup = false
-                                }
+                                                        retryCount += 1
+                                                        restartTimer()
+                                                        showPopup = false
+                                                    }
                                 .padding()
                                 .background(Color.green)
                                 .cornerRadius(10)
@@ -119,31 +121,36 @@ struct ProgressBuilding: View {
                             .shadow(radius: 10)
                         }
                     }
-                    .onAppear(perform: startTimer)
+        .onAppear(perform: startTimer)
+        .onDisappear {
+            timer?.invalidate() // Stop the timer when the view disappears
+        }
                 }
                 
-                private func startTimer() {
-                    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-                        if isTimerRunning {
-                            if timeRemaining > 0 {
-                                timeRemaining -= 1
-                            } else {
-                                // Timer expired
-                                timer.invalidate()
-                                isTimerRunning = false
-                                if downloadAmount < 100 {
-                                    showPopup = true
-                                }
-                            }
-                        }
-                    
-                
+    private func startTimer() {
+        // Reset time and start timer
+        timeRemaining = 10.0
+        isTimerRunning = true
+        timer?.invalidate() // Invalidate any previous timer
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            if timeRemaining > 0 {
+                timeRemaining -= 1
+            } else {
+                timer.invalidate()
+                isTimerRunning = false
+                if downloadAmount < 100 {
+                    showPopup = true
+                }
+            }
         }
     }
     
+    private func restartTimer() {
+            downloadAmount = max(downloadAmount, 0) // Keep progress
+            startTimer() // Restart the timer
+        }
     
     private func checkSimultaneousPress() {
-            // Check if both buttons are pressed within a short delay
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 if pressFromLeft && pressFromRight {
                     if downloadAmount < 100 {
@@ -151,15 +158,18 @@ struct ProgressBuilding: View {
                     }
                     pressFromLeft = false
                     pressFromRight = false
+                    
+                    if downloadAmount >= 100 {
+                        timer?.invalidate() // Stop timer when progress is full
+                        isTimerRunning = false
+                    }
                 } else {
-                    // Reset if only one button was pressed
                     pressFromLeft = false
                     pressFromRight = false
                 }
             }
         }
-    
-}
+    }
 
 
 #Preview {
