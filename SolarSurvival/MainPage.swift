@@ -1,16 +1,11 @@
-//
-//  MainPage.swift
-//  SolarSurvival
-//
-//  Created by Ted Tan on 11/11/24.
-//
-
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct SwiftUIView: View {
-    @State private var isNavigated = false // State variable to control navigation
-    @State var continuee = false
-    @State var start = "Start"
+    @State private var isNavigated = false
+    @State private var isAnimated = true
+    @State private var continuee = false
+    @State private var start = "Start/Continue"
     
     var body: some View {
         NavigationStack {
@@ -18,62 +13,72 @@ struct SwiftUIView: View {
                 .ignoresSafeArea()
                 .overlay(
                     VStack{
-                        VStack{
-                            HStack{
-                                Text("Lunar Survival")
+                        HStack{
+                            AnimatedImage(name:"Homepage.gif", isAnimating: $isAnimated)
+                            VStack{
+                                Text("Lunar")
                                     .font(.system(size: 50))
                                     .bold()
                                     .foregroundStyle(.white)
-                                
-                                Spacer()
+                                Text("Survival")
+                                    .font(.system(size: 50))
+                                    .bold()
+                                    .foregroundStyle(.white)
+                                VStack{
+                                    
+                                    // Button to navigate to the second view
+                                    Button(action: {
+                                        isNavigated = true // Set the state to true to navigate
+                                        if (continuee == false){
+                                            start = "Start"
+                                        } else {
+                                            start = "Continue"
+                                        }
+                                    }) {
+                                        Text(start)
+                                            .font(.title)
+                                            .padding()
+                                            .padding(.trailing, 62.5)
+                                            .padding(.leading, 62.5)
+                                            .background(Color.green)
+                                            .foregroundColor(.white)
+                                            .cornerRadius(10)
+                                        
+                                    }
+                                    
+                                    Button(action: {
+                                        isNavigated = true // Set the state to true to navigate
+                                        if (continuee == false){
+                                            start = "Start"
+                                        } else {
+                                            start = "Continue"
+                                        }
+                                    }) {
+                                        Text("Reset")
+                                            .font(.title)
+                                            .padding()
+                                            .padding(.trailing, 55)
+                                            .padding(.leading, 60)
+                                            .background(Color.red)
+                                            .foregroundColor(.white)
+                                            .cornerRadius(10)
+                                        
+                                        
+                                        
+                                    }
+                                }
                             }
+                            
+                            
                         }
                         
+                        
                         HStack{
+                            
+                            
+                            //                            Spacer()
                             Spacer()
-                            VStack{
-                                
-                                // Button to navigate to the second view
-                                Button(action: {
-                                    isNavigated = true // Set the state to true to navigate
-                                    if (continuee == false){
-                                        start = "Start"
-                                    } else {
-                                        start = "Continue"
-                                    }
-                                }) {
-                                    Text(start)
-                                        .font(.title)
-                                        .padding()
-                                        .padding(.trailing, 62.5)
-                                        .padding(.leading, 62.5)
-                                        .background(Color.green)
-                                        .foregroundColor(.white)
-                                        .cornerRadius(10)
-                                    
-                                }
-                                
-                                Button(action: {
-                                    isNavigated = true // Set the state to true to navigate
-                                    if (continuee == false){
-                                        start = "Start"
-                                    } else {
-                                        start = "Continue"
-                                    }
-                                }) {
-                                    Text("Reset")
-                                        .font(.title)
-                                        .padding()
-                                        .padding(.trailing, 55)
-                                        .padding(.leading, 60)
-                                        .background(Color.red)
-                                        .foregroundColor(.white)
-                                        .cornerRadius(10)
-                                    
-                                        
-                                    
-                                }
-                            }
+                            
                         }
                         
                     }
@@ -85,8 +90,10 @@ struct SwiftUIView: View {
             }
         }
     }
+    
+    
+    
 }
-
-#Preview {
+#Preview{
     SwiftUIView()
 }
