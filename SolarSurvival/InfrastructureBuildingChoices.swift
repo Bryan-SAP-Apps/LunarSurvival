@@ -12,8 +12,7 @@ struct InfrastructureBuildingChoices: View {
     var body: some View {
         ZStack {
             // Background Color
-            Color.black.ignoresSafeArea()
-            
+            Image("moon surface img")
             VStack {
                 // Top Text
                 Text("Build a piece of infrastructure")
