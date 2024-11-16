@@ -25,6 +25,9 @@ struct InfrastructureBuildingChoices: View {
                     .multilineTextAlignment(.center)
                     .padding()
 Spacer()
+                    .background(.black)
+
+                Spacer()
 
             
                 VStack(spacing: 20) {
