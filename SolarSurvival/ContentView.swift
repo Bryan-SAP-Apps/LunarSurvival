@@ -1,24 +1,24 @@
 import SwiftUI
-
 struct ContentView: View {
     @StateObject private var gameState = GameState()
     @State private var isJumping = false
     @State private var gravity = CGFloat(5)
     @State private var velocity = CGFloat(0)
-    @State private var score = 0
     @State private var isMovingLeft = false
     @State private var isMovingRight = false
     @State private var isOnPlatform = false
     @State private var endPoint = false
-    
+    @State private var gameTimer: Timer? = nil
+
     @State private var platforms: [Platform] = []
     @State private var collectibles: [Collectible] = []
+    @State private var stars: [CGPoint] = []
     
     let groundLevel: CGFloat = 300
     let jumpStrength: CGFloat = -5
     let frameDuration = 0.016
     
-    let platformXPositions: [CGFloat] = [200, 400, 600] // Fixed X positions for platforms
+    let platformXPositions: [CGFloat] = [150, 400, 650] // Fixed X positions for platforms
 
     var body: some View {
         NavigationStack{
@@ -27,31 +27,41 @@ struct ContentView: View {
             }.onAppear {
                 gameState.currentLevel = 1
                 if gameState.playerPosition.x != 200 {
+                    stopGameLoop()
                     gameState.playerPosition.x = 750 // Set position when coming back
                 }
                 generatePlatforms() // Call function to generate platforms and coins
+                generateStars() // Call function to generate stars in the background
             }
             
             ZStack {
-                // Background
-                Color.blue.ignoresSafeArea()
+                // Black background with stars
+                Color.black.ignoresSafeArea()
                 
+                // Add stars to the background
+                ForEach(stars.indices, id: \.self) { index in
+                    Circle()
+                        .fill(Color.white)
+                        .frame(width: 2, height: 2)
+                        .position(stars[index])
+                }
+               
+                .onDisappear {
+                    // Cleanup code when the view disappears, to ensure nothing is retained.
+                    resetGameState()
+                    stopGameLoop()  // Ensure we stop all running processes
+                }
+
                 // Ground
                 Rectangle()
-                    .fill(Color.green)
+                    .fill(Color.gray)
                     .frame(width: 1400, height: 50)
                     .position(x: 200, y: groundLevel + 25)
-                
-                // Player
-                Rectangle()
-                    .fill(Color.red)
-                    .frame(width: 40, height: 40)
-                    .position(gameState.playerPosition)
                 
                 // Platforms
                 ForEach(platforms.indices, id: \.self) { index in
                     Rectangle()
-                        .fill(Color.brown)
+                        .fill(Color.gray)
                         .frame(width: platforms[index].size.width, height: platforms[index].size.height)
                         .position(platforms[index].position)
                 }
@@ -64,8 +74,14 @@ struct ContentView: View {
                         .position(collectibles[index].position)
                 }
                 
+                // Player
+                Rectangle()
+                    .fill(Color.red)
+                    .frame(width: 40, height: 40)
+                    .position(gameState.playerPosition)
+                
                 // Score display
-                Text("Score: \(score)")
+                Text("Score: \(gameState.score)")  // Use score from GameState
                     .font(.largeTitle)
                     .foregroundColor(.white)
                     .position(x: 100, y: 50)
@@ -110,17 +126,20 @@ struct ContentView: View {
                 startGameLoop()
             }
             .onDisappear {
-                stopMovingLeft()
-                stopMovingRight()
+                stopGameLoop()  // Stop the game loop when the view is no longer active
+                stopMovingLeft()  // Optionally stop any movement
+                stopMovingRight()  // Optionally stop any movement
             }
+
         }.navigationBarBackButtonHidden(true)
     }
     
     func generatePlatforms() {
-        platforms.removeAll()
-        collectibles.removeAll()
+        // Clear all old platforms and collectibles explicitly
+        platforms.removeAll(keepingCapacity: false)
+        collectibles.removeAll(keepingCapacity: false)
         
-        // Randomly generate platforms and coins
+        // Randomly generate new platforms and coins for the new level
         for xPosition in platformXPositions {
             // Random Y position for each platform, keeping them spaced out
             let randomY = CGFloat.random(in: 150...250)
@@ -134,6 +153,41 @@ struct ContentView: View {
             }
         }
     }
+
+
+
+    func generateStars() {
+        stars.removeAll()
+        
+        // Generate 100 random stars on the screen
+        for _ in 0..<100 {
+            let x = CGFloat.random(in: 0...UIScreen.main.bounds.width)
+            let y = CGFloat.random(in: 0...UIScreen.main.bounds.height)
+            stars.append(CGPoint(x: x, y: y))
+        }
+    }
+    
+    func resetGameState() {
+        // Resetting player position and other state
+        gameState.playerPosition = CGPoint(x: 200, y: groundLevel)
+        gameState.score = 0
+        
+        // Reset movement states
+        isJumping = false
+        velocity = 0
+        isOnPlatform = false
+        isMovingLeft = false
+        isMovingRight = false
+        
+        // Explicitly nil-out references
+        platforms.removeAll()
+        collectibles.removeAll()
+        stars.removeAll()
+
+        // Make sure all other views, animations, or observers are stopped
+        // For example, remove all animations if present
+    }
+
 
     func startMovingLeft() {
         isMovingLeft = true
@@ -152,10 +206,16 @@ struct ContentView: View {
     }
     
     func startGameLoop() {
-        Timer.scheduledTimer(withTimeInterval: frameDuration, repeats: true) { _ in
+        gameTimer = Timer.scheduledTimer(withTimeInterval: frameDuration, repeats: true) { _ in
             updateGame()
         }
     }
+
+    func stopGameLoop() {
+        gameTimer?.invalidate()  // Invalidate the timer if it's running
+        gameTimer = nil  // Set the timer to nil to ensure it doesn't hold onto memory
+    }
+
     
     func updateGame() {
         // Apply gravity and update player's position
@@ -231,9 +291,17 @@ struct ContentView: View {
             if abs(gameState.playerPosition.x - collectible.position.x) < 20 &&
                 abs(gameState.playerPosition.y - collectible.position.y) < 20 {
                 collectibles.remove(at: index)
-                score += 1
+                gameState.score += 1  // Update score in GameState
                 break
             }
         }
     }
+    func generateNewLevel() {
+        stopGameLoop()  // Stop the game loop before resetting the level
+        resetGameState()  // Reset the game state
+        generatePlatforms()  // Generate the new level's platforms
+        generateStars()  // Generate new stars, etc.
+        startGameLoop()  // Restart the game loop for the new level
+    }
+
 }
