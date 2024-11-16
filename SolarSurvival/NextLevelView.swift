@@ -17,32 +17,25 @@ struct NextLevelView: View {
     @State private var isOnPlatform = false
     @State private var endPoint = false
     
-    @State private var platforms: [Platform] = [
-        Platform(position: CGPoint(x: 200, y: 250), size: CGSize(width: 150, height: 20)),
-        Platform(position: CGPoint(x: 400, y: 200), size: CGSize(width: 150, height: 20)),
-        Platform(position: CGPoint(x: 600, y: 150), size: CGSize(width: 150, height: 20)),
-    ]
-    
-    @State private var collectibles: [Collectible] = [
-        Collectible(position: CGPoint(x: 220, y: 230)),
-        Collectible(position: CGPoint(x: 420, y: 180)),
-        Collectible(position: CGPoint(x: 620, y: 130)),
-    ]
+    @State private var platforms: [Platform] = []
+    @State private var collectibles: [Collectible] = []
     
     let groundLevel: CGFloat = 300
     let jumpStrength: CGFloat = -5
     let frameDuration = 0.016
     
+    let platformXPositions: [CGFloat] = [200, 400, 600] // Fixed X positions for platforms
+
     var body: some View {
-        NavigationStack {
+        NavigationStack{
             NavigationLink(destination: ContentView(), isActive: $endPoint) {
                 EmptyView()
-            }
-            .onAppear {
-                gameState.currentLevel += 1
+            }.onAppear {
+                gameState.currentLevel = 1
                 if gameState.playerPosition.x != 200 {
                     gameState.playerPosition.x = 750 // Set position when coming back
                 }
+                generatePlatforms() // Call function to generate platforms and coins
             }
             
             ZStack {
@@ -69,7 +62,7 @@ struct NextLevelView: View {
                         .position(platforms[index].position)
                 }
                 
-                // Collectibles
+                // Collectibles (Coins)
                 ForEach(collectibles.indices, id: \.self) { index in
                     Circle()
                         .fill(Color.yellow)
@@ -86,10 +79,7 @@ struct NextLevelView: View {
                 // Controls
                 VStack {
                     Spacer()
-                    
-                    Spacer()
                     HStack {
-                        
                         Button(action: { }) {
                             Text("←")
                                 .font(.largeTitle)
@@ -101,8 +91,7 @@ struct NextLevelView: View {
                             .onChanged { _ in startMovingLeft() }
                             .onEnded { _ in stopMovingLeft() })
                         
-                        
-                        Button(action: {print(gameState.playerPosition.x) }) {
+                        Button(action: { }) {
                             Text("→")
                                 .font(.largeTitle)
                                 .padding()
@@ -113,20 +102,15 @@ struct NextLevelView: View {
                             .onChanged { _ in startMovingRight() }
                             .onEnded { _ in stopMovingRight() })
                         Spacer()
-                        Spacer()
-                        Spacer()
-                        Button(action: { jump()
-                            print(isJumping)}) {
-                                Text("↑")
-                                    .font(.largeTitle)
-                                    .padding()
-                                    .background(Color.white.opacity(0.8))
-                                    .cornerRadius(10)
-                            }
+                        Button(action: { jump() }) {
+                            Text("↑")
+                                .font(.largeTitle)
+                                .padding()
+                                .background(Color.white.opacity(0.8))
+                                .cornerRadius(10)
+                        }
                     }.padding()
-                    }
-                    
-        
+                }
             }
             .onAppear {
                 startGameLoop()
@@ -138,6 +122,25 @@ struct NextLevelView: View {
         }.navigationBarBackButtonHidden(true)
     }
     
+    func generatePlatforms() {
+        platforms.removeAll()
+        collectibles.removeAll()
+        
+        // Randomly generate platforms and coins
+        for xPosition in platformXPositions {
+            // Random Y position for each platform, keeping them spaced out
+            let randomY = CGFloat.random(in: 150...250)
+            let platform = Platform(position: CGPoint(x: xPosition, y: randomY), size: CGSize(width: 150, height: 20))
+            platforms.append(platform)
+            
+            // 60% chance of spawning a coin on top of the platform
+            if Bool.random() {
+                let coin = Collectible(position: CGPoint(x: xPosition, y: randomY - 20)) // Coin on top of platform
+                collectibles.append(coin)
+            }
+        }
+    }
+
     func startMovingLeft() {
         isMovingLeft = true
     }
@@ -161,23 +164,15 @@ struct NextLevelView: View {
     }
     
     func updateGame() {
-        
-        if gameState.playerPosition.x >= 750 { // Condition to trigger navigation
-            endPoint = true
-            gameState.savedPositions[gameState.currentLevel] = gameState.playerPosition  // Save position
-            print("this is gamestate", gameState.savedPositions)
-        }
-        
         // Apply gravity and update player's position
         if isJumping {
             velocity += gravity * frameDuration
             gameState.playerPosition.y += velocity
         }
         
-        // Reset isOnPlatform to check each frame if player is on a platform
         var currentlyOnPlatform = false
         
-        // Check if player has landed on the ground
+        // Check if player has landed on the ground or on any platform
         if !currentlyOnPlatform {
             velocity += gravity * frameDuration
             gameState.playerPosition.y += velocity
@@ -189,13 +184,11 @@ struct NextLevelView: View {
             isJumping = false
             currentlyOnPlatform = true
         } else {
-            // Check for landing on platforms
             for platform in platforms {
-                // Check if the player is above the platform and within platform boundaries
                 if abs(gameState.playerPosition.x - platform.position.x) < (20 + platform.size.width / 2) &&
                     abs(gameState.playerPosition.y - platform.position.y) < (20 + platform.size.height / 2) &&
-                    velocity >= 0 { // Check if falling onto platform
-                    gameState.playerPosition.y = platform.position.y - 20 // Place player on top of the platform
+                    velocity >= 0 {
+                    gameState.playerPosition.y = platform.position.y - 20
                     velocity = 0
                     isJumping = false
                     currentlyOnPlatform = true
@@ -204,7 +197,7 @@ struct NextLevelView: View {
             }
         }
         
-        // Update isOnPlatform based on whether the player is on any platform or the ground
+        // Update isOnPlatform
         isOnPlatform = currentlyOnPlatform
         
         // Move player left or right if buttons are pressed
@@ -217,14 +210,19 @@ struct NextLevelView: View {
         
         // Check for collectible items
         checkCollectibleCollision()
+        
+        // Trigger level transition if necessary
+        if gameState.playerPosition.x >= 750 {
+            endPoint = true
+            gameState.savedPositions[gameState.currentLevel] = gameState.playerPosition
+        }
     }
     
     func jump() {
-        // Only allow jumping if the player is either on the ground or on a platform
         if !isJumping && (gameState.playerPosition.y >= groundLevel || isOnPlatform) {
             velocity = jumpStrength
             isJumping = true
-            isOnPlatform = false // Set to false so gravity takes over after the jump
+            isOnPlatform = false
         }
     }
     
@@ -245,4 +243,3 @@ struct NextLevelView: View {
         }
     }
 }
-
