@@ -9,12 +9,24 @@ import SwiftUI
 struct CutsceneSlideshow: View {
     @State private var currentIndex = 0
     @State private var showNextView = false
-    let images = ["image1", "image2", "image3", "image4"] // Replace with your image names
+    let images = ["CImg1", "CImg2", "CImg3", "CImg4","CImg5","CImg6","CImg7","CImg8","CImg9","CImg10","CImg11","CImg12","CImh13","CImg14","CImg15","CImg16"] // Replace with your image names
     let durations: [ClosedRange<Double>] = [
-        3.0...5.0, // Duration range for image 1
-        4.0...6.0, // Duration range for image 2
-        2.0...4.0, // Duration range for image 3
-        5.0...7.0  // Duration range for image 4
+        2.0...4.0,//1
+        2.0...4.0,//2
+        2.0...4.0,//3
+        2.0...4.0,//4
+        3.0...4.0,//5
+        3.0...4.0,//6
+        3.0...4.0,//7
+        3.0...4.0,//8
+        3.0...4.0,//9
+        4.0...6.0,//10
+        4.0...6.0,//11
+        4.0...6.0,//12
+        4.0...6.0,//13
+        4.0...6.0,//14
+        4.0...6.0,//15
+        5.0...7.0 //16
     ]
     
     @State private var timer: Timer?
@@ -22,7 +34,7 @@ struct CutsceneSlideshow: View {
     var body: some View {
         Group {
             if showNextView {
-                PlaceholderView() // Replace with your next view
+                StartView() // Replace with your next view
             } else {
                 ZStack {
                     Color.black.edgesIgnoringSafeArea(.all) // Background color
@@ -69,14 +81,6 @@ struct CutsceneSlideshow: View {
     }
 }
 
-// Placeholder view for the next screen
-struct PlaceholderView: View {
-    var body: some View {
-        Text("Next Screen!")
-            .font(.largeTitle)
-            .foregroundColor(.blue)
-    }
-}
 
 // Safe array indexing to prevent crashes
 extension Array {

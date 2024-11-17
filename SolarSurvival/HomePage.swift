@@ -134,7 +134,7 @@ struct GameMain: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 21.6))
                                 .frame(width: 500, height: 70)
                         }
-                        NavigationLink(destination: SwiftUIView()) {
+                        NavigationLink(destination: StartView()) {
                             Text("End Day")
                                 .padding(.trailing, 30)
                                 .padding(.leading, 30)

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		048E9A262CD8771E00105FD3 /* SolarSurvivalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A252CD8771E00105FD3 /* SolarSurvivalApp.swift */; };
-		048E9A282CD8771E00105FD3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A272CD8771E00105FD3 /* ContentView.swift */; };
+		048E9A282CD8771E00105FD3 /* PlatformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A272CD8771E00105FD3 /* PlatformView.swift */; };
 		048E9A2A2CD8771F00105FD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048E9A292CD8771F00105FD3 /* Assets.xcassets */; };
 		048E9A2D2CD8771F00105FD3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048E9A2C2CD8771F00105FD3 /* Preview Assets.xcassets */; };
 		048E9A382CDDA78500105FD3 /* PlatformCollectibles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A372CDDA78500105FD3 /* PlatformCollectibles.swift */; };
@@ -33,7 +33,7 @@
 		D96186D22CE58BD50088C94B /* IMG_0229-removebg-preview.png in Resources */ = {isa = PBXBuildFile; fileRef = D96186BE2CE58BD50088C94B /* IMG_0229-removebg-preview.png */; };
 		D96186D32CE58BD50088C94B /* IMG_0223-removebg-preview.png in Resources */ = {isa = PBXBuildFile; fileRef = D96186BB2CE58BD50088C94B /* IMG_0223-removebg-preview.png */; };
 		D96186D52CE58BD50088C94B /* IMG_0236-removebg-preview.png in Resources */ = {isa = PBXBuildFile; fileRef = D96186C22CE58BD50088C94B /* IMG_0236-removebg-preview.png */; };
-		D96186DB2CE593D00088C94B /* MainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96186DA2CE593D00088C94B /* MainPage.swift */; };
+		D96186DB2CE593D00088C94B /* StartPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96186DA2CE593D00088C94B /* StartPage.swift */; };
 		D96186E72CE779B50088C94B /* CongratView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96186E62CE779AD0088C94B /* CongratView.swift */; };
 		D9EFF5F62CE83B3C000EDAD8 /* astronaut1.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EFF5F42CE83B3C000EDAD8 /* astronaut1.png */; };
 		D9EFF5F72CE83B3C000EDAD8 /* Astronaut2.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EFF5F52CE83B3C000EDAD8 /* Astronaut2.png */; };
@@ -62,7 +62,7 @@
 /* Begin PBXFileReference section */
 		048E9A222CD8771E00105FD3 /* SolarSurvival.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SolarSurvival.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		048E9A252CD8771E00105FD3 /* SolarSurvivalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarSurvivalApp.swift; sourceTree = "<group>"; };
-		048E9A272CD8771E00105FD3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		048E9A272CD8771E00105FD3 /* PlatformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformView.swift; sourceTree = "<group>"; };
 		048E9A292CD8771F00105FD3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		048E9A2C2CD8771F00105FD3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		048E9A372CDDA78500105FD3 /* PlatformCollectibles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformCollectibles.swift; sourceTree = "<group>"; };
@@ -86,7 +86,7 @@
 		D96186C22CE58BD50088C94B /* IMG_0236-removebg-preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IMG_0236-removebg-preview.png"; sourceTree = "<group>"; };
 		D96186C32CE58BD50088C94B /* IMG_0237-removebg-preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IMG_0237-removebg-preview.png"; sourceTree = "<group>"; };
 		D96186C42CE58BD50088C94B /* IMG_0239-removebg-preview 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IMG_0239-removebg-preview 3.png"; sourceTree = "<group>"; };
-		D96186DA2CE593D00088C94B /* MainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPage.swift; sourceTree = "<group>"; };
+		D96186DA2CE593D00088C94B /* StartPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPage.swift; sourceTree = "<group>"; };
 		D96186E62CE779AD0088C94B /* CongratView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratView.swift; sourceTree = "<group>"; };
 		D9EFF5F42CE83B3C000EDAD8 /* astronaut1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = astronaut1.png; sourceTree = "<group>"; };
 		D9EFF5F52CE83B3C000EDAD8 /* Astronaut2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Astronaut2.png; sourceTree = "<group>"; };
@@ -147,11 +147,11 @@
 				59BADA6C2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift */,
 				048E9A7F2CE88B3900105FD3 /* UsingItemsView.swift */,
 				59BAA8002CE83D0F0023EA90 /* NextLevelView.swift */,
-				D96186DA2CE593D00088C94B /* MainPage.swift */,
+				D96186DA2CE593D00088C94B /* StartPage.swift */,
 				048E9A492CE835FE00105FD3 /* HomePage.swift */,
 				048E9A392CE0A84D00105FD3 /* ProgressBuilding.swift */,
 				048E9A252CD8771E00105FD3 /* SolarSurvivalApp.swift */,
-				048E9A272CD8771E00105FD3 /* ContentView.swift */,
+				048E9A272CD8771E00105FD3 /* PlatformView.swift */,
 				D96186E62CE779AD0088C94B /* CongratView.swift */,
 				D9EFF6122CEA51F4000EDAD8 /* Cutscene.swift */,
 				048E9A292CD8771F00105FD3 /* Assets.xcassets */,
@@ -318,13 +318,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				59BAA8012CE83D190023EA90 /* NextLevelView.swift in Sources */,
-				048E9A282CD8771E00105FD3 /* ContentView.swift in Sources */,
+				048E9A282CD8771E00105FD3 /* PlatformView.swift in Sources */,
 				59BADA6D2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift in Sources */,
 				048E9A3A2CE0A84D00105FD3 /* ProgressBuilding.swift in Sources */,
 				048E9A262CD8771E00105FD3 /* SolarSurvivalApp.swift in Sources */,
 				048E9A382CDDA78500105FD3 /* PlatformCollectibles.swift in Sources */,
 				048E9A802CE88B3900105FD3 /* UsingItemsView.swift in Sources */,
-				D96186DB2CE593D00088C94B /* MainPage.swift in Sources */,
+				D96186DB2CE593D00088C94B /* StartPage.swift in Sources */,
 				D96186E72CE779B50088C94B /* CongratView.swift in Sources */,
 				048E9A4A2CE835FE00105FD3 /* HomePage.swift in Sources */,
 				D9EFF6132CEA51FA000EDAD8 /* Cutscene.swift in Sources */,

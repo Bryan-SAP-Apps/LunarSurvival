@@ -1,5 +1,5 @@
 import SwiftUI
-struct ContentView: View {
+struct PlatformView: View {
     @StateObject private var gameState = GameState()
     @State private var isJumping = false
     @State private var gravity = CGFloat(5)
@@ -347,5 +347,5 @@ struct ContentView: View {
     
 }
 #Preview {
-    ContentView()
+    PlatformView()
 }

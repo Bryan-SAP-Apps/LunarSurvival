@@ -1,7 +1,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct SwiftUIView: View {
+struct StartView: View {
     @State private var isNavigated = false
     @State private var isAnimated = true
     @State private var continuee = false
@@ -95,5 +95,5 @@ struct SwiftUIView: View {
     
 }
 #Preview{
-    SwiftUIView()
+    StartView()
 }
