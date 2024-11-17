@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct UsingItemsView: View {
+    @State private var pressOrder: [Int: Int] = [:]
+       @State private var pressCount = 0
+       
     var body: some View {
         ZStack {
             Spacer()
@@ -24,96 +27,68 @@ struct UsingItemsView: View {
                     .multilineTextAlignment(.center)
                     .padding()
                     .background(Color.black)
-Spacer()
-
+                
+                
+                Text("Choose 4 wisely")
+                
+                
                 // 2x3 Buttons Grid
                 VStack(spacing: 20) {
                     HStack(spacing: 20) {
-                        Button(action: {}) {
-                            Text("Choice 1")
-                                .fontWeight(.medium)
-                                .foregroundColor(.black)
-                                .frame(maxWidth: .infinity, maxHeight: 60)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                        }
-                        
-                        Button(action: {}) {
-                            Text("Choice 2")
-                                .fontWeight(.medium)
-                                .foregroundColor(.black)
-                                .frame(maxWidth: .infinity, maxHeight: 60)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                        }
+                        buttonWithOrder(id: 1, title: "Choice 1")
+                        buttonWithOrder(id: 2, title: "Choice 2")
                     }
-
+                    
                     HStack(spacing: 20) {
-                        Button(action: {}) {
-                            Text("Choice 3")
-                                .fontWeight(.medium)
-                                .foregroundColor(.black)
-                                .frame(maxWidth: .infinity, maxHeight: 60)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                        }
-                        
-                        Button(action: {}) {
-                            Text("Choice 4")
-                                .fontWeight(.medium)
-                                .foregroundColor(.black)
-                                .frame(maxWidth: .infinity, maxHeight: 60)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                        }
+                        buttonWithOrder(id: 3, title: "Choice 3")
+                        buttonWithOrder(id: 4, title: "Choice 4")
                     }
-
+                    
                     HStack(spacing: 20) {
-                        Button(action: {}) {
-                            Text("Choice 5")
-                                .fontWeight(.medium)
-                                .foregroundColor(.black)
-                                .frame(maxWidth: .infinity, maxHeight: 60)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                        }
-                        
-                        Button(action: {}) {
-                            Text("Choice 6")
-                                .fontWeight(.medium)
-                                .foregroundColor(.black)
-                                .frame(maxWidth: .infinity, maxHeight: 60)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                        }
+                        buttonWithOrder(id: 5, title: "Choice 5")
+                        buttonWithOrder(id: 6, title: "Choice 6")
                     }
                 }
                 .padding()
-
                 Spacer()
             }
-
-            // Top Left "Back" Button
-            VStack {
-                HStack {
-                    Button(action: {}) {
-                        Text("Back")
-                            .fontWeight(.medium)
-                            .foregroundColor(.black)
-                            .padding()
-                            .background(Color.gray)
-                            .cornerRadius(10)
+                // Top Left "Back" Button
+                VStack {
+                    HStack {
+                        Button(action: {}) {
+                            Text("Back")
+                                .fontWeight(.medium)
+                                .foregroundColor(.black)
+                                .padding()
+                                .background(Color.gray)
+                                .cornerRadius(10)
+                        }
+                        Spacer()
                     }
                     Spacer()
                 }
-                Spacer()
+                .padding()
             }
-            .padding()
+            .frame(idealWidth: .infinity, idealHeight: .infinity)
+            .preferredColorScheme(.dark)
+            .background(){
+                Image("moon surface img")
+            }
         }
-        .frame(idealWidth: .infinity, idealHeight: .infinity)
-        .preferredColorScheme(.dark)
-        .background(){
-            Image("moon surface img")
+       
+    func buttonWithOrder(id: Int, title: String) -> some View {
+        Button(action: {
+            if pressOrder[id] == nil {
+                pressCount += 1
+                pressOrder[id] = pressCount
+            }
+        }) {
+            Text(pressOrder[id] == nil ? title : "\(title) (\(pressOrder[id]!))")
+                .fontWeight(.medium)
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity, maxHeight: 60)
+                .background(Color.white)
+                .cornerRadius(10)
         }
     }
 }
