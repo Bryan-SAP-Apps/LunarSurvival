@@ -1,9 +1,3 @@
-//
-//  NextLevelView.swift
-//  SolarSurvival
-//
-//  Created by Zicheng on 16/11/24.
-//
 import SwiftUI
 struct NextLevelView: View {
     @StateObject private var gameState = GameState()
@@ -15,7 +9,8 @@ struct NextLevelView: View {
     @State private var isOnPlatform = false
     @State private var endPoint = false
     @State private var gameTimer: Timer? = nil
-
+    @StateObject var itemManager = ItemManager()
+    //    @State private var itemManager.items = item
     @State private var platforms: [Platform] = []
     @State private var collectibles: [Collectible] = []
     @State private var stars: [CGPoint] = []
@@ -25,8 +20,16 @@ struct NextLevelView: View {
     let frameDuration = 0.016
     
     let platformXPositions: [CGFloat] = [150, 400, 650] // Fixed X positions for platforms
-
+    var items = [
+        Item(name: "metal", amount: 0),
+        Item(name: "regolith", amount: 0),
+        Item(name: "glass", amount: 0),
+        Item(name: "rubber", amount: 0),
+        Item(name: "plastic", amount: 0),
+        Item(name: "electronics", amount: 0)
+    ]
     var body: some View {
+        //        @Binding var item = item
         NavigationStack{
             NavigationLink(destination: ContentView(), isActive: $endPoint) {
                 EmptyView()
@@ -51,13 +54,13 @@ struct NextLevelView: View {
                         .frame(width: 2, height: 2)
                         .position(stars[index])
                 }
-               
+                
                 .onDisappear {
                     // Cleanup code when the view disappears, to ensure nothing is retained.
                     resetGameState()
                     stopGameLoop()  // Ensure we stop all running processes
                 }
-
+                
                 // Ground
                 Rectangle()
                     .fill(Color.gray)
@@ -86,12 +89,22 @@ struct NextLevelView: View {
                     .frame(width: 40, height: 40)
                     .position(gameState.playerPosition)
                 
-                // Score display
-                Text("Score: \(gameState.score)")  // Use score from GameState
-                    .font(.largeTitle)
-                    .foregroundColor(.white)
-                    .position(x: 100, y: 50)
-                
+                // Calculate totals for each material
+                VStack {
+                            HStack(alignment: .center) {
+                                Text(itemManager.items.map { "\($0.name.capitalized): \($0.amount)" }
+                                    .joined(separator: ", "))
+                                    .font(.title3)
+                                    .foregroundColor(.white)
+                                    .multilineTextAlignment(.center)
+                                Spacer()
+                            }
+                            .padding()
+                            
+                            Spacer() // Push the rest of the content below
+                        }
+//                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+
                 // Controls
                 VStack {
                     Spacer()
@@ -136,7 +149,7 @@ struct NextLevelView: View {
                 stopMovingLeft()  // Optionally stop any movement
                 stopMovingRight()  // Optionally stop any movement
             }
-
+            
         }.navigationBarBackButtonHidden(true)
     }
     
@@ -159,9 +172,9 @@ struct NextLevelView: View {
             }
         }
     }
-
-
-
+    
+    
+    
     func generateStars() {
         stars.removeAll()
         
@@ -189,12 +202,12 @@ struct NextLevelView: View {
         platforms.removeAll()
         collectibles.removeAll()
         stars.removeAll()
-
+        
         // Make sure all other views, animations, or observers are stopped
         // For example, remove all animations if present
     }
-
-
+    
+    
     func startMovingLeft() {
         isMovingLeft = true
     }
@@ -216,12 +229,12 @@ struct NextLevelView: View {
             updateGame()
         }
     }
-
+    
     func stopGameLoop() {
         gameTimer?.invalidate()  // Invalidate the timer if it's running
         gameTimer = nil  // Set the timer to nil to ensure it doesn't hold onto memory
     }
-
+    
     
     func updateGame() {
         // Apply gravity and update player's position
@@ -292,16 +305,38 @@ struct NextLevelView: View {
     }
     
     func checkCollectibleCollision() {
-        for index in collectibles.indices {
+        for index in (0..<collectibles.count).reversed() {  // Iterating backwards to avoid issues when removing elements
             let collectible = collectibles[index]
-            if abs(gameState.playerPosition.x - collectible.position.x) < 20 &&
-                abs(gameState.playerPosition.y - collectible.position.y) < 20 {
+            let distanceX = abs(gameState.playerPosition.x - collectible.position.x)
+            let distanceY = abs(gameState.playerPosition.y - collectible.position.y)
+            
+            // Print distances for debugging
+            // print("Checking collectible at index \(index): X distance = \(distanceX), Y distance = \(distanceY)")
+            
+            if distanceX < 20 && distanceY < 20 {
+                // Print when a collision is detected
+                print("Collision detected with collectible at index \(index)")
+                
+                // Optionally, print the collectible details if needed
+                // print("Collectible details: \(collectible)")
+                
                 collectibles.remove(at: index)
-                gameState.score += 1  // Update score in GameState
+                
+                // Print details before calling the incrementRandomProperty function
+                print("Before incrementRandomProperty: ") // Replace 'someProperty' with an actual property
+                
+                // Call incrementRandomProperty() method
+                itemManager.addRandomItemAmount()
+                
+                // Print details after calling the incrementRandomProperty function
+                print("After incrementRandomProperty") // Replace 'someProperty' with an actual property
+                
                 break
             }
         }
     }
+
+
     func generateNewLevel() {
         stopGameLoop()  // Stop the game loop before resetting the level
         resetGameState()  // Reset the game state
@@ -309,5 +344,8 @@ struct NextLevelView: View {
         generateStars()  // Generate new stars, etc.
         startGameLoop()  // Restart the game loop for the new level
     }
-
+    
+}
+#Preview {
+    NextLevelView()
 }

@@ -9,114 +9,130 @@
 import SwiftUI
 
 struct InfrastructureBuildingChoices: View {
+    @State private var basicshelter = false
     var body: some View {
-        ZStack {
-
-            Spacer()
-            // Background Color
-            
-            
-            VStack {
-                // Top Text
-                Text("Build a piece of infrastructure")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                    .padding(.top, 14)
-                    .padding(.all, 2)
-                    .background(.black)
-
-                Spacer()
-
-            
-                VStack(spacing: 20) {
-                    HStack(spacing: 20) {
-                        Button(action: {}) {
-                            Text("Choice 1")
-                                .fontWeight(.medium)
-                                .foregroundColor(.black)
-                                .frame(maxWidth: .infinity, maxHeight: 60)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                        }
-                        
-                        Button(action: {}) {
-                            Text("Choice 2")
-                                .fontWeight(.medium)
-                                .foregroundColor(.black)
-                                .frame(maxWidth: .infinity, maxHeight: 60)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                        }
-                    }
-
-                    HStack(spacing: 20) {
-                        Button(action: {}) {
-                            Text("Choice 3")
-                                .fontWeight(.medium)
-                                .foregroundColor(.black)
-                                .frame(maxWidth: .infinity, maxHeight: 60)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                        }
-                        
-                        Button(action: {}) {
-                            Text("Choice 4")
-                                .fontWeight(.medium)
-                                .foregroundColor(.black)
-                                .frame(maxWidth: .infinity, maxHeight: 60)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                        }
-                    }
-
-                    HStack(spacing: 20) {
-                        Button(action: {}) {
-                            Text("Choice 5")
-                                .fontWeight(.medium)
-                                .foregroundColor(.black)
-                                .frame(maxWidth: .infinity, maxHeight: 60)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                        }
-                        
-                        Button(action: {}) {
-                            Text("Choice 6")
-                                .fontWeight(.medium)
-                                .foregroundColor(.black)
-                                .frame(maxWidth: .infinity, maxHeight: 60)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                        }
-                    }
-                }
-                .padding()
-
-                Spacer()
+        NavigationStack{
+            NavigationLink(destination: UsingItemsView(), isActive: $basicshelter) {
+                EmptyView()
             }
-
-            // Top Left "Back" Button
-            VStack {
-                HStack {
-                    Button(action: {}) {
-                        Text("Back")
-                            .fontWeight(.medium)
-                            .foregroundColor(.black)
-                            .padding()
-                            .background(Color.gray)
-                            .cornerRadius(10)
+            ZStack {
+                
+                Spacer()
+                // Background Color
+                
+                
+                VStack {
+                    // Top Text
+                    Text("Build a piece of infrastructure")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 14)
+                        .padding(.all, 2)
+                        .background(.black)
+                    
+                    Spacer()
+                    
+                    
+                    VStack(spacing: 20) {
+                        HStack(spacing: 20) {
+                            Button(action: {
+                                basicshelter = true
+                            }) {
+                                ZStack {
+                                    Color.white // Background color
+                                        .cornerRadius(10)
+                                        .frame(maxHeight: 60)
+                                    
+                                    HStack {
+                                        Image("basicshelter")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)// Adjust size as needed
+                                        Text("Basic Shelter")
+                                            .fontWeight(.medium)
+                                            .foregroundColor(.black)
+                                    }
+                                }
+                            }
+                            
+                            Button(action: {}) {
+                                Text("Choice 2")
+                                    .fontWeight(.medium)
+                                    .foregroundColor(.black)
+                                    .frame(maxWidth: .infinity, maxHeight: 60)
+                                    .background(Color.white)
+                                    .cornerRadius(10)
+                            }
+                        }
+                        
+                        HStack(spacing: 20) {
+                            Button(action: {}) {
+                                Text("Choice 3")
+                                    .fontWeight(.medium)
+                                    .foregroundColor(.black)
+                                    .frame(maxWidth: .infinity, maxHeight: 60)
+                                    .background(Color.white)
+                                    .cornerRadius(10)
+                            }
+                            
+                            Button(action: {}) {
+                                Text("Choice 4")
+                                    .fontWeight(.medium)
+                                    .foregroundColor(.black)
+                                    .frame(maxWidth: .infinity, maxHeight: 60)
+                                    .background(Color.white)
+                                    .cornerRadius(10)
+                            }
+                        }
+                        
+                        HStack(spacing: 20) {
+                            Button(action: {}) {
+                                Text("Choice 5")
+                                    .fontWeight(.medium)
+                                    .foregroundColor(.black)
+                                    .frame(maxWidth: .infinity, maxHeight: 60)
+                                    .background(Color.white)
+                                    .cornerRadius(10)
+                            }
+                            
+                            Button(action: {}) {
+                                Text("Choice 6")
+                                    .fontWeight(.medium)
+                                    .foregroundColor(.black)
+                                    .frame(maxWidth: .infinity, maxHeight: 60)
+                                    .background(Color.white)
+                                    .cornerRadius(10)
+                            }
+                        }
                     }
+                    .padding()
+                    
                     Spacer()
                 }
-                Spacer()
+                
+                // Top Left "Back" Button
+//                VStack {
+//                    HStack {
+//                        Button(action: {}) {
+//                            Text("Back")
+//                                .fontWeight(.medium)
+//                                .foregroundColor(.black)
+//                                .padding()
+//                                .background(Color.gray)
+//                                .cornerRadius(10)
+//                        }
+//                        Spacer()
+//                    }
+//                    Spacer()
+//                }
+//                .padding()
             }
-            .padding()
-        }
-        .frame(idealWidth: .infinity, idealHeight: .infinity)
-        .preferredColorScheme(.dark)
-        .background(){
-            Image("moon surface img")
+            .frame(idealWidth: .infinity, idealHeight: .infinity)
+            .preferredColorScheme(.dark)
+            .background(){
+                Image("moon surface img")
+            }
         }
     }
 }

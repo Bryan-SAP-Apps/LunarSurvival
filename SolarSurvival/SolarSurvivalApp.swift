@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct SolarSurvivalApp: App {
     // Create the ItemManager instance
-    @StateObject private var itemManager = ItemManager()
+    @StateObject var itemManager = ItemManager()
 
     var body: some Scene {
         WindowGroup {
