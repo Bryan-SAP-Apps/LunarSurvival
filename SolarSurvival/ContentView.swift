@@ -9,7 +9,8 @@ struct ContentView: View {
     @State private var isOnPlatform = false
     @State private var endPoint = false
     @State private var gameTimer: Timer? = nil
-
+    @State var itemManager = ItemManager()
+    //    @State private var itemManager.items = item
     @State private var platforms: [Platform] = []
     @State private var collectibles: [Collectible] = []
     @State private var stars: [CGPoint] = []
@@ -19,8 +20,9 @@ struct ContentView: View {
     let frameDuration = 0.016
     
     let platformXPositions: [CGFloat] = [150, 400, 650] // Fixed X positions for platforms
-
+    
     var body: some View {
+        //        @Binding var item = item
         NavigationStack{
             NavigationLink(destination: NextLevelView(), isActive: $endPoint) {
                 EmptyView()
@@ -45,13 +47,13 @@ struct ContentView: View {
                         .frame(width: 2, height: 2)
                         .position(stars[index])
                 }
-               
+                
                 .onDisappear {
                     // Cleanup code when the view disappears, to ensure nothing is retained.
                     resetGameState()
                     stopGameLoop()  // Ensure we stop all running processes
                 }
-
+                
                 // Ground
                 Rectangle()
                     .fill(Color.gray)
@@ -80,12 +82,19 @@ struct ContentView: View {
                     .frame(width: 40, height: 40)
                     .position(gameState.playerPosition)
                 
-                // Score display
-                Text("Score: \(gameState.score)")  // Use score from GameState
+                // Calculate totals for each material
+
+                let totalMetal = itemManager.items.map { $0.metal }.reduce(0, +)
+                let totalRegolith = itemManager.items.map { $0.regolith }.reduce(0, +)
+                let totalGlass = itemManager.items.map { $0.glass }.reduce(0, +)
+                let totalRubber = itemManager.items.map { $0.rubber }.reduce(0, +)
+                let totalElectronics = itemManager.items.map { $0.electronics }.reduce(0, +)
+                let totalPlastic = itemManager.items.map { $0.plastic }.reduce(0, +)
+                Text("Metal: \(totalMetal), \(totalRegolith), \(totalGlass), \(totalRubber), \(totalElectronics), \(totalPlastic)")
                     .font(.largeTitle)
                     .foregroundColor(.white)
                     .position(x: 100, y: 50)
-                
+
                 // Controls
                 VStack {
                     Spacer()
@@ -130,7 +139,7 @@ struct ContentView: View {
                 stopMovingLeft()  // Optionally stop any movement
                 stopMovingRight()  // Optionally stop any movement
             }
-
+            
         }.navigationBarBackButtonHidden(true)
     }
     
@@ -153,9 +162,9 @@ struct ContentView: View {
             }
         }
     }
-
-
-
+    
+    
+    
     func generateStars() {
         stars.removeAll()
         
@@ -183,12 +192,12 @@ struct ContentView: View {
         platforms.removeAll()
         collectibles.removeAll()
         stars.removeAll()
-
+        
         // Make sure all other views, animations, or observers are stopped
         // For example, remove all animations if present
     }
-
-
+    
+    
     func startMovingLeft() {
         isMovingLeft = true
     }
@@ -210,12 +219,12 @@ struct ContentView: View {
             updateGame()
         }
     }
-
+    
     func stopGameLoop() {
         gameTimer?.invalidate()  // Invalidate the timer if it's running
         gameTimer = nil  // Set the timer to nil to ensure it doesn't hold onto memory
     }
-
+    
     
     func updateGame() {
         // Apply gravity and update player's position
@@ -291,7 +300,7 @@ struct ContentView: View {
             if abs(gameState.playerPosition.x - collectible.position.x) < 20 &&
                 abs(gameState.playerPosition.y - collectible.position.y) < 20 {
                 collectibles.remove(at: index)
-                gameState.score += 1  // Update score in GameState
+                itemManager.incrementRandomProperty()
                 break
             }
         }
@@ -303,7 +312,7 @@ struct ContentView: View {
         generateStars()  // Generate new stars, etc.
         startGameLoop()  // Restart the game loop for the new level
     }
-
+    
 }
 #Preview {
     ContentView()

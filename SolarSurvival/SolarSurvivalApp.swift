@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct SolarSurvivalApp: App {
+    // Create the ItemManager instance
+    @StateObject private var itemManager = ItemManager()
+
     var body: some Scene {
         WindowGroup {
-            SwiftUIView()
+            ContentView()
+                // Inject the ItemManager into the environment
+                .environmentObject(itemManager)
         }
     }
 }
