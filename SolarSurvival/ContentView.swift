@@ -9,7 +9,7 @@ struct ContentView: View {
     @State private var isOnPlatform = false
     @State private var endPoint = false
     @State private var gameTimer: Timer? = nil
-    @State var itemManager = ItemManager()
+    @StateObject var itemManager = ItemManager()
     //    @State private var itemManager.items = item
     @State private var platforms: [Platform] = []
     @State private var collectibles: [Collectible] = []
@@ -20,7 +20,14 @@ struct ContentView: View {
     let frameDuration = 0.016
     
     let platformXPositions: [CGFloat] = [150, 400, 650] // Fixed X positions for platforms
-    
+    var items = [
+        Item(name: "metal", amount: 0),
+        Item(name: "regolith", amount: 0),
+        Item(name: "glass", amount: 0),
+        Item(name: "rubber", amount: 0),
+        Item(name: "plastic", amount: 0),
+        Item(name: "electronics", amount: 0)
+    ]
     var body: some View {
         //        @Binding var item = item
         NavigationStack{
@@ -83,17 +90,20 @@ struct ContentView: View {
                     .position(gameState.playerPosition)
                 
                 // Calculate totals for each material
-
-                let totalMetal = itemManager.items.map { $0.metal }.reduce(0, +)
-                let totalRegolith = itemManager.items.map { $0.regolith }.reduce(0, +)
-                let totalGlass = itemManager.items.map { $0.glass }.reduce(0, +)
-                let totalRubber = itemManager.items.map { $0.rubber }.reduce(0, +)
-                let totalElectronics = itemManager.items.map { $0.electronics }.reduce(0, +)
-                let totalPlastic = itemManager.items.map { $0.plastic }.reduce(0, +)
-                Text("Metal: \(totalMetal), \(totalRegolith), \(totalGlass), \(totalRubber), \(totalElectronics), \(totalPlastic)")
-                    .font(.largeTitle)
-                    .foregroundColor(.white)
-                    .position(x: 100, y: 50)
+                VStack {
+                            HStack(alignment: .center) {
+                                Text(itemManager.items.map { "\($0.name.capitalized): \($0.amount)" }
+                                    .joined(separator: ", "))
+                                    .font(.title3)
+                                    .foregroundColor(.white)
+                                    .multilineTextAlignment(.center)
+                                Spacer()
+                            }
+                            .padding()
+                            
+                            Spacer() // Push the rest of the content below
+                        }
+//                        .frame(maxWidth: .infinity, maxHeight: .infinity)
 
                 // Controls
                 VStack {
@@ -295,16 +305,38 @@ struct ContentView: View {
     }
     
     func checkCollectibleCollision() {
-        for index in collectibles.indices {
+        for index in (0..<collectibles.count).reversed() {  // Iterating backwards to avoid issues when removing elements
             let collectible = collectibles[index]
-            if abs(gameState.playerPosition.x - collectible.position.x) < 20 &&
-                abs(gameState.playerPosition.y - collectible.position.y) < 20 {
+            let distanceX = abs(gameState.playerPosition.x - collectible.position.x)
+            let distanceY = abs(gameState.playerPosition.y - collectible.position.y)
+            
+            // Print distances for debugging
+            // print("Checking collectible at index \(index): X distance = \(distanceX), Y distance = \(distanceY)")
+            
+            if distanceX < 20 && distanceY < 20 {
+                // Print when a collision is detected
+                print("Collision detected with collectible at index \(index)")
+                
+                // Optionally, print the collectible details if needed
+                // print("Collectible details: \(collectible)")
+                
                 collectibles.remove(at: index)
-                itemManager.incrementRandomProperty()
+                
+                // Print details before calling the incrementRandomProperty function
+                print("Before incrementRandomProperty: ") // Replace 'someProperty' with an actual property
+                
+                // Call incrementRandomProperty() method
+                itemManager.addRandomItemAmount()
+                
+                // Print details after calling the incrementRandomProperty function
+                print("After incrementRandomProperty") // Replace 'someProperty' with an actual property
+                
                 break
             }
         }
     }
+
+
     func generateNewLevel() {
         stopGameLoop()  // Stop the game loop before resetting the level
         resetGameState()  // Reset the game state

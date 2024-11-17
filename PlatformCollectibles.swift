@@ -1,21 +1,22 @@
-//
-//  PlatformCollectibles.swift
-//  SolarSurvival
-//
-//  Created by Bryan Nguyen on 8/11/24.
-//
-
 import SwiftUI
 import Foundation
-import Observation
+
+// Extension for documents directory
+extension URL {
+    static var documentsDirectory: URL {
+        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    }
+}
+
+// Game State
 class GameState: ObservableObject {
     @Published var score = 0
     @Published var playerPosition = CGPoint(x: 200, y: 300)
     @Published var currentLevel: Int = 1 // Track which level/view is active
     @Published var savedPositions: [Int: CGPoint] = [:]
-    
-    init(){}
 }
+
+// Platform
 struct Platform {
     var position: CGPoint
     var size: CGSize
@@ -26,72 +27,77 @@ struct Collectible {
     var position: CGPoint
 }
 
-import Foundation
-
+// Item model
 struct Item: Identifiable, Codable, Equatable {
     var id = UUID()
-    var metal: Int = 0
-    var regolith: Int = 0
-    var glass: Int = 0
-    var plastic: Int = 0
-    var rubber: Int = 0
-    var electronics: Int = 0
-    
+    var name: String
+    var amount: Int
 }
 
-
+// Item Manager
 class ItemManager: ObservableObject {
-    @Published var items: [Item] = [] {
+    @Published var items: [Item] {
         didSet {
-            save()
+            save() // Ensure items are saved when updated
         }
     }
 
     init() {
-        load()
+        // Default items
+        items = [
+            Item(name: "metal", amount: 0),
+            Item(name: "regolith", amount: 0),
+            Item(name: "glass", amount: 0),
+            Item(name: "rubber", amount: 0),
+            Item(name: "plastic", amount: 0),
+            Item(name: "electronics", amount: 0)
+        ]
+        
+        let archiveURL = getArchiveURL()
+        if FileManager.default.fileExists(atPath: archiveURL.path) {
+            load() // Load items if the file exists
+        } else {
+            save() // Save default items if no file exists
+        }
     }
-
+    
+    // Helper function to get the file URL
     private func getArchiveURL() -> URL {
-        URL.documentsDirectory.appending(path: "items.json")
+        URL.documentsDirectory.appendingPathComponent("items.json")
     }
-
+    
+    // Save items to the file
     private func save() {
         let archiveURL = getArchiveURL()
         let jsonEncoder = JSONEncoder()
         jsonEncoder.outputFormatting = .prettyPrinted
-
-        if let encodedItems = try? jsonEncoder.encode(items) {
-            try? encodedItems.write(to: archiveURL, options: .noFileProtection)
+        
+        do {
+            let encodedItems = try jsonEncoder.encode(items)
+            try encodedItems.write(to: archiveURL, options: .noFileProtection)
+            print("Saved items to file: \(archiveURL)") // Debug
+        } catch {
+            print("Failed to save items to file: \(error)")
         }
     }
-
+    
+    // Load items from the file
     private func load() {
         let archiveURL = getArchiveURL()
         let jsonDecoder = JSONDecoder()
-
-        if let retrievedItemsData = try? Data(contentsOf: archiveURL),
-           let itemsDecoded = try? jsonDecoder.decode([Item].self, from: retrievedItemsData) {
-            items = itemsDecoded
+        
+        do {
+            let retrievedItemData = try Data(contentsOf: archiveURL)
+            items = try jsonDecoder.decode([Item].self, from: retrievedItemData)
+        } catch {
+            print("Failed to load items: \(error)")
         }
     }
-
+    
     // Increment a random property of a random item
-    func incrementRandomProperty() {
+    func addRandomItemAmount() {
         guard !items.isEmpty else { return }
-
-        // Choose a random item
         let randomIndex = Int.random(in: 0..<items.count)
-        var item = items[randomIndex]
-
-        // Randomly select a key path to increment
-        let properties: [WritableKeyPath<Item, Int>] = [
-            \.metal, \.regolith, \.glass, \.plastic, \.rubber, \.electronics
-        ]
-
-        if let randomProperty = properties.randomElement() {
-            item[keyPath: randomProperty] += 1 // Increment the selected property
-            items[randomIndex] = item // Update the item in the array
-        }
+        items[randomIndex].amount += 1
     }
 }
-
