@@ -14,7 +14,7 @@ struct SolarSurvivalApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CutsceneSlideshow()
                 // Inject the ItemManager into the environment
                 .environmentObject(itemManager)
         }

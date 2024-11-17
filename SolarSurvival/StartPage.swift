@@ -7,12 +7,31 @@ struct StartView: View {
     @State private var continuee = false
     @State private var start = "Start/Continue"
     
+    let playCutscene: () -> Void // Callback to play cutscene again
+    
     var body: some View {
         NavigationStack {
             Color(red: 0.01, green: 0.1, blue: 0.4)
                 .ignoresSafeArea()
                 .overlay(
+                    
                     VStack{
+                        
+                        VStack{
+                            HStack{// Existing content of the view goes here
+                                
+                                Button(action: {
+                                    playCutscene()
+                                }){Text("Play Cutscene Again")
+                                }
+                                .padding()
+                                .foregroundStyle(.white)
+                                .background(Color.blue)
+                                Spacer()
+                                
+                            }
+                            Spacer()
+                        }
                         HStack{
                             AnimatedImage(name:"Homepage.gif", isAnimating: $isAnimated)
                             VStack{
@@ -95,5 +114,7 @@ struct StartView: View {
     
 }
 #Preview{
-    StartView()
+    StartView(playCutscene: {
+        print("Playing cutscene action again")
+    })
 }

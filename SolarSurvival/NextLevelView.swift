@@ -31,7 +31,7 @@ struct NextLevelView: View {
     var body: some View {
         //        @Binding var item = item
         NavigationStack{
-            NavigationLink(destination: ContentView(), isActive: $endPoint) {
+            NavigationLink(destination: PlatformView(), isActive: $endPoint) {
                 EmptyView()
             }.onAppear {
                 gameState.currentLevel = 1
