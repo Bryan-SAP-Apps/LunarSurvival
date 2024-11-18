@@ -32,13 +32,18 @@ struct UsingItemsView: View {
         Item(name: "plastic", amount: 0),
         Item(name: "electronics", amount: 0)
     ]
-//    init() {
-//        let titleTextAttributes: [NSAttributedString.Key: Any] = [
-//            .foregroundColor: UIColor.white,
-//            .font: UIFont.boldSystemFont(ofSize: 100) // Adjust font size as needed
-//        ]
-//        UINavigationBar.appearance().largeTitleTextAttributes = titleTextAttributes
-//    }
+    init() {
+            // Ensure large titles are enabled and custom font size is set
+            UINavigationBar.appearance().prefersLargeTitles = true
+
+            let titleTextAttributes: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.white,
+                .font: UIFont.boldSystemFont(ofSize: 40) // Adjust font size
+            ]
+            
+            UINavigationBar.appearance().largeTitleTextAttributes = titleTextAttributes
+        }
+
 
     var body: some View {
         
@@ -53,14 +58,14 @@ struct UsingItemsView: View {
                     .scaledToFill()
                     .ignoresSafeArea()
                 VStack{
-                    Text("Build the infrastructure using items")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                        .background(Color.black.opacity(0.7))
-                        .cornerRadius(10)
-                        .padding(.top, 60)  // Added padding to shift it down
+//                    Text("Build the infrastructure using items")
+//                        .font(.largeTitle)
+//                        .fontWeight(.bold)
+//                        .foregroundColor(.white)
+//                        .multilineTextAlignment(.center)
+//                        .background(Color.black.opacity(0.7))
+//                        .cornerRadius(10)
+//                        .padding(.top, 60)  // Added padding to shift it down
                     HStack {
                         // Left side: Displaying the items and their amounts
                         VStack(alignment: .leading, spacing: 20) {
@@ -206,7 +211,8 @@ struct UsingItemsView: View {
                 }
             }
         .disabled(pressOrder[id] != nil || pressCount >= 4) // Disable button after it is clicked
-        .navigationTitle("")
+        .navigationTitle("Build the infrastructure using items")
+        .navigationBarTitleDisplayMode(.large)
     }
 }
 

@@ -15,6 +15,7 @@ struct InfrastructureBuildingChoices: View {
             NavigationLink(destination: UsingItemsView(), isActive: $basicshelter) {
                 EmptyView()
             }
+           
             ZStack {
                 
                 Spacer()
@@ -31,8 +32,6 @@ struct InfrastructureBuildingChoices: View {
                         .padding(.top, 14)
                         .padding(.all, 2)
                         .background(.black)
-                    
-                    Spacer()
                     
                     
                     VStack(spacing: 20) {
@@ -130,6 +129,7 @@ struct InfrastructureBuildingChoices: View {
             }
             .frame(idealWidth: .infinity, idealHeight: .infinity)
             .preferredColorScheme(.dark)
+           
             .background(){
                 Image("moon surface img")
             }
