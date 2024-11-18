@@ -8,6 +8,16 @@
 import SwiftUI
 
 struct GameMain: View {
+    
+    var items = [
+        Item(name: "metal", amount: 0),
+        Item(name: "regolith", amount: 0),
+        Item(name: "glass", amount: 0),
+        Item(name: "rubber", amount: 0),
+        Item(name: "plastic", amount: 0),
+        Item(name: "electronics", amount: 0)
+    ]
+    
     var body: some View {
         NavigationStack{
             ZStack{
@@ -25,45 +35,102 @@ struct GameMain: View {
                                 
                                 
                                 Rectangle()
-                                    .fill(Color(white: 0.7))
+                                    .fill(Color(white: 0.6))
                                     .clipShape(RoundedRectangle(cornerRadius: 19))
-                                    .frame(width: 470, height: 50)
+                                    .frame(width: 490, height: 50)
                                     .padding(.trailing, 30)
                                 HStack{
-                                    Rectangle()
-                                        .fill(Color(white: 0.5))
-                                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                                        .frame(width: 60, height: 40)
-                                    
-                                    
+                                    ZStack{
                                         Rectangle()
-                                            .fill(Color(white: 0.5))
+                                            .fill(Color(white: 0.8))
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
                                             .frame(width: 60, height: 40)
+                                        HStack{
+                                            Image("glass")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 40)
+                                            Text("\(items[2].amount)")
+                                                .font(.system(size: 10))
+                                        }
+                                        .frame(width:50)
+                                    }
                                     
-                                    
+                                    ZStack{
                                         Rectangle()
-                                            .fill(Color(white: 0.5))
+                                            .fill(Color(white: 0.8))
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
                                             .frame(width: 60, height: 40)
-                                    
-                                    
+                                        HStack{
+                                            Image("Metal")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 40)
+                                            Text("\(items[0].amount)")
+                                                .font(.system(size: 10))
+                                        }
+                                        .frame(width:50)
+                                    }
+                                    ZStack{
                                         Rectangle()
-                                            .fill(Color(white: 0.5))
+                                            .fill(Color(white: 0.8))
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
                                             .frame(width: 60, height: 40)
-                                    
-                                    
+                                        HStack{
+                                            Image("plastic")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 40)
+                                            Text("\(items[4].amount)")
+                                                .font(.system(size: 10))
+                                        }
+                                        .frame(width:50)
+                                    }
+                                    ZStack{
                                         Rectangle()
-                                            .fill(Color(white: 0.5))
+                                            .fill(Color(white: 0.8))
+                                                .clipShape(RoundedRectangle(cornerRadius: 15))
+                                                .frame(width: 60, height: 40)
+                                        HStack{
+                                            Image("rubber")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 40)
+                                            Text("\(items[3].amount)")
+                                                .font(.system(size: 10))
+                                        }
+                                        .frame(width:50)
+                                    }
+                                    ZStack{
+                                        Rectangle()
+                                            .fill(Color(white: 0.8))
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
                                             .frame(width: 60, height: 40)
-                                    
-                                    
+                                        HStack{
+                                            Image("Regolith")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 40)
+                                            Text("\(items[2].amount)")
+                                                .font(.system(size: 10))
+                                        }
+                                        .frame(width:50)
+                                    }
+                                    ZStack{
                                         Rectangle()
-                                            .fill(Color(white: 0.5))
+                                            .fill(Color(white: 0.8))
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
                                             .frame(width: 60, height: 40)
+                                        HStack{
+                                            Image("electronics")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 30, height: 40)
+                                            Text("\(items[5].amount)")
+                                                .font(.system(size: 10))
+                                        }
+                                        .frame(width:50)
+                                    }
                                 }
                                 .padding(.leading, 20)
                             }
@@ -72,7 +139,7 @@ struct GameMain: View {
                                     .fill(Color(white: 0.4))
                                     .frame(width: 60)
                                     .padding(.trailing)
-                                    .offset(x: -220 ,y: 0)
+                                    .offset(x: -230 ,y: 0)
                             }
                             
                         }
@@ -82,7 +149,18 @@ struct GameMain: View {
                             Rectangle()
                                 .fill(Color(white: 0.7))
                                 .clipShape(RoundedRectangle(cornerRadius: 19))
-                                .frame(width: 290, height: 50)
+                                .frame(width: 250, height: 50)
+                            HStack{
+                                ZStack{
+                                    Rectangle()
+                                        .fill(Color(.white))
+                                        .frame(width: 150, height: 34)
+                                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                                    
+                                    
+                                    
+                                }
+                            }
                         }
                         
                         
@@ -133,6 +211,20 @@ struct GameMain: View {
                                 .fill(Color(white: 0.7))
                                 .clipShape(RoundedRectangle(cornerRadius: 21.6))
                                 .frame(width: 500, height: 70)
+                            HStack{
+                                NavigationLink(destination: PlatformView()) {
+                                    Text("End Day")
+                                        .frame(width:150, height: 30)
+                                        .font(.title)
+                                        .bold()
+                                        .padding()
+                                        .background(Color.green)
+                                        .foregroundColor(.white)
+                                        .clipShape(RoundedRectangle(cornerRadius: 19))
+                                    
+                                }
+
+                            }
                         }
                         NavigationLink(destination: PlatformView()) {
                             Text("End Day")
