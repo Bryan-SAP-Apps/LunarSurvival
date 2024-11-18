@@ -7,10 +7,9 @@ struct StartView: View {
     @State private var continuee = false
     @State private var start = "Start/Continue"
     
-    let playCutscene: () -> Void // Callback to play cutscene again
+    var playCutscene: () -> Void // Callback to play cutscene again
     
     var body: some View {
-        NavigationStack {
             ZStack {
                 Color(red: 0.01, green: 0.1, blue: 0.4)
                     .ignoresSafeArea()
@@ -117,7 +116,7 @@ struct StartView: View {
             NavigationLink(destination: GameMain(), isActive: $isNavigated) {
                 EmptyView() // Use an empty view for the link
             }
-        }.navigationBarBackButtonHidden()
+        .navigationBarBackButtonHidden()
     }
     
     

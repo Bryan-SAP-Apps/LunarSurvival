@@ -11,6 +11,7 @@ struct CutsceneSlideshow: View {
     @State private var showNextView = false
     @State private var canSkip = false
     @State private var timer: Timer?
+    @State private var cutsceneTimes = 0
     @AppStorage("hasSeenCutscene") private var hasSeenCutscene = false // Persistent flag
 
     let images = ["CImg1", "CImg2", "CImg3", "CImg4", "CImg5", "CImg6", "CImg7", "CImg8", "CImg9", "CImg10", "CImg11", "CImg12", "CImg13", "CImg14", "CImg15", "CImg16"] // Replace with your image names
@@ -36,8 +37,11 @@ struct CutsceneSlideshow: View {
     var body: some View {
         Group {
             if showNextView {
-                StartView(playCutscene: playCutscene) // Pass callback
+                NavigationStack {
+                    StartView(playCutscene: playCutscene) // Pass callback
+                }
             } else {
+                
                 ZStack {
                     Color.black.edgesIgnoringSafeArea(.all) // Background color
 
@@ -49,22 +53,25 @@ struct CutsceneSlideshow: View {
                     }
 
                     // Skip Button
-                    VStack {
-                        HStack {
-                            Spacer()
-                            Button(action: {
-                                finishCutscene()
-                            }) {
-                                Text("Skip")
-                                    .foregroundColor(.white)
-                                    .padding(.all, 5)
-                                    .background(Color.gray)
-                                    .cornerRadius(8)
-                            }
-                            .padding()
-                        }
-                        Spacer()
-                    }
+                    if cutsceneTimes >= 1 {
+                                            VStack {
+                                                HStack {
+                                                    Spacer()
+                                                    Button(action: {
+                                                        finishCutscene()
+                                                    }) {
+                                                        Text("Skip")
+                                                            .foregroundColor(.white)
+                                                            .padding(.horizontal, 16)
+                                                            .padding(.vertical, 8)
+                                                            .background(Color.red)
+                                                            .cornerRadius(8)
+                                                    }
+                                                    .padding()
+                                                }
+                                                Spacer()
+                                            }
+                                        }
                 }
                 .onAppear {
                     if !hasSeenCutscene {
@@ -79,7 +86,7 @@ struct CutsceneSlideshow: View {
                     }
                 }
             }
-        }
+        }.navigationBarBackButtonHidden()
     }
 
     private func startSlideshow() {
@@ -87,7 +94,7 @@ struct CutsceneSlideshow: View {
             finishCutscene()
             return
         }
-
+        //hasSeenCutscene = true
         // Reset skipping ability
         canSkip = false
 
@@ -119,10 +126,11 @@ struct CutsceneSlideshow: View {
         }
     }
 
-    private func playCutscene() {
+    func playCutscene() {
         currentIndex = 0
         showNextView = false
         hasSeenCutscene = false
+        cutsceneTimes += 1
     }
 
     private func finishCutscene() {

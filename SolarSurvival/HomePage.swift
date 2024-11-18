@@ -147,98 +147,9 @@ struct GameMain: View {
                         
                         ZStack{
                             Rectangle()
-                                .fill(Color(white: 0.7))
+                                .fill(Color(white: 0.6))
                                 .clipShape(RoundedRectangle(cornerRadius: 19))
-                                .frame(width: 250, height: 50)
-                            HStack{
-                                ZStack{
-                                    Rectangle()
-                                        .fill(Color(.white))
-                                        .frame(width: 150, height: 34)
-                                        .clipShape(RoundedRectangle(cornerRadius: 14))
-                                    
-                                    
-                                    
-                                }
-                            }
-                        }
-                        
-                        
-                        
-                        
-                    }
-                    //Squares
-                    VStack{
-                        
-                        HStack{
-                            ZStack{
-                                Rectangle()
-                                    .fill(Color(white: 0.7))
-                                    .clipShape(RoundedRectangle(cornerRadius: 21.6))
-                                    .frame(width: 100, height: 100)
-                            }
-                            ZStack{
-                                Rectangle()
-                                    .fill(Color(white: 0.7))
-                                    .clipShape(RoundedRectangle(cornerRadius: 21.6))
-                                    .frame(width: 100, height: 100)
-                                
-                            }
-                        }
-                        HStack{
-                            ZStack{
-                                Rectangle()
-                                    .fill(Color(white: 0.7))
-                                    .clipShape(RoundedRectangle(cornerRadius: 21.6))
-                                    .frame(width: 100, height: 100)
-                            }
-                            ZStack{
-                                Rectangle()
-                                    .fill(Color(white: 0.7))
-                                    .clipShape(RoundedRectangle(cornerRadius: 21.6))
-                                    .frame(width: 100, height: 100)
-                            }
-                            
-                        }
-                    }
-                    //end of squares
-                    
-                    
-                    
-                    HStack{
-                        ZStack{
-                            Rectangle()
-                                .fill(Color(white: 0.7))
-                                .clipShape(RoundedRectangle(cornerRadius: 21.6))
-                                .frame(width: 500, height: 70)
-                            HStack{
-                                NavigationLink(destination: PlatformView()) {
-                                    Text("Scavenge")
-                                        .frame(width:150, height: 30)
-                                        .font(.title)
-                                        .bold()
-                                        .padding()
-                                        .background(Color.green)
-                                        .foregroundColor(.white)
-                                        .clipShape(RoundedRectangle(cornerRadius: 19))
-                                    
-                                }
-                                NavigationLink(destination: InfrastructureBuildingChoices()) {
-                                    Text("Build")
-                                        .frame(width:150, height: 30)
-                                        .font(.title)
-                                        .bold()
-                                        .padding()
-                                        .background(Color.green)
-                                        .foregroundColor(.white)
-                                        .clipShape(RoundedRectangle(cornerRadius: 19))
-                                    
-                                }
-
-                            }
-                        }
-                        NavigationLink(destination: CongratView()) {
-                            Text("End Day")
+                                .frame(width: 490, height: 50)
                                 .padding(.trailing, 30)
                                 .padding(.leading, 30)
                                 .padding(.top, 10)
@@ -261,6 +172,7 @@ struct GameMain: View {
             }
         }
     }
+    
 }
 
 #Preview {

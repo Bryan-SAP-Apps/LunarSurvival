@@ -9,6 +9,7 @@ import SDWebImageSwiftUI
 
 struct CongratView: View {
     @State private var isNavigated = false // State variable to control navigation
+    @Environment(\.dismiss) var dismiss
     @State var continuee = false
     @State var start = "Start"
     @State var days = 5
@@ -19,7 +20,6 @@ struct CongratView: View {
     
     
     var body: some View {
-        NavigationStack {
             Color(red: 0.01, green: 0.10, blue: 0.40)
                 .ignoresSafeArea()
                 .overlay(
@@ -72,7 +72,8 @@ struct CongratView: View {
                         HStack{
                         Spacer()
                         Button(action: {
-                            isNavigated = true // Set the state to true to navigate
+                             isNavigated = true // Set the state to true to navigate
+                            
                             if (continuee == false){
                                 start = "Start"
                             } else {
@@ -105,11 +106,11 @@ struct CongratView: View {
                 )
             
             // Programmatic NavigationLink
-            NavigationLink(destination: StartView(playCutscene: {}), isActive: $isNavigated) {
+        NavigationLink(destination: CutsceneSlideshow(), isActive: $isNavigated) {
                 EmptyView() // Use an empty view for the link
-            }
         }.navigationBarBackButtonHidden()
     }
+    
 }
 
 #Preview {
