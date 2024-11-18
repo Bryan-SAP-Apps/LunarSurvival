@@ -62,7 +62,7 @@ struct GameMain: View {
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
                                             .frame(width: 60, height: 40)
                                         HStack{
-                                            Image("Metal")
+                                            Image("metal")
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
@@ -107,7 +107,7 @@ struct GameMain: View {
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
                                             .frame(width: 60, height: 40)
                                         HStack{
-                                            Image("Regolith")
+                                            Image("regolith")
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
@@ -213,7 +213,18 @@ struct GameMain: View {
                                 .frame(width: 500, height: 70)
                             HStack{
                                 NavigationLink(destination: PlatformView()) {
-                                    Text("End Day")
+                                    Text("Scavenge")
+                                        .frame(width:150, height: 30)
+                                        .font(.title)
+                                        .bold()
+                                        .padding()
+                                        .background(Color.green)
+                                        .foregroundColor(.white)
+                                        .clipShape(RoundedRectangle(cornerRadius: 19))
+                                    
+                                }
+                                NavigationLink(destination: InfrastructureBuildingChoices()) {
+                                    Text("Build")
                                         .frame(width:150, height: 30)
                                         .font(.title)
                                         .bold()
@@ -226,7 +237,7 @@ struct GameMain: View {
 
                             }
                         }
-                        NavigationLink(destination: PlatformView()) {
+                        NavigationLink(destination: CongratView()) {
                             Text("End Day")
                                 .padding(.trailing, 30)
                                 .padding(.leading, 30)
@@ -240,6 +251,7 @@ struct GameMain: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 19))
                             
                         }
+                        
                     }
                 }
                 .background() {
