@@ -105,9 +105,9 @@ struct CongratView: View {
                 )
             
             // Programmatic NavigationLink
-            //NavigationLink(destination: ContentView(), isActive: $isNavigated) {
-              //  EmptyView() // Use an empty view for the link
-            //}
+            NavigationLink(destination: StartView(playCutscene: {}), isActive: $isNavigated) {
+                EmptyView() // Use an empty view for the link
+            }
         }
     }
 }
