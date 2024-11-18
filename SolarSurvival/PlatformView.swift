@@ -181,7 +181,7 @@ struct PlatformView: View {
                 timer = false
             }
             
-        }.navigationBarBackButtonHidden(true)
+        }/*.navigationBarBackButtonHidden(true)*/
     }
     
     func generatePlatforms() {

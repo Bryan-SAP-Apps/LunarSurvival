@@ -13,10 +13,10 @@ struct UsingItemsView: View {
     @State private var pressCount = 0
     @StateObject var itemManager = ItemManager()
     @State private var goProgressView = false
-    @State private var neededMetal = 15
-    @State private var neededPlastic = 10
-    @State private var neededInsulating = 20
-    @State private var neededElectronics = 3
+    @State private var neededMetal = 2//15
+    @State private var neededPlastic = 2//10
+    @State private var neededInsulating = 2//20
+    @State private var neededElectronics = 2//3
     @State private var metalItem = 0
     @State private var showAlert = false
     
@@ -134,10 +134,11 @@ struct UsingItemsView: View {
                                    let electronics = items.firstIndex(where: { $0.name == "electronics" }),
                                    let regolith = items.firstIndex(where: { $0.name == "regolith" })
                                                                 {
-                                    items[metal].amount -= neededMetal
-                                    items[plastic].amount -= neededMetal
-                                    items[electronics].amount -= neededMetal
-                                    items[regolith].amount -= neededMetal
+                                    itemManager.items[0].amount -= neededMetal
+                                    itemManager.items[4].amount -= neededPlastic
+                                    itemManager.items[5].amount -= neededElectronics
+                                    itemManager.items[5].amount -= neededInsulating
+                                    print(items[metal].amount)
                                     if items[metal].amount < 0{
                                         showAlert = true
                                     }else{

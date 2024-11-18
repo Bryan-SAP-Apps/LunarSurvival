@@ -8,14 +8,20 @@ struct ProgressBuilding: View {
     @State private var pressFromRight = false
     @State private var timeRemaining = 10.0 // Placeholder for the timer
     @State private var isTimerRunning = true
+    @AppStorage("E")var buildFinished = false
+    @AppStorage("E")var building = ""
     @State private var showTooSlowPopup = false
     @State private var showSuccessPopup = false
     @State private var retryCount = 0
     @State private var retryPenalty = 100
     @State private var timer: Timer?
+    @State private var goHome = false
     
     var body: some View {
     NavigationStack{
+        NavigationLink(destination: GameMain(), isActive: $goHome){
+            EmptyView()
+        }
         ZStack {
             VStack {
                 // Placeholder Text
@@ -77,18 +83,31 @@ struct ProgressBuilding: View {
                 
                 
                 // Progress Bar
-                VStack {
-                    ProgressView(value: downloadAmount, total: 100)
-                        .progressViewStyle(LinearProgressViewStyle(tint: .black))
-                        .scaleEffect(x: 1, y: 4, anchor: .center)
-                        .padding(.horizontal, 20)
-                    
-                    Text("Building…")
-                        .font(.footnote)
-                        .foregroundColor(.black)
-                        .padding(.top, 4)
+                HStack{
+                    VStack {
+                        ProgressView(value: downloadAmount, total: 100)
+                            .progressViewStyle(LinearProgressViewStyle(tint: .black))
+                            .scaleEffect(x: 1, y: 4, anchor: .center)
+                            .padding(.horizontal, 20)
+                        
+                        Text("Building…")
+                            .font(.footnote)
+                            .foregroundColor(.black)
+                            .padding(.top, 4)
+                    }
+                    .padding(.bottom, 20)
+                    Button(action: {
+                        building = "basicshelter"
+                        goHome = true
+                    }, label: {
+                        Text("Done")
+                            .background(Color.green)
+                            .cornerRadius(10)
+                            .padding()
+                            .foregroundColor(.white)
+                            
+                    })
                 }
-                .padding(.bottom, 20)
             }
             .background() {
                 Image("moon surface img")

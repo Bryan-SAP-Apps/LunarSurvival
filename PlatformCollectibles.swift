@@ -99,7 +99,7 @@ class ItemManager: ObservableObject {
         guard !items.isEmpty else { return }
         
         // Distribute 5 units across random items
-        var totalIncrease = 5
+        var totalIncrease = 10
         while totalIncrease > 0 {
             let randomIndex = Int.random(in: 0..<items.count)
             let increase = min(1, totalIncrease) // Add 1 to a random item (or the remaining total if less than 1)

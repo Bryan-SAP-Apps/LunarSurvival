@@ -10,6 +10,8 @@ import SwiftUI
 struct GameMain: View {
     @State private var itemManager = ItemManager()
     @State var energyBar:Double = 0.9
+    @AppStorage("E")var building = ""
+
     var items = [
         Item(name: "metal", amount: 0),
         Item(name: "regolith", amount: 0),
@@ -24,17 +26,11 @@ struct GameMain: View {
             ZStack{
                 
                 VStack{
-                    
-                    
-                    
+
                     HStack{
                         
                         ZStack{
                             ZStack{
-                                
-                                
-                                
-                                
                                 Rectangle()
                                     .fill(Color(white: 0.6))
                                     .clipShape(RoundedRectangle(cornerRadius: 19))
@@ -96,7 +92,7 @@ struct GameMain: View {
                                             Image("rubber")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 30, height: 40)
+                                                .frame(width: 28, height: 40)
                                             Text("\(itemManager.items[3].amount)")
                                                 .font(.system(size: 10))
                                         }
@@ -184,6 +180,9 @@ struct GameMain: View {
                                     .fill(Color(white: 0.7))
                                     .clipShape(RoundedRectangle(cornerRadius: 21.6))
                                     .frame(width: 100, height: 100)
+                                Image("\(building)")
+                                    .resizable()
+                                    .frame(width: 90, height: 90)
                             }
                             ZStack{
                                 Rectangle()
@@ -227,7 +226,7 @@ struct GameMain: View {
                                         .font(.title)
                                         .bold()
                                         .padding()
-                                        .background(Color.green)
+                                        .background(Color.blue)
                                         .foregroundColor(.white)
                                         .clipShape(RoundedRectangle(cornerRadius: 19))
                                     
@@ -268,6 +267,7 @@ struct GameMain: View {
                 }
                 //First VSTACK
             }
+            .navigationBarBackButtonHidden()
         }
     }
     
