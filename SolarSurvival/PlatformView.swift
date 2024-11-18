@@ -14,6 +14,7 @@ struct PlatformView: View {
     @State private var platforms: [Platform] = []
     @State private var collectibles: [Collectible] = []
     @State private var stars: [CGPoint] = []
+    @State private var astronaut = "astronaut1"
     
     let groundLevel: CGFloat = 300
     let jumpStrength: CGFloat = -5
@@ -84,21 +85,32 @@ struct PlatformView: View {
                 }
                 
                 // Player
-                Rectangle()
-                    .fill(Color.red)
-                    .frame(width: 40, height: 40)
+                Image(astronaut)
+                    .resizable()
+                    .frame(width: 100, height: 100)
                     .position(gameState.playerPosition)
                 
                 // Calculate totals for each material
                 VStack {
-                            HStack(alignment: .center) {
-                                Text(itemManager.items.map { "\($0.name.capitalized): \($0.amount)" }
-                                    .joined(separator: ", "))
+                    HStack(alignment: .center) {
+                        ForEach(itemManager.items, id: \.id) { item in
+                            HStack {
+                                // Display Image (ensure the image exists in your assets)
+                                Image(item.name) // Replace `imageName` with your image property
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 50, height: 50) // Adjust the frame size as needed
+                                    .cornerRadius(8)
+                                
+                                // Display Name and Amount
+                                Text("\(item.amount)")
                                     .font(.title3)
                                     .foregroundColor(.white)
                                     .multilineTextAlignment(.center)
-                                Spacer()
                             }
+                        }
+                        Spacer()
+                    }
                             .padding()
                             
                             Spacer() // Push the rest of the content below
@@ -117,8 +129,10 @@ struct PlatformView: View {
                                 .cornerRadius(10)
                         }
                         .simultaneousGesture(DragGesture(minimumDistance: 0)
-                            .onChanged { _ in startMovingLeft() }
-                            .onEnded { _ in stopMovingLeft() })
+                            .onChanged { _ in startMovingLeft()
+                                astronaut="astronaut3" }
+                            .onEnded { _ in stopMovingLeft()
+                            astronaut="astronaut1"})
                         
                         Button(action: { }) {
                             Text("→")
@@ -128,8 +142,10 @@ struct PlatformView: View {
                                 .cornerRadius(10)
                         }
                         .simultaneousGesture(DragGesture(minimumDistance: 0)
-                            .onChanged { _ in startMovingRight() }
-                            .onEnded { _ in stopMovingRight() })
+                            .onChanged { _ in startMovingRight()
+                                astronaut="Astronaut2"}
+                            .onEnded { _ in stopMovingRight()
+                            astronaut="astronaut1"})
                         Spacer()
                         Button(action: { jump() }) {
                             Text("↑")

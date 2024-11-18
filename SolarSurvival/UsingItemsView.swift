@@ -12,65 +12,82 @@ struct UsingItemsView: View {
     @State private var pressOrder: [Int: Int] = [:]
     @State private var pressCount = 0
     @StateObject var itemManager = ItemManager()
+    @State private var goProgressView = false
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
     
     var body: some View {
-        ZStack {
-            // Background Image
-            Image("moon surface img")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-            VStack{
-                Text("Build the infrastructure using items")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                    .background(Color.black.opacity(0.7))
-                    .cornerRadius(10)
-                    .padding(.top, 60)  // Added padding to shift it down
-                HStack {
-                    // Left side: Displaying the items and their amounts
-                    VStack(alignment: .leading, spacing: 20) {
-                        ForEach(itemManager.items.prefix(4), id: \.name) { item in
-                            HStack {
-                                Text(item.name.capitalized)
-                                    .foregroundColor(.white)
-                                    .font(.title)
-                                    
-                                Text("0/\(item.amount)")
-                                    .font(.title)
-                                    .foregroundColor(.white)
-                                
-                            }
-                        }
-                    }// Set width for the left column
-                    
-                    VStack {
-                        Text("Choose 4 wisely")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                        
-                        // 2x3 Buttons Grid
-                        LazyVGrid(columns: columns, spacing: 16) {
-                            ForEach(itemManager.items.indices, id: \.self) { index in
-                                buttonWithOrder(
-                                    id: index,
-                                    title: itemManager.items[index].name.capitalized
-                                )
-                            }
-                        }
-                        .padding()
-                    }
- 
-                    .padding(.leading, 0)  // Added padding to shift text to the right
-                }
+        NavigationStack{
+            NavigationLink(destination: ProgressBuilding(), isActive: $goProgressView) {
+                EmptyView()
             }
-            .preferredColorScheme(.dark)
+            ZStack {
+                // Background Image
+                Image("moon surface img")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+                VStack{
+                    Text("Build the infrastructure using items")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .background(Color.black.opacity(0.7))
+                        .cornerRadius(10)
+                        .padding(.top, 60)  // Added padding to shift it down
+                    HStack {
+                        // Left side: Displaying the items and their amounts
+                        VStack(alignment: .leading, spacing: 20) {
+                            ForEach(itemManager.items.prefix(4), id: \.name) { item in
+                                HStack {
+                                    Image("questionmark")
+                                        .resizable()
+                                        .frame(width: 60, height: 60)
+                                    Text("0/2")
+                                        .font(.title)
+                                        .foregroundColor(.white)
+                                    
+                                }
+                            }
+                        }// Set width for the left column
+                        
+                        VStack {
+                            Text("Choose 4 wisely")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                            
+                            // 2x3 Buttons Grid
+                            LazyVGrid(columns: columns, spacing: 16) {
+                                ForEach(itemManager.items.indices, id: \.self) { index in
+                                    buttonWithOrder(
+                                        id: index,
+                                        title: itemManager.items[index].name.capitalized
+                                    )
+                                }
+                            }
+                            .padding()
+                        }
+                        
+                        .padding(.leading, 0)  // Added padding to shift text to the right
+                        VStack{
+                            Button(action: {
+                                goProgressView = true
+                            },label: {
+                                Text("Next")
+                                    .font(.title2)
+                                    .padding()
+                                    .background(Color.white)
+                                    .cornerRadius(10)
+                                    .foregroundColor(.green)
+                            })
+                        }
+                    }
+                }
+                .preferredColorScheme(.dark)
+            }
         }
     }
     
@@ -88,7 +105,7 @@ struct UsingItemsView: View {
                 ZStack {
                     Color.white
                         .cornerRadius(10)
-                        .frame(height: 80)
+                        .frame(height: 65)
                     
                     VStack {
                         Image(itemManager.items[id].name) // Ensure image assets match names
@@ -109,7 +126,7 @@ struct UsingItemsView: View {
                             .padding(4)
                             .background(Color.red)
                             .clipShape(Circle())
-                            .offset(x: 35, y: -35) // Position in top-right corner
+                            .offset(x: 110, y: -25) // Position in top-right corner
                     }
                 }
             }
