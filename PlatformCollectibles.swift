@@ -97,7 +97,15 @@ class ItemManager: ObservableObject {
     // Increment a random property of a random item
     func addRandomItemAmount() {
         guard !items.isEmpty else { return }
-        let randomIndex = Int.random(in: 0..<items.count)
-        items[randomIndex].amount += 1
+        
+        // Distribute 5 units across random items
+        var totalIncrease = 5
+        while totalIncrease > 0 {
+            let randomIndex = Int.random(in: 0..<items.count)
+            let increase = min(1, totalIncrease) // Add 1 to a random item (or the remaining total if less than 1)
+            items[randomIndex].amount += increase
+            totalIncrease -= increase
+        }
     }
+
 }

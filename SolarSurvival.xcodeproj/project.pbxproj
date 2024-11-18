@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041E5B5A2CEAEAA20077A567 /* astronaut3.png in Resources */ = {isa = PBXBuildFile; fileRef = 041E5B592CEAEAA20077A567 /* astronaut3.png */; };
 		048E9A262CD8771E00105FD3 /* SolarSurvivalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A252CD8771E00105FD3 /* SolarSurvivalApp.swift */; };
 		048E9A282CD8771E00105FD3 /* PlatformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A272CD8771E00105FD3 /* PlatformView.swift */; };
 		048E9A2A2CD8771F00105FD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048E9A292CD8771F00105FD3 /* Assets.xcassets */; };
@@ -60,6 +61,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		041E5B592CEAEAA20077A567 /* astronaut3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = astronaut3.png; sourceTree = "<group>"; };
 		048E9A222CD8771E00105FD3 /* SolarSurvival.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SolarSurvival.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		048E9A252CD8771E00105FD3 /* SolarSurvivalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarSurvivalApp.swift; sourceTree = "<group>"; };
 		048E9A272CD8771E00105FD3 /* PlatformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformView.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				D9EFF5FE2CE8448E000EDAD8 /* Rocket1.png */,
 				D9EFF5F42CE83B3C000EDAD8 /* astronaut1.png */,
 				D9EFF5F52CE83B3C000EDAD8 /* Astronaut2.png */,
+				041E5B592CEAEAA20077A567 /* astronaut3.png */,
 				D9EFF6142CEA581C000EDAD8 /* CImg1.png */,
 				D9EFF6152CEA581C000EDAD8 /* CImg2.png */,
 				D9EFF6162CEA581C000EDAD8 /* CImg3.png */,
@@ -283,6 +286,7 @@
 				D9EFF62E2CEA581C000EDAD8 /* CImg6.png in Resources */,
 				D9EFF62F2CEA581C000EDAD8 /* CImg9.png in Resources */,
 				D9EFF6302CEA581C000EDAD8 /* CImg7.png in Resources */,
+				041E5B5A2CEAEAA20077A567 /* astronaut3.png in Resources */,
 				D9EFF6312CEA581C000EDAD8 /* CImg12.png in Resources */,
 				D9EFF6322CEA581C000EDAD8 /* CImg4.png in Resources */,
 				D9EFF6332CEA581C000EDAD8 /* CImg10.png in Resources */,
