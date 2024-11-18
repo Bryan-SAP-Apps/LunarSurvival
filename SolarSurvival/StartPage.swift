@@ -3,6 +3,7 @@ import SDWebImageSwiftUI
 
 struct StartView: View {
     @State private var isNavigated = false
+    @State private var isNavigated2 = false
     @State private var isAnimated = true
     @State private var continuee = false
     @State private var start = "Start/Continue"
@@ -24,7 +25,10 @@ struct StartView: View {
                                 HStack{// Existing content of the view goes here
                                     
                                     Button(action: {
-                                        playCutscene()
+                                        NavigationLink(destination: CutsceneSlideshow(), isActive: $isNavigated2) {
+                                            EmptyView() // Use an empty view for the link
+                                        }
+                                        isNavigated2 = true
                                     }) {
                                         Text("Play Cutscene Again")
                                             .padding(.all, 10)
@@ -117,7 +121,7 @@ struct StartView: View {
             NavigationLink(destination: GameMain(), isActive: $isNavigated) {
                 EmptyView() // Use an empty view for the link
             }
-        }
+        }.navigationBarBackButtonHidden()
     }
     
     

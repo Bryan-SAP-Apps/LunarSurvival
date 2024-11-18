@@ -108,7 +108,7 @@ struct CongratView: View {
             NavigationLink(destination: StartView(playCutscene: {}), isActive: $isNavigated) {
                 EmptyView() // Use an empty view for the link
             }
-        }
+        }.navigationBarBackButtonHidden()
     }
 }
 
