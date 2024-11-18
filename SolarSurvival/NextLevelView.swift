@@ -1,6 +1,8 @@
 import SwiftUI
 struct NextLevelView: View {
-    @StateObject private var gameState = GameState()
+//    @StateObject private var gameState = GameState()
+
+    @EnvironmentObject var gameState: GameState
     @State private var isJumping = false
     @State private var gravity = CGFloat(5)
     @State private var velocity = CGFloat(0)

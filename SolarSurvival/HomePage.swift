@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GameMain: View {
     
-    @State var energyBar:Double = 0.9
+//    @Binding var energyBar:Double 
     var items = [
         Item(name: "metal", amount: 0),
         Item(name: "regolith", amount: 0),
@@ -18,6 +18,8 @@ struct GameMain: View {
         Item(name: "plastic", amount: 0),
         Item(name: "electronics", amount: 0)
     ]
+    
+    @StateObject var gameState = GameState() // this is the original
     
     var body: some View {
         NavigationStack{
@@ -51,7 +53,7 @@ struct GameMain: View {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
-                                            Text("\(itemManager.items[2].amount)")
+                                            Text("\(items[2].amount)")
                                                 .font(.system(size: 10))
                                         }
                                         .frame(width:50)
@@ -63,11 +65,11 @@ struct GameMain: View {
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
                                             .frame(width: 60, height: 40)
                                         HStack{
-                                            Image("metal")
+                                            Image("Metal")
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
-                                            Text("\(itemManager.items[0].amount)")
+                                            Text("\(items[0].amount)")
                                                 .font(.system(size: 10))
                                         }
                                         .frame(width:50)
@@ -82,7 +84,7 @@ struct GameMain: View {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
-                                            Text("\(itemManager.items[4].amount)")
+                                            Text("\(items[4].amount)")
                                                 .font(.system(size: 10))
                                         }
                                         .frame(width:50)
@@ -97,7 +99,7 @@ struct GameMain: View {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
-                                            Text("\(itemManager.items[3].amount)")
+                                            Text("\(items[3].amount)")
                                                 .font(.system(size: 10))
                                         }
                                         .frame(width:50)
@@ -112,7 +114,7 @@ struct GameMain: View {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
-                                            Text("\(itemManager.items[1].amount)")
+                                            Text("\(items[1].amount)")
                                                 .font(.system(size: 10))
                                         }
                                         .frame(width:50)
@@ -127,7 +129,7 @@ struct GameMain: View {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
-                                            Text("\(itemManager.items[5].amount)")
+                                            Text("\(items[5].amount)")
                                                 .font(.system(size: 10))
                                         }
                                         .frame(width:50)
@@ -163,7 +165,7 @@ struct GameMain: View {
                                         .clipShape(RoundedRectangle(cornerRadius: 14))
                                     Rectangle()
                                         .fill(Color(.yellow))
-                                        .frame(width: energyBar*200, height: 34)
+                                        .frame(width: gameState.energyBar*200, height: 34)
                                         .clipShape(RoundedRectangle(cornerRadius: 14))
                                 }
                                 Spacer()
@@ -269,6 +271,7 @@ struct GameMain: View {
                 //First VSTACK
             }
         }
+        .environmentObject(gameState)
     }
     
 }
