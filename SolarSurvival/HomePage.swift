@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct GameMain: View {
-    
-//    @Binding var energyBar:Double 
+    @State private var itemManager = ItemManager()
+    @State var energyBar:Double = 0.9
     var items = [
         Item(name: "metal", amount: 0),
         Item(name: "regolith", amount: 0),
