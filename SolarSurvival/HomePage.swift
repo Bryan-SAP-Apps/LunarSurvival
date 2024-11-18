@@ -51,7 +51,7 @@ struct GameMain: View {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
-                                            Text("\(items[2].amount)")
+                                            Text("\(itemManager.items[2].amount)")
                                                 .font(.system(size: 10))
                                         }
                                         .frame(width:50)
@@ -67,7 +67,7 @@ struct GameMain: View {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
-                                            Text("\(items[0].amount)")
+                                            Text("\(itemManager.items[0].amount)")
                                                 .font(.system(size: 10))
                                         }
                                         .frame(width:50)
@@ -82,7 +82,7 @@ struct GameMain: View {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
-                                            Text("\(items[4].amount)")
+                                            Text("\(itemManager.items[4].amount)")
                                                 .font(.system(size: 10))
                                         }
                                         .frame(width:50)
@@ -97,7 +97,7 @@ struct GameMain: View {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
-                                            Text("\(items[3].amount)")
+                                            Text("\(itemManager.items[3].amount)")
                                                 .font(.system(size: 10))
                                         }
                                         .frame(width:50)
@@ -112,7 +112,7 @@ struct GameMain: View {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
-                                            Text("\(items[2].amount)")
+                                            Text("\(itemManager.items[1].amount)")
                                                 .font(.system(size: 10))
                                         }
                                         .frame(width:50)
@@ -127,7 +127,7 @@ struct GameMain: View {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
-                                            Text("\(items[5].amount)")
+                                            Text("\(itemManager.items[5].amount)")
                                                 .font(.system(size: 10))
                                         }
                                         .frame(width:50)
@@ -149,7 +149,7 @@ struct GameMain: View {
                         ZStack{
                             
                             Rectangle()
-                                .fill(Color(white: 0.7))
+                                .fill(Color(white: 0.6))
                                 .clipShape(RoundedRectangle(cornerRadius: 19))
                                 .frame(width: 250, height: 50)
                             HStack{
@@ -270,6 +270,7 @@ struct GameMain: View {
             }
         }
     }
+    
 }
 
 #Preview {

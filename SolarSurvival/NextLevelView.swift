@@ -15,6 +15,7 @@ struct NextLevelView: View {
     @State private var collectibles: [Collectible] = []
     @State private var stars: [CGPoint] = []
     @State private var astronaut = "astronaut1"
+    @State private var metalItem = 0
     
     let groundLevel: CGFloat = 300
     let jumpStrength: CGFloat = -5
@@ -74,6 +75,10 @@ struct NextLevelView: View {
                         .fill(Color.gray)
                         .frame(width: platforms[index].size.width, height: platforms[index].size.height)
                         .position(platforms[index].position)
+//                        .rotation3DEffect(
+//                            .degrees(45),
+//                            axis: (x: 1.0, y: 0.0, z: 0.0)
+//                        )
                 }
                 
                 // Collectibles (Coins)
@@ -363,5 +368,5 @@ struct NextLevelView: View {
     
 }
 #Preview {
-    NextLevelView()
+    PlatformView()
 }

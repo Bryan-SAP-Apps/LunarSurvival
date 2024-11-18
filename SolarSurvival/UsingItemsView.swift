@@ -13,12 +13,40 @@ struct UsingItemsView: View {
     @State private var pressCount = 0
     @StateObject var itemManager = ItemManager()
     @State private var goProgressView = false
+    @State private var neededMetal = 15
+    @State private var neededPlastic = 10
+    @State private var neededInsulating = 20
+    @State private var neededElectronics = 3
+    @State private var metalItem = 0
+    @State private var showAlert = false
+    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    
+    @State private var items = [
+        Item(name: "metal", amount: 0),
+        Item(name: "regolith", amount: 0),
+        Item(name: "glass", amount: 0),
+        Item(name: "rubber", amount: 0),
+        Item(name: "plastic", amount: 0),
+        Item(name: "electronics", amount: 0)
+    ]
+    init() {
+            // Ensure large titles are enabled and custom font size is set
+            UINavigationBar.appearance().prefersLargeTitles = true
+
+            let titleTextAttributes: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.white,
+                .font: UIFont.boldSystemFont(ofSize: 40) // Adjust font size
+            ]
+            
+            UINavigationBar.appearance().largeTitleTextAttributes = titleTextAttributes
+        }
+
+
     var body: some View {
+        
         NavigationStack{
             NavigationLink(destination: ProgressBuilding(), isActive: $goProgressView) {
                 EmptyView()
@@ -30,27 +58,53 @@ struct UsingItemsView: View {
                     .scaledToFill()
                     .ignoresSafeArea()
                 VStack{
-                    Text("Build the infrastructure using items")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                        .background(Color.black.opacity(0.7))
-                        .cornerRadius(10)
-                        .padding(.top, 60)  // Added padding to shift it down
+//                    Text("Build the infrastructure using items")
+//                        .font(.largeTitle)
+//                        .fontWeight(.bold)
+//                        .foregroundColor(.white)
+//                        .multilineTextAlignment(.center)
+//                        .background(Color.black.opacity(0.7))
+//                        .cornerRadius(10)
+//                        .padding(.top, 60)  // Added padding to shift it down
                     HStack {
                         // Left side: Displaying the items and their amounts
                         VStack(alignment: .leading, spacing: 20) {
-                            ForEach(itemManager.items.prefix(4), id: \.name) { item in
                                 HStack {
                                     Image("questionmark")
                                         .resizable()
                                         .frame(width: 60, height: 60)
-                                    Text("0/2")
+                                    Text(
+                                    "0/\(neededMetal)")
                                         .font(.title)
                                         .foregroundColor(.white)
                                     
                                 }
+                            HStack {
+                                Image("questionmark")
+                                    .resizable()
+                                    .frame(width: 60, height: 60)
+                                Text("0/\(neededPlastic)")
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                                
+                            }
+                            HStack {
+                                Image("questionmark")
+                                    .resizable()
+                                    .frame(width: 60, height: 60)
+                                Text("0/\(neededInsulating)")
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                                
+                            }
+                            HStack {
+                                Image("questionmark")
+                                    .resizable()
+                                    .frame(width: 60, height: 60)
+                                Text("0/\(neededElectronics)")
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                                
                             }
                         }// Set width for the left column
                         
@@ -74,7 +128,25 @@ struct UsingItemsView: View {
                         .padding(.leading, 0)  // Added padding to shift text to the right
                         VStack{
                             Button(action: {
-                                goProgressView = true
+                                
+                                if let metal = items.firstIndex(where: { $0.name == "metal" }),
+                                   let plastic = items.firstIndex(where: { $0.name == "plastic" }),
+                                   let electronics = items.firstIndex(where: { $0.name == "electronics" }),
+                                   let regolith = items.firstIndex(where: { $0.name == "regolith" })
+                                                                {
+                                    items[metal].amount -= neededMetal
+                                    items[plastic].amount -= neededMetal
+                                    items[electronics].amount -= neededMetal
+                                    items[regolith].amount -= neededMetal
+                                    if items[metal].amount < 0{
+                                        showAlert = true
+                                    }else{
+                                        goProgressView = true
+                                    }
+                                }
+                                
+                                
+                                
                             },label: {
                                 Text("Next")
                                     .font(.title2)
@@ -83,6 +155,13 @@ struct UsingItemsView: View {
                                     .cornerRadius(10)
                                     .foregroundColor(.green)
                             })
+                            .alert(isPresented:$showAlert){
+                            Alert (
+                            title:Text("Something went wrong"),
+                            message:Text("Not enough resources"),
+                            dismissButton:. default(Text("done"))
+                            )
+                            }
                         }
                     }
                 }
@@ -95,6 +174,7 @@ struct UsingItemsView: View {
         func buttonWithOrder(id: Int, title: String) -> some View {
             Button(action: {
                 // Allow pressing only if less than 4 buttons have been pressed
+                
                 if pressCount < 4 && pressOrder[id] == nil {
                     pressCount += 1
                     pressOrder[id] = pressCount
@@ -131,6 +211,8 @@ struct UsingItemsView: View {
                 }
             }
         .disabled(pressOrder[id] != nil || pressCount >= 4) // Disable button after it is clicked
+        .navigationTitle("Build the infrastructure using items")
+        .navigationBarTitleDisplayMode(.large)
     }
 }
 

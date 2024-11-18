@@ -76,6 +76,10 @@ struct PlatformView: View {
                         .fill(Color.gray)
                         .frame(width: platforms[index].size.width, height: platforms[index].size.height)
                         .position(platforms[index].position)
+//                        .rotation3DEffect(
+//                            .degrees(45),
+//                            axis: (x: 1.0, y: 0.0, z: 0.0)
+//                        )
                 }
                 
                 // Collectibles (Coins)
