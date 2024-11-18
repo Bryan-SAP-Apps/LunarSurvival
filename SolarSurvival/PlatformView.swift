@@ -15,7 +15,8 @@ struct PlatformView: View {
     @State private var collectibles: [Collectible] = []
     @State private var stars: [CGPoint] = []
     @State private var astronaut = "astronaut1"
-    @State private var metalItem = 0
+    @State private var timer = false
+    @State var energyBar: Double = 0
     
     let groundLevel: CGFloat = 300
     let jumpStrength: CGFloat = -5
@@ -160,15 +161,24 @@ struct PlatformView: View {
                                 .cornerRadius(10)
                         }
                     }.padding()
+                    
                 }
             }
             .onAppear {
                 startGameLoop()
+                timer = true
+                if timer == true {
+                    energyBar -= 0.1
+                } else {
+                    energyBar += 0
+                }
+                
             }
             .onDisappear {
                 stopGameLoop()  // Stop the game loop when the view is no longer active
                 stopMovingLeft()  // Optionally stop any movement
                 stopMovingRight()  // Optionally stop any movement
+                timer = false
             }
             
         }.navigationBarBackButtonHidden(true)
@@ -194,6 +204,7 @@ struct PlatformView: View {
         }
     }
     
+   
     
     
     func generateStars() {

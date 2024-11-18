@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct GameMain: View {
-    @StateObject var itemManager = ItemManager()
+    
+    @State var energyBar:Double = 0.9
     var items = [
         Item(name: "metal", amount: 0),
         Item(name: "regolith", amount: 0),
@@ -89,8 +90,8 @@ struct GameMain: View {
                                     ZStack{
                                         Rectangle()
                                             .fill(Color(white: 0.8))
-                                                .clipShape(RoundedRectangle(cornerRadius: 15))
-                                                .frame(width: 60, height: 40)
+                                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                                            .frame(width: 60, height: 40)
                                         HStack{
                                             Image("rubber")
                                                 .resizable()
@@ -146,10 +147,107 @@ struct GameMain: View {
                         Spacer()
                         
                         ZStack{
+                            
                             Rectangle()
                                 .fill(Color(white: 0.6))
                                 .clipShape(RoundedRectangle(cornerRadius: 19))
-                                .frame(width: 490, height: 50)
+                                .frame(width: 250, height: 50)
+                            HStack{
+                                Spacer()
+                                Image(systemName: "bolt.fill")
+                                Spacer()
+                                ZStack(alignment: .trailing) {
+                                    Rectangle()
+                                        .fill(Color(.white))
+                                        .frame(width: 200, height: 34)
+                                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                                    Rectangle()
+                                        .fill(Color(.yellow))
+                                        .frame(width: energyBar*200, height: 34)
+                                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                                }
+                                Spacer()
+                                
+                            }
+                        }
+                        
+                        
+                        
+                        
+                    }
+                    //Squares
+                    VStack{
+                        
+                        HStack{
+                            ZStack{
+                                Rectangle()
+                                    .fill(Color(white: 0.7))
+                                    .clipShape(RoundedRectangle(cornerRadius: 21.6))
+                                    .frame(width: 100, height: 100)
+                            }
+                            ZStack{
+                                Rectangle()
+                                    .fill(Color(white: 0.7))
+                                    .clipShape(RoundedRectangle(cornerRadius: 21.6))
+                                    .frame(width: 100, height: 100)
+                                    
+                                
+                            }
+                        }
+                        HStack{
+                            ZStack{
+                                Rectangle()
+                                    .fill(Color(white: 0.7))
+                                    .clipShape(RoundedRectangle(cornerRadius: 21.6))
+                                    .frame(width: 100, height: 100)
+                            }
+                            ZStack{
+                                Rectangle()
+                                    .fill(Color(white: 0.7))
+                                    .clipShape(RoundedRectangle(cornerRadius: 21.6))
+                                    .frame(width: 100, height: 100)
+                            }
+                            
+                        }
+                    }
+                    //end of squares
+                    
+                    
+                    
+                    HStack{
+                        ZStack{
+                            Rectangle()
+                                .fill(Color(white: 0.7))
+                                .clipShape(RoundedRectangle(cornerRadius: 21.6))
+                                .frame(width: 500, height: 70)
+                            HStack{
+                                NavigationLink(destination: PlatformView()) {
+                                    Text("Scavenge")
+                                        .frame(width:150, height: 30)
+                                        .font(.title)
+                                        .bold()
+                                        .padding()
+                                        .background(Color.green)
+                                        .foregroundColor(.white)
+                                        .clipShape(RoundedRectangle(cornerRadius: 19))
+                                    
+                                }
+                                NavigationLink(destination: InfrastructureBuildingChoices()) {
+                                    Text("Build")
+                                        .frame(width:150, height: 30)
+                                        .font(.title)
+                                        .bold()
+                                        .padding()
+                                        .background(Color.blue)
+                                        .foregroundColor(.white)
+                                        .clipShape(RoundedRectangle(cornerRadius: 19))
+                                    
+                                }
+                                
+                            }
+                        }
+                        NavigationLink(destination: CongratView()) {
+                            Text("End Day")
                                 .padding(.trailing, 30)
                                 .padding(.leading, 30)
                                 .padding(.top, 10)
