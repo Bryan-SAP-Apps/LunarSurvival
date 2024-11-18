@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GameMain: View {
     
+    @State var energyBar:Double = 0.9
     var items = [
         Item(name: "metal", amount: 0),
         Item(name: "regolith", amount: 0),
@@ -89,8 +90,8 @@ struct GameMain: View {
                                     ZStack{
                                         Rectangle()
                                             .fill(Color(white: 0.8))
-                                                .clipShape(RoundedRectangle(cornerRadius: 15))
-                                                .frame(width: 60, height: 40)
+                                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                                            .frame(width: 60, height: 40)
                                         HStack{
                                             Image("rubber")
                                                 .resizable()
@@ -146,20 +147,27 @@ struct GameMain: View {
                         Spacer()
                         
                         ZStack{
+                            
                             Rectangle()
                                 .fill(Color(white: 0.7))
                                 .clipShape(RoundedRectangle(cornerRadius: 19))
                                 .frame(width: 250, height: 50)
                             HStack{
-                                ZStack{
+                                Spacer()
+                                Image(systemName: "bolt.fill")
+                                Spacer()
+                                ZStack(alignment: .trailing) {
                                     Rectangle()
                                         .fill(Color(.white))
-                                        .frame(width: 150, height: 34)
+                                        .frame(width: 200, height: 34)
                                         .clipShape(RoundedRectangle(cornerRadius: 14))
-                                    
-                                    
-                                    
+                                    Rectangle()
+                                        .fill(Color(.yellow))
+                                        .frame(width: energyBar*200, height: 34)
+                                        .clipShape(RoundedRectangle(cornerRadius: 14))
                                 }
+                                Spacer()
+                                
                             }
                         }
                         
@@ -182,6 +190,7 @@ struct GameMain: View {
                                     .fill(Color(white: 0.7))
                                     .clipShape(RoundedRectangle(cornerRadius: 21.6))
                                     .frame(width: 100, height: 100)
+                                    
                                 
                             }
                         }
@@ -229,12 +238,12 @@ struct GameMain: View {
                                         .font(.title)
                                         .bold()
                                         .padding()
-                                        .background(Color.green)
+                                        .background(Color.blue)
                                         .foregroundColor(.white)
                                         .clipShape(RoundedRectangle(cornerRadius: 19))
                                     
                                 }
-
+                                
                             }
                         }
                         NavigationLink(destination: CongratView()) {
