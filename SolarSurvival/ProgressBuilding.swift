@@ -170,7 +170,7 @@ struct ProgressBuilding: View {
             timer?.invalidate() // Stop the timer when the view disappears
         }
         
-    }
+    }.navigationBarBackButtonHidden()
     
 }
     
