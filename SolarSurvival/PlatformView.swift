@@ -1,6 +1,7 @@
 import SwiftUI
 struct PlatformView: View {
-    @StateObject private var gameState = GameState()
+//    @StateObject private var gameState = GameState()
+    @EnvironmentObject var gameState: GameState
     @State private var isJumping = false
     @State private var gravity = CGFloat(5)
     @State private var velocity = CGFloat(0)
@@ -16,7 +17,7 @@ struct PlatformView: View {
     @State private var stars: [CGPoint] = []
     @State private var astronaut = "astronaut1"
     @State private var timer = false
-    @State var energyBar: Double = 0
+//    @Binding var energyBar: Double 
     
     let groundLevel: CGFloat = 300
     let jumpStrength: CGFloat = -5
@@ -168,9 +169,9 @@ struct PlatformView: View {
                 startGameLoop()
                 timer = true
                 if timer == true {
-                    energyBar -= 0.1
+                    gameState.energyBar -= 0.1
                 } else {
-                    energyBar += 0
+                    gameState.energyBar += 0
                 }
                 
             }
@@ -181,7 +182,12 @@ struct PlatformView: View {
                 timer = false
             }
             
-        }/*.navigationBarBackButtonHidden(true)*/
+        }
+        .navigationBarBackButtonHidden(true)
+        .onReceive(Timer.publish(every: 1, on: .main, in: .default).autoconnect()) { _ in
+            gameState.energyBar -= 0.1
+            print(gameState.energyBar)
+        }
     }
     
     func generatePlatforms() {
