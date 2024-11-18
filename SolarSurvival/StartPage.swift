@@ -74,7 +74,7 @@ struct StartView: View {
                                 }
                                 
                                 Button(action: {
-                                    isNavigated = true // Set the state to true to navigate
+//                                    isNavigated = true // Set the state to true to navigate
                                     if (continuee == false){
                                         start = "Start"
                                     } else {

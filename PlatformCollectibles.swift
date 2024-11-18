@@ -14,7 +14,7 @@ class GameState: ObservableObject {
     @Published var playerPosition = CGPoint(x: 200, y: 300)
     @Published var currentLevel: Int = 1 // Track which level/view is active
     @Published var savedPositions: [Int: CGPoint] = [:]
-    @Published var energyBar: Double = 0.9
+    @Published var energyBar: Int = 9
 }
 
 // Platform

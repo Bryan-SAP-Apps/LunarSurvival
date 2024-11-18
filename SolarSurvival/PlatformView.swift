@@ -169,7 +169,7 @@ struct PlatformView: View {
                 startGameLoop()
                 timer = true
                 if timer == true {
-                    gameState.energyBar -= 0.1
+                    gameState.energyBar -= 1
                 } else {
                     gameState.energyBar += 0
                 }
@@ -185,7 +185,7 @@ struct PlatformView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onReceive(Timer.publish(every: 1, on: .main, in: .default).autoconnect()) { _ in
-            gameState.energyBar -= 0.1
+            gameState.energyBar -= 1
             print(gameState.energyBar)
         }
     }

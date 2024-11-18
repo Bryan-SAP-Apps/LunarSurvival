@@ -49,7 +49,7 @@ struct GameMain: View {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
-                                            Text("\(items[2].amount)")
+                                            Text("\(itemManager.items[2].amount)")
                                                 .font(.system(size: 10))
                                         }
                                         .frame(width:50)
@@ -61,11 +61,11 @@ struct GameMain: View {
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
                                             .frame(width: 60, height: 40)
                                         HStack{
-                                            Image("Metal")
+                                            Image("metal")
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
-                                            Text("\(items[0].amount)")
+                                            Text("\(itemManager.items[0].amount)")
                                                 .font(.system(size: 10))
                                         }
                                         .frame(width:50)
@@ -80,7 +80,7 @@ struct GameMain: View {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
-                                            Text("\(items[4].amount)")
+                                            Text("\(itemManager.items[4].amount)")
                                                 .font(.system(size: 10))
                                         }
                                         .frame(width:50)
@@ -109,8 +109,8 @@ struct GameMain: View {
                                             Image("regolith")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 30, height: 40)
-                                            Text("\(items[1].amount)")
+                                                .frame(width: 28, height: 40)
+                                            Text("\(itemManager.items[1].amount)")
                                                 .font(.system(size: 10))
                                         }
                                         .frame(width:50)
@@ -125,7 +125,7 @@ struct GameMain: View {
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 40)
-                                            Text("\(items[5].amount)")
+                                            Text("\(itemManager.items[5].amount)")
                                                 .font(.system(size: 10))
                                         }
                                         .frame(width:50)
@@ -161,7 +161,7 @@ struct GameMain: View {
                                         .clipShape(RoundedRectangle(cornerRadius: 14))
                                     Rectangle()
                                         .fill(Color(.yellow))
-                                        .frame(width: gameState.energyBar*200, height: 34)
+                                        .frame(width: CGFloat(gameState.energyBar)*20, height: 34)
                                         .clipShape(RoundedRectangle(cornerRadius: 14))
                                 }
                                 Spacer()
