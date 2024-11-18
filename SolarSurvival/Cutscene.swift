@@ -14,8 +14,11 @@ struct CutsceneSlideshow: View {
     @State private var cutsceneTimes = 0
     @AppStorage("hasSeenCutscene") private var hasSeenCutscene = false // Persistent flag
 
-    let images = ["CImg1", "CImg2", "CImg3", "CImg4", "CImg5", "CImg6", "CImg7", "CImg8", "CImg9", "CImg10", "CImg11", "CImg12", "CImg13", "CImg14", "CImg15", "CImg16"] // Replace with your image names
+    let images = ["CImg-1","CImg0","CImg0_5","CImg1", "CImg2", "CImg3", "CImg4", "CImg5", "CImg6", "CImg7", "CImg8", "CImg9", "CImg10", "CImg11", "CImg12", "CImg13", "CImg14", "CImg15", "CImg16"] // Replace with your image names
     let durations: [ClosedRange<Double>] = [
+        0.5...1.0, //start
+        1.5...2.5, //title
+        1.0...2.0, //oneday
         0.5...1.0, //1
         0.5...1.0, //2
         0.5...1.0, //3
