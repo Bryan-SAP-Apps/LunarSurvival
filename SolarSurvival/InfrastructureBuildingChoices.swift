@@ -10,9 +10,13 @@ import SwiftUI
 
 struct InfrastructureBuildingChoices: View {
     @State private var basicshelter = false
+    @State private var waterfilter = false
     var body: some View {
         NavigationStack{
-            NavigationLink(destination: UsingItemsView(), isActive: $basicshelter) {
+            NavigationLink(destination: BasicShelterView(), isActive: $basicshelter) {
+                EmptyView()
+            }
+            NavigationLink(destination: WaterFilterView(), isActive: $waterfilter) {
                 EmptyView()
             }
            
@@ -55,13 +59,23 @@ struct InfrastructureBuildingChoices: View {
                                 }
                             }
                             
-                            Button(action: {}) {
-                                Text("Choice 2")
-                                    .fontWeight(.medium)
-                                    .foregroundColor(.black)
-                                    .frame(maxWidth: .infinity, maxHeight: 60)
-                                    .background(Color.white)
-                                    .cornerRadius(10)
+                            Button(action: {
+                                waterfilter = true
+                            }) {
+                                ZStack {
+                                    Color.white // Background color
+                                        .cornerRadius(10)
+                                        .frame(maxHeight: 60)
+                                    
+                                    HStack {
+                                        Image("waterfilter")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)// Adjust size as needed
+                                        Text("Water Filter")
+                                            .fontWeight(.medium)
+                                            .foregroundColor(.black)
+                                    }
+                                }
                             }
                         }
                         

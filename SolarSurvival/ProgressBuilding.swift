@@ -8,8 +8,8 @@ struct ProgressBuilding: View {
     @State private var pressFromRight = false
     @State private var timeRemaining = 10.0 // Placeholder for the timer
     @State private var isTimerRunning = true
-    @AppStorage("E")var buildFinished = false
-    @AppStorage("E")var building = ""
+//    @AppStorage("E")var buildFinished = false
+//    @AppStorage("E")var building = ""
     @State private var showTooSlowPopup = false
     @State private var showSuccessPopup = false
     @State private var retryCount = 0
@@ -97,7 +97,7 @@ struct ProgressBuilding: View {
                     }
                     .padding(.bottom, 20)
                     Button(action: {
-                        building = "basicshelter"
+//                        building = "basicshelter"
                         goHome = true
                     }, label: {
                         Text("Done")

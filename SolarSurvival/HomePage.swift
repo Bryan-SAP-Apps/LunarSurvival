@@ -11,6 +11,8 @@ struct GameMain: View {
     @State private var itemManager = ItemManager()
     @State var energyBar:Double = 0.9
     @AppStorage("E")var building = ""
+    @State private var showAlert = false
+    @AppStorage("day") var day = 0
 
     var items = [
         Item(name: "metal", amount: 0),
@@ -64,7 +66,7 @@ struct GameMain: View {
                                             Image("metal")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 30, height: 40)
+                                                .frame(width: 26, height: 40)
                                             Text("\(itemManager.items[0].amount)")
                                                 .font(.system(size: 10))
                                         }
@@ -79,7 +81,7 @@ struct GameMain: View {
                                             Image("plastic")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 30, height: 40)
+                                                .frame(width: 24, height: 40)
                                             Text("\(itemManager.items[4].amount)")
                                                 .font(.system(size: 10))
                                         }
@@ -244,22 +246,51 @@ struct GameMain: View {
                                         .clipShape(RoundedRectangle(cornerRadius: 19))
                                     
                                 }
+                                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                                    Text("Eat")
+                                        .frame(width:150, height: 30)
+                                        .font(.title)
+                                        .bold()
+                                        .padding()
+                                        .background(Color.blue)
+                                        .foregroundColor(.white)
+                                        .clipShape(RoundedRectangle(cornerRadius: 19))
+                                })
                                 
                             }
-                        }
-                        NavigationLink(destination: CongratView()) {
-                            Text("End Day")
-                                .padding(.trailing, 30)
-                                .padding(.leading, 30)
-                                .padding(.top, 10)
-                                .padding(.bottom, 10)
-                                .font(.title)
-                                .bold()
-                                .padding()
-                                .background(Color.green)
-                                .foregroundColor(.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 19))
+                            }
                             
+                                
+//                        NavigationLink(destination: CongratView()) {
+//                            Text("End Day")
+//                                .frame(width:150,height: 50)
+//                                .font(.title)
+//                                .bold()
+//                                .padding()
+//                                .background(Color.green)
+//                                .foregroundColor(.white)
+//                                .clipShape(RoundedRectangle(cornerRadius: 19))
+//                            
+//                        }
+                        Button(action: {
+                            showAlert = true
+                            day = 1
+                        }, label: {
+                            Text("End Day")
+                                     Text("End Day")                      .frame(width:150,height: 50)
+                                                           .font(.title)
+                                                           .bold()
+                                                           .padding()
+                                                           .background(Color.green)
+                                                           .foregroundColor(.white)
+                                                           .clipShape(RoundedRectangle(cornerRadius: 19))
+                        })
+                        .alert(isPresented:$showAlert){
+                        Alert (
+                        title:Text("Something went wrong"),
+                        message:Text("Not enough resources"),
+                        dismissButton:. default(Text("done"))
+                        )
                         }
                         
                     }

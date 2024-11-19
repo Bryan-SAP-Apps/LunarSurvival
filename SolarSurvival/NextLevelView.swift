@@ -345,14 +345,10 @@ struct NextLevelView: View {
                 
                 collectibles.remove(at: index)
                 
-                // Print details before calling the incrementRandomProperty function
-                print("Before incrementRandomProperty: ") // Replace 'someProperty' with an actual property
-                
+        
                 // Call incrementRandomProperty() method
                 itemManager.addRandomItemAmount()
                 
-                // Print details after calling the incrementRandomProperty function
-                print("After incrementRandomProperty") // Replace 'someProperty' with an actual property
                 
                 break
             }

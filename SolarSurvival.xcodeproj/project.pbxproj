@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0463CB3E2CEB49C60074CA9B /* WaterFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463CB3D2CEB49C60074CA9B /* WaterFilterView.swift */; };
 		048E9A262CD8771E00105FD3 /* SolarSurvivalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A252CD8771E00105FD3 /* SolarSurvivalApp.swift */; };
 		048E9A282CD8771E00105FD3 /* PlatformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A272CD8771E00105FD3 /* PlatformView.swift */; };
 		048E9A2A2CD8771F00105FD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048E9A292CD8771F00105FD3 /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0463CB3D2CEB49C60074CA9B /* WaterFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterFilterView.swift; sourceTree = "<group>"; };
 		048E9A222CD8771E00105FD3 /* SolarSurvival.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SolarSurvival.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		048E9A252CD8771E00105FD3 /* SolarSurvivalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarSurvivalApp.swift; sourceTree = "<group>"; };
 		048E9A272CD8771E00105FD3 /* PlatformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformView.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 			children = (
 				59BADA6C2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift */,
 				048E9A7F2CE88B3900105FD3 /* UsingItemsView.swift */,
+				0463CB3D2CEB49C60074CA9B /* WaterFilterView.swift */,
 				59BAA8002CE83D0F0023EA90 /* NextLevelView.swift */,
 				D96186DA2CE593D00088C94B /* StartPage.swift */,
 				048E9A492CE835FE00105FD3 /* HomePage.swift */,
@@ -201,6 +204,7 @@
 				048E9A382CDDA78500105FD3 /* PlatformCollectibles.swift in Sources */,
 				048E9A802CE88B3900105FD3 /* UsingItemsView.swift in Sources */,
 				D96186DB2CE593D00088C94B /* StartPage.swift in Sources */,
+				0463CB3E2CEB49C60074CA9B /* WaterFilterView.swift in Sources */,
 				D96186E72CE779B50088C94B /* CongratView.swift in Sources */,
 				048E9A4A2CE835FE00105FD3 /* HomePage.swift in Sources */,
 				D9EFF6132CEA51FA000EDAD8 /* Cutscene.swift in Sources */,

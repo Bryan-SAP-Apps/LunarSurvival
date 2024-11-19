@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct UsingItemsView: View {
+struct BasicShelterView: View {
     @State private var pressOrder: [Int: Int] = [:]
     @State private var pressCount = 0
     @StateObject var itemManager = ItemManager()
@@ -137,7 +137,7 @@ struct UsingItemsView: View {
                                     itemManager.items[0].amount -= neededMetal
                                     itemManager.items[4].amount -= neededPlastic
                                     itemManager.items[5].amount -= neededElectronics
-                                    itemManager.items[5].amount -= neededInsulating
+                                    itemManager.items[1].amount -= neededInsulating
                                     print(items[metal].amount)
                                     if items[metal].amount < 0{
                                         showAlert = true
@@ -218,5 +218,5 @@ struct UsingItemsView: View {
 }
 
 #Preview {
-    UsingItemsView()
+    BasicShelterView()
 }
