@@ -9,17 +9,23 @@
 import SwiftUI
 
 struct BasicShelterView: View {
+    @EnvironmentObject var gameState: GameState
     @State private var pressOrder: [Int: Int] = [:]
     @State private var pressCount = 0
-    @StateObject var itemManager = ItemManager()
+    
     @State private var goProgressView = false
-    @State private var neededMetal = 2//15
-    @State private var neededPlastic = 2//10
-    @State private var neededInsulating = 2//20
-    @State private var neededElectronics = 2//3
+    @State private var neededMetal = 15//15
+    @State private var neededPlastic = 10//10
+    @State private var neededInsulating = 20//20
+    @State private var neededElectronics = 3//3
     @State private var metalItem = 0
     @State private var showAlert = false
+    @State private var goodStructure = false
+    @State private var clickedButtonIDs: [String] = [] // Stores IDs of clicked buttons
     
+    @StateObject private var itemManager = ItemManager()
+
+ 
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -35,7 +41,7 @@ struct BasicShelterView: View {
     init() {
             // Ensure large titles are enabled and custom font size is set
             UINavigationBar.appearance().prefersLargeTitles = true
-
+            
             let titleTextAttributes: [NSAttributedString.Key: Any] = [
                 .foregroundColor: UIColor.white,
                 .font: UIFont.boldSystemFont(ofSize: 40) // Adjust font size
@@ -77,6 +83,7 @@ struct BasicShelterView: View {
                                     "0/\(neededMetal)")
                                         .font(.title)
                                         .foregroundColor(.white)
+                                        .monospaced()
                                     
                                 }
                             HStack {
@@ -86,6 +93,7 @@ struct BasicShelterView: View {
                                 Text("0/\(neededPlastic)")
                                     .font(.title)
                                     .foregroundColor(.white)
+                                    .monospaced()
                                 
                             }
                             HStack {
@@ -95,6 +103,7 @@ struct BasicShelterView: View {
                                 Text("0/\(neededInsulating)")
                                     .font(.title)
                                     .foregroundColor(.white)
+                                    .monospaced()
                                 
                             }
                             HStack {
@@ -104,6 +113,7 @@ struct BasicShelterView: View {
                                 Text("0/\(neededElectronics)")
                                     .font(.title)
                                     .foregroundColor(.white)
+                                    .monospaced()
                                 
                             }
                         }// Set width for the left column
@@ -128,23 +138,25 @@ struct BasicShelterView: View {
                         .padding(.leading, 0)  // Added padding to shift text to the right
                         VStack{
                             Button(action: {
-                                
-                                if let metal = items.firstIndex(where: { $0.name == "metal" }),
-                                   let plastic = items.firstIndex(where: { $0.name == "plastic" }),
-                                   let electronics = items.firstIndex(where: { $0.name == "electronics" }),
-                                   let regolith = items.firstIndex(where: { $0.name == "regolith" })
-                                                                {
-                                    itemManager.items[0].amount -= neededMetal
-                                    itemManager.items[4].amount -= neededPlastic
-                                    itemManager.items[5].amount -= neededElectronics
-                                    itemManager.items[1].amount -= neededInsulating
-                                    print(items[metal].amount)
-                                    if items[metal].amount < 0{
-                                        showAlert = true
-                                    }else{
+                                    if itemManager.items[0].amount >= neededMetal && itemManager.items[4].amount >= neededPlastic &&
+                                        itemManager.items[5].amount >= neededElectronics &&
+                                        itemManager.items[1].amount >= neededInsulating {
+                                        
+                                        itemManager.items[0].amount -= neededMetal
+                                        itemManager.items[4].amount -= neededPlastic
+                                        itemManager.items[5].amount -= neededElectronics
+                                        itemManager.items[1].amount -= neededInsulating
                                         goProgressView = true
+                                    } else{
+                                        showAlert = true
                                     }
-                                }
+                                    
+//                                    print(items[metal].amount)
+//                                    if items[metal].amount < 0{
+//                                        showAlert = true
+//                                    }else{
+//                                        
+//                                    }
                                 
                                 
                                 
@@ -163,6 +175,11 @@ struct BasicShelterView: View {
                             dismissButton:. default(Text("done"))
                             )
                             }
+                            Button(action: {
+                                print(clickedButtonIDs)
+                            }, label: {
+                                Text("Button")
+                            })
                         }
                     }
                 }
@@ -180,7 +197,7 @@ struct BasicShelterView: View {
                     pressCount += 1
                     pressOrder[id] = pressCount
                     // Increment item amount when selected
-                    itemManager.items[id].amount += 1
+                    clickedButtonIDs.append(title)
                 }
             }) {
                 ZStack {
@@ -193,9 +210,10 @@ struct BasicShelterView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 40, height: 40)
-                        Text(title)
+                        Text("\(itemManager.items[id].amount)")
                             .fontWeight(.medium)
                             .foregroundColor(.black)
+                            .monospaced()
                     }
                     
                     // Display the order in the top-right corner
@@ -217,6 +235,15 @@ struct BasicShelterView: View {
     }
 }
 
-#Preview {
-    BasicShelterView()
+
+struct BasicShelterView_Previews: PreviewProvider {
+    static var previews: some View {
+        // Ensure GameState and Player are properly initialized
+        let gameState = GameState()  // Create an instance of GameState
+        let player = Player(startPosition: CGPoint(x: 200, y: 300))  // Create an instance of Player
+        
+        return BasicShelterView()
+            .environmentObject(gameState)  // Inject GameState to the view
+            .environmentObject(player)     // Inject Player to the view
+    }
 }

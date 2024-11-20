@@ -151,6 +151,16 @@ struct InfrastructureBuildingChoices: View {
     }
 }
 
-#Preview {
-    InfrastructureBuildingChoices()
+
+
+struct InfrastructureBuildingChoices_Previews: PreviewProvider {
+    static var previews: some View {
+        // Ensure GameState and Player are properly initialized
+        let gameState = GameState()  // Create an instance of GameState
+        let player = Player(startPosition: CGPoint(x: 200, y: 300))  // Create an instance of Player
+        
+        return InfrastructureBuildingChoices()
+            .environmentObject(gameState)  // Inject GameState to the view
+            .environmentObject(player)     // Inject Player to the view
+    }
 }

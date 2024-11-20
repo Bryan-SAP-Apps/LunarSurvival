@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-struct GameMain: View {
-    @State private var itemManager = ItemManager()
-    @State var energyBar:Double = 0.9
+struct HomePage: View {
+    @StateObject var itemManager = ItemManager()
     @AppStorage("E")var building = ""
     @State private var showAlert = false
     @AppStorage("day") var day = 0
@@ -23,7 +22,10 @@ struct GameMain: View {
         Item(name: "electronics", amount: 0)
     ]
     
-    @StateObject var gameState = GameState() // this is the original
+    @EnvironmentObject var gameState: GameState// this is the original
+    
+    //In the parent view (where you create and provide the Player instance), use .environmentObject to inject it into the environment.
+    @EnvironmentObject var player: Player
     
     var body: some View {
         NavigationStack{
@@ -163,7 +165,7 @@ struct GameMain: View {
                                         .clipShape(RoundedRectangle(cornerRadius: 14))
                                     Rectangle()
                                         .fill(Color(.yellow))
-                                        .frame(width: CGFloat(gameState.energyBar)*20, height: 34)
+                                        .frame(width: CGFloat(gameState.energyBar*2), height: 34)
                                         .clipShape(RoundedRectangle(cornerRadius: 14))
                                 }
                                 Spacer()
@@ -246,7 +248,9 @@ struct GameMain: View {
                                         .clipShape(RoundedRectangle(cornerRadius: 19))
                                     
                                 }
-                                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                                Button(action: {
+                                    gameState.energyBar -= 20
+                                }, label: {
                                     Text("Eat")
                                         .frame(width:150, height: 30)
                                         .font(.title)
@@ -302,11 +306,20 @@ struct GameMain: View {
             }
             .navigationBarBackButtonHidden()
         }
-        .environmentObject(gameState)
+        .environmentObject(gameState)   // Inject gameState instance here to Pass GameState to child views
+        .environmentObject(player) // Inject player instance here to Pass GameState to child views
     }
     
 }
 
-#Preview {
-    GameMain()
+
+
+struct HomePage_Previews: PreviewProvider {
+    static var previews: some View {
+        // Test with just a basic setup for HomePage
+        HomePage()
+            .environmentObject(GameState()) // Test if GameState can be injected
+            .environmentObject(Player(startPosition: CGPoint(x: 200, y: 300))) // Test if Player can be injected
+    }
 }
+

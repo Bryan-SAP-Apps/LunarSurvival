@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		0463CB3E2CEB49C60074CA9B /* WaterFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463CB3D2CEB49C60074CA9B /* WaterFilterView.swift */; };
+		0463CB402CECD2D60074CA9B /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463CB3F2CECD2D60074CA9B /* Player.swift */; };
+		0463CB442CECD9610074CA9B /* PlayerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463CB432CECD9610074CA9B /* PlayerConstants.swift */; };
+		0463CB462CECDFA30074CA9B /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463CB452CECDFA30074CA9B /* GameState.swift */; };
+		0463CB482CECE1740074CA9B /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463CB472CECE1740074CA9B /* Item.swift */; };
+		0463CB4A2CECFE660074CA9B /* NextLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463CB492CECFE660074CA9B /* NextLevelView.swift */; };
+		0463CB4C2CED003B0074CA9B /* GameHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463CB4B2CED003B0074CA9B /* GameHelper.swift */; };
 		048E9A262CD8771E00105FD3 /* SolarSurvivalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A252CD8771E00105FD3 /* SolarSurvivalApp.swift */; };
 		048E9A282CD8771E00105FD3 /* PlatformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A272CD8771E00105FD3 /* PlatformView.swift */; };
 		048E9A2A2CD8771F00105FD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048E9A292CD8771F00105FD3 /* Assets.xcassets */; };
@@ -18,7 +24,6 @@
 		048E9A4A2CE835FE00105FD3 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A492CE835FE00105FD3 /* HomePage.swift */; };
 		048E9A542CE8490E00105FD3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 048E9A532CE8490E00105FD3 /* SDWebImageSwiftUI */; };
 		048E9A802CE88B3900105FD3 /* UsingItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A7F2CE88B3900105FD3 /* UsingItemsView.swift */; };
-		59BAA8012CE83D190023EA90 /* NextLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BAA8002CE83D0F0023EA90 /* NextLevelView.swift */; };
 		59BADA6D2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BADA6C2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift */; };
 		D96186CB2CE58BD50088C94B /* Homepage img2.png in Resources */ = {isa = PBXBuildFile; fileRef = D96186B52CE58BD50088C94B /* Homepage img2.png */; };
 		D96186DB2CE593D00088C94B /* StartPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96186DA2CE593D00088C94B /* StartPage.swift */; };
@@ -31,6 +36,12 @@
 
 /* Begin PBXFileReference section */
 		0463CB3D2CEB49C60074CA9B /* WaterFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterFilterView.swift; sourceTree = "<group>"; };
+		0463CB3F2CECD2D60074CA9B /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		0463CB432CECD9610074CA9B /* PlayerConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerConstants.swift; sourceTree = "<group>"; };
+		0463CB452CECDFA30074CA9B /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		0463CB472CECE1740074CA9B /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		0463CB492CECFE660074CA9B /* NextLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextLevelView.swift; sourceTree = "<group>"; };
+		0463CB4B2CED003B0074CA9B /* GameHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHelper.swift; sourceTree = "<group>"; };
 		048E9A222CD8771E00105FD3 /* SolarSurvival.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SolarSurvival.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		048E9A252CD8771E00105FD3 /* SolarSurvivalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarSurvivalApp.swift; sourceTree = "<group>"; };
 		048E9A272CD8771E00105FD3 /* PlatformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformView.swift; sourceTree = "<group>"; };
@@ -41,7 +52,6 @@
 		048E9A472CE8337100105FD3 /* Homepage.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Homepage.gif; sourceTree = "<group>"; };
 		048E9A492CE835FE00105FD3 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		048E9A7F2CE88B3900105FD3 /* UsingItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsingItemsView.swift; sourceTree = "<group>"; };
-		59BAA8002CE83D0F0023EA90 /* NextLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextLevelView.swift; sourceTree = "<group>"; };
 		59BADA6C2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfrastructureBuildingChoices.swift; sourceTree = "<group>"; };
 		D96186B52CE58BD50088C94B /* Homepage img2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Homepage img2.png"; sourceTree = "<group>"; };
 		D96186DA2CE593D00088C94B /* StartPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPage.swift; sourceTree = "<group>"; };
@@ -67,6 +77,11 @@
 		048E9A192CD8771D00105FD3 = {
 			isa = PBXGroup;
 			children = (
+				0463CB4B2CED003B0074CA9B /* GameHelper.swift */,
+				0463CB472CECE1740074CA9B /* Item.swift */,
+				0463CB452CECDFA30074CA9B /* GameState.swift */,
+				0463CB432CECD9610074CA9B /* PlayerConstants.swift */,
+				0463CB3F2CECD2D60074CA9B /* Player.swift */,
 				048E9A372CDDA78500105FD3 /* PlatformCollectibles.swift */,
 				048E9A242CD8771E00105FD3 /* SolarSurvival */,
 				048E9A232CD8771E00105FD3 /* Products */,
@@ -87,7 +102,6 @@
 				59BADA6C2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift */,
 				048E9A7F2CE88B3900105FD3 /* UsingItemsView.swift */,
 				0463CB3D2CEB49C60074CA9B /* WaterFilterView.swift */,
-				59BAA8002CE83D0F0023EA90 /* NextLevelView.swift */,
 				D96186DA2CE593D00088C94B /* StartPage.swift */,
 				048E9A492CE835FE00105FD3 /* HomePage.swift */,
 				048E9A392CE0A84D00105FD3 /* ProgressBuilding.swift */,
@@ -102,6 +116,7 @@
 				D9EFF6022CE847DC000EDAD8 /* Astro building.png */,
 				D9EFF5FE2CE8448E000EDAD8 /* Rocket1.png */,
 				048E9A2B2CD8771F00105FD3 /* Preview Content */,
+				0463CB492CECFE660074CA9B /* NextLevelView.swift */,
 			);
 			path = SolarSurvival;
 			sourceTree = "<group>";
@@ -196,16 +211,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59BAA8012CE83D190023EA90 /* NextLevelView.swift in Sources */,
+				0463CB4A2CECFE660074CA9B /* NextLevelView.swift in Sources */,
 				048E9A282CD8771E00105FD3 /* PlatformView.swift in Sources */,
 				59BADA6D2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift in Sources */,
+				0463CB4C2CED003B0074CA9B /* GameHelper.swift in Sources */,
 				048E9A3A2CE0A84D00105FD3 /* ProgressBuilding.swift in Sources */,
+				0463CB482CECE1740074CA9B /* Item.swift in Sources */,
 				048E9A262CD8771E00105FD3 /* SolarSurvivalApp.swift in Sources */,
+				0463CB402CECD2D60074CA9B /* Player.swift in Sources */,
 				048E9A382CDDA78500105FD3 /* PlatformCollectibles.swift in Sources */,
 				048E9A802CE88B3900105FD3 /* UsingItemsView.swift in Sources */,
+				0463CB442CECD9610074CA9B /* PlayerConstants.swift in Sources */,
 				D96186DB2CE593D00088C94B /* StartPage.swift in Sources */,
 				0463CB3E2CEB49C60074CA9B /* WaterFilterView.swift in Sources */,
 				D96186E72CE779B50088C94B /* CongratView.swift in Sources */,
+				0463CB462CECDFA30074CA9B /* GameState.swift in Sources */,
 				048E9A4A2CE835FE00105FD3 /* HomePage.swift in Sources */,
 				D9EFF6132CEA51FA000EDAD8 /* Cutscene.swift in Sources */,
 			);

@@ -113,6 +113,13 @@ struct CongratView: View {
     
 }
 
-#Preview {
-    CongratView()
+struct CongratView_Previews: PreviewProvider {
+    static var previews: some View {
+        let gameState = GameState()  // Create an instance of GameState
+        let player = Player(startPosition: CGPoint(x: 200, y: 300))  // Create an instance of Player
+        
+        return CongratView()
+            .environmentObject(gameState)  // Pass GameState to the view
+            .environmentObject(player)  // Pass Player to the view
+    }
 }

@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct WaterFilterView: View {
+    @EnvironmentObject var gameState: GameState
     @State private var pressOrder: [Int: Int] = [:]
     @State private var pressCount = 0
     @StateObject var itemManager = ItemManager()
@@ -221,6 +222,15 @@ struct WaterFilterView: View {
     }
 }
 
-#Preview {
-    WaterFilterView()
+
+struct WaterFilterView_Previews: PreviewProvider {
+    static var previews: some View {
+        // Ensure GameState and Player are properly initialized
+        let gameState = GameState()  // Create an instance of GameState
+        let player = Player(startPosition: CGPoint(x: 200, y: 300))  // Create an instance of Player
+        
+        return WaterFilterView()
+            .environmentObject(gameState)  // Inject GameState to the view
+            .environmentObject(player)     // Inject Player to the view
+    }
 }

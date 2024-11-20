@@ -13,13 +13,13 @@ struct ProgressBuilding: View {
     @State private var showTooSlowPopup = false
     @State private var showSuccessPopup = false
     @State private var retryCount = 0
-    @State private var retryPenalty = 100
+    @EnvironmentObject var gameState: GameState
     @State private var timer: Timer?
     @State private var goHome = false
     
     var body: some View {
     NavigationStack{
-        NavigationLink(destination: GameMain(), isActive: $goHome){
+        NavigationLink(destination: HomePage(), isActive: $goHome){
             EmptyView()
         }
         ZStack {
@@ -98,7 +98,11 @@ struct ProgressBuilding: View {
                     .padding(.bottom, 20)
                     Button(action: {
 //                        building = "basicshelter"
+                        
+                        print("gameState.energyBar")
+                        gameState.energyBar -= 10
                         goHome = true
+                        
                     }, label: {
                         Text("Done")
                             .background(Color.green)
@@ -126,7 +130,7 @@ struct ProgressBuilding: View {
                 Spacer()
                 VStack{// Existing content of the view goes here
                     
-                    Text("Energy Left: \(retryPenalty)")
+                    Text("Energy Left: \(gameState.energyBar)")
                         .font(.headline)
                         .foregroundColor(.red)
                         .padding(.top, 40)
@@ -146,9 +150,10 @@ struct ProgressBuilding: View {
                     
                     Button("Try Again") {
                         retryCount += 1
-                        retryPenalty -= 10 // Decrease penalty
+                        gameState.energyBar -= 10 // Decrease penalty
                         restartTimer()
                         showTooSlowPopup = false
+                        print(gameState.energyBar)
                     }
                     .padding()
                     .background(Color.green)
@@ -170,7 +175,7 @@ struct ProgressBuilding: View {
                         .cornerRadius(10)
                         .foregroundStyle(.black)
                     
-                    NavigationLink(destination: GameMain()) {
+                    NavigationLink(destination: HomePage()) {
                         Text("Go Back")
                             .padding()
                             .background(Color.blue)
@@ -239,6 +244,14 @@ struct ProgressBuilding: View {
 }
 
 
-#Preview {
-    ProgressBuilding()
+
+struct ProgressBuilding_Previews: PreviewProvider {
+    static var previews: some View {
+        let gameState = GameState()  // Create an instance of GameState
+        let player = Player(startPosition: CGPoint(x: 200, y: 300))  // Create an instance of Player
+        
+        return ProgressBuilding()
+            .environmentObject(gameState)  // Pass GameState to the view
+            .environmentObject(player)  // Pass Player to the view
+    }
 }
