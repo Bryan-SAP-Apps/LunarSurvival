@@ -10,6 +10,8 @@ struct PlatformView: View {
     @State private var stars: [CGPoint] = []
     @State private var endPoint = false
     @State private var gameTimer: Timer? // Correctly define gameTimer here
+    @State private var path = NavigationPath()
+    @Binding var isSecondView: Bool
     
     private let groundLevel: CGFloat = 300
     private let frameDuration = 0.016
@@ -43,10 +45,10 @@ struct PlatformView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            NavigationLink(destination: NextLevelView(), isActive: $endPoint) {
-                EmptyView()
-            }
+        NavigationStack(path: $path){
+//            NavigationLink(destination: NextLevelView(), isActive: $endPoint) {
+//                EmptyView()
+//            }
 
             ZStack {
                 Color.black.ignoresSafeArea()
@@ -63,6 +65,11 @@ struct PlatformView: View {
             .onReceive(Timer.publish(every: 1, on: .main, in: .default).autoconnect()) { _ in
                 gameState.energyBar = max(gameState.energyBar - 1, 0)
             }
+//            .navigationDestination(for: String.self) { value in
+//                            if value == "NextLevelView" {
+//                                NextLevelView(path: $path)
+//                            }
+//                        }
         }
         .navigationBarBackButtonHidden(true)
     }
@@ -223,17 +230,86 @@ struct PlatformView: View {
     }
     
     private func updateGame() {
+        // Constants for physics
+        let gravity: CGFloat = 100
+        let maxFallSpeed: CGFloat = 300
+        let playerWidth: CGFloat = 40 // Adjust to match the player's width
+        let playerHeight: CGFloat = 40 // Adjust to match the player's height
+
+        var velocity: CGFloat = 0
+        var currentlyOnPlatform = false
+
+        // Apply gravity and update position
+        velocity += gravity * CGFloat(frameDuration)
+        velocity = min(velocity, maxFallSpeed) // Cap fall speed
+        player.position.y += velocity
         player.updatePosition(frameDuration: frameDuration)
-        
+
+        // Check if the player hits the ground
+        if player.position.y >= groundLevel {
+            player.position.y = groundLevel
+            velocity = 0
+            player.isJumping = false
+            currentlyOnPlatform = true
+        } else {
+            // Check collision with platforms
+            for platform in platforms {
+                let platformTop = platform.position.y - platform.size.height / 2
+                let platformBottom = platform.position.y + platform.size.height / 2
+                let platformLeft = platform.position.x - 150 / 2 // Platform width is 150
+                let platformRight = platform.position.x + 150 / 2
+
+                let playerTop = player.position.y - playerHeight / 2
+                let playerBottom = player.position.y + playerHeight / 2
+                let playerLeft = player.position.x - playerWidth / 2
+                let playerRight = player.position.x + playerWidth / 2
+
+                // Check if the astronaut is within the horizontal bounds of the platform
+                let withinPlatformBounds = playerLeft >= platformLeft && playerRight <= platformRight
+
+                // Astronaut lands only when they are directly above the platform
+                if velocity >= 0, // Falling down
+                   withinPlatformBounds, // Horizontal bounds of the platform
+                   playerBottom > platformTop, // Bottom is below the platform's top
+                   playerTop < platformTop { // Top is above the platform's top
+                    player.position.y = platformTop - playerHeight / 2 // Place player on top of the platform
+                    velocity = 0
+                    player.isJumping = false
+                    currentlyOnPlatform = true
+                    break
+                }
+
+                // Astronaut falls off if they are not within platform bounds
+                if !withinPlatformBounds {
+                    currentlyOnPlatform = false
+                }
+            }
+
+            // Ensure the astronaut is falling if not on any platform
+            if !currentlyOnPlatform {
+                velocity += gravity * CGFloat(frameDuration)
+            }
+        }
+
+        // Handle movement and collectibles
         handlePlayerMovement()
         handleCollectibles()
-        
+
+        // Check if the player has reached the level endpoint
         if player.position.x >= 750 {
+//            path.removeLast(path.count)
+//            path.append("NextLevelView")
+            isSecondView = true
             endPoint = true
             gameState.savedPositions[gameState.currentLevel] = player.position
-            gameState.saveProgress(player: player)  // Save progress when level is completed
+            gameState.saveProgress(player: player) // Save progress when level is completed
         }
     }
+
+
+
+
+
     
     private func handlePlayerMovement() {
         if player.isMovingLeft {
@@ -259,9 +335,9 @@ struct PlatformView_Previews: PreviewProvider {
         let gameState = GameState()  // Create an instance of GameState
         let player = Player(startPosition: CGPoint(x: 200, y: 300))  // Create an instance of Player
         
-        PlatformView()
-            .environmentObject(gameState)  // Pass GameState to the view
-            .environmentObject(player)  // Pass Player to the view
+//        PlatformView(, isSecondView: isSec)
+//            .environmentObject(gameState)  // Pass GameState to the view
+//            .environmentObject(player)  // Pass Player to the view
     }
 }
 

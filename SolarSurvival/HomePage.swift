@@ -226,7 +226,7 @@ struct HomePage: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 21.6))
                                 .frame(width: 500, height: 70)
                             HStack{
-                                NavigationLink(destination: PlatformView()) {
+                                NavigationLink(destination: PlatformHolder()) {
                                     Text("Scavenge")
                                         .frame(width:150, height: 30)
                                         .font(.title)

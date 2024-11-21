@@ -13,10 +13,11 @@ class Player: ObservableObject {
     @Published var isMovingLeft: Bool = false
     @Published var isMovingRight: Bool = false
     @Published var iconImage: String = PlayerConstants.astronautIdle
+    @Published var isOnPlatform = false
     
     let groundLevel: CGFloat = 300
     let jumpStrength: CGFloat = -5
-    let gravity: CGFloat = 5
+    let gravity: CGFloat = 2
     let speed: CGFloat = 10
     
     init(startPosition: CGPoint) {
@@ -34,11 +35,14 @@ class Player: ObservableObject {
         self.position.x += speed
     }
     
+    // changes here
+    
     func jump() {
-        if !isJumping {
-            velocity = jumpStrength
-            isJumping = true
-        }
+        if !isJumping && (self.position.y >= groundLevel || isOnPlatform) {
+                    velocity = jumpStrength
+                    isJumping = true
+                    isOnPlatform = false
+                }
     }
     
     func updatePosition(frameDuration: CGFloat) {
