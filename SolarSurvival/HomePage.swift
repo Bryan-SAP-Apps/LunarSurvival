@@ -265,37 +265,38 @@ struct HomePage: View {
                             }
                             
                                 
-//                        NavigationLink(destination: CongratView()) {
-//                            Text("End Day")
-//                                .frame(width:150,height: 50)
-//                                .font(.title)
-//                                .bold()
-//                                .padding()
-//                                .background(Color.green)
-//                                .foregroundColor(.white)
-//                                .clipShape(RoundedRectangle(cornerRadius: 19))
-//                            
-//                        }
-                        Button(action: {
-                            showAlert = true
-                            day = 1
-                        }, label: {
+                        NavigationLink(destination: CongratView()) {
                             Text("End Day")
-                                     Text("End Day")                      .frame(width:150,height: 50)
-                                                           .font(.title)
-                                                           .bold()
-                                                           .padding()
-                                                           .background(Color.green)
-                                                           .foregroundColor(.white)
-                                                           .clipShape(RoundedRectangle(cornerRadius: 19))
-                        })
-                        .alert(isPresented:$showAlert){
-                        Alert (
-                        title:Text("Something went wrong"),
-                        message:Text("Not enough resources"),
-                        dismissButton:. default(Text("done"))
-                        )
+                                .frame(width:150,height: 50)
+                                .font(.title)
+                                .bold()
+                                .padding()
+                                .background(Color.green)
+                                .foregroundColor(.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 19))
+                            
                         }
+//                        Button(action: {
+////                            showAlert = true
+//                            day = 1
+//                            
+//                        }, label: {
+//                            Text("End Day")
+//                                     Text("End Day")                      .frame(width:150,height: 50)
+//                                                           .font(.title)
+//                                                           .bold()
+//                                                           .padding()
+//                                                           .background(Color.green)
+//                                                           .foregroundColor(.white)
+//                                                           .clipShape(RoundedRectangle(cornerRadius: 19))
+//                        })
+//                        .alert(isPresented:$showAlert){
+//                        Alert (
+//                        title:Text("Something went wrong"),
+//                        message:Text("Not enough resources"),
+//                        dismissButton:. default(Text("done"))
+//                        )
+//                        }
                         
                     }
                 }

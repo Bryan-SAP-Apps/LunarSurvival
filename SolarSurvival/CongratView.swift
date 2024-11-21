@@ -17,6 +17,7 @@ struct CongratView: View {
     @State var resources = 22
     @State var distance = 10
     @State var isAnimated = true
+    @AppStorage("structure") var goodStructure = true
     
     
     var body: some View {
@@ -36,7 +37,8 @@ struct CongratView: View {
                             HStack{
                                 VStack{
                                     
-                                    
+                                    Text("\(goodStructure)")
+                                        .foregroundStyle(.white)
                                     Text("Days survived: \(days)")
                                         .font(.title2)
                                     
