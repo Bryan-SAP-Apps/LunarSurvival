@@ -10,10 +10,14 @@ import SwiftUI
 struct HomePage: View {
     @StateObject var itemManager = ItemManager()
     @AppStorage("1")var building1 = ""
+    @AppStorage("2")var building2 = ""
+    @AppStorage("3")var building3 = ""
+    @AppStorage("4")var building4 = ""
+    
     @State private var showAlert = false
     @State private var afterEnd = false
     @AppStorage("day") var day = 0
-
+    @StateObject var energyManager = EnergyManager()
     var items = [
         Item(name: "metal", amount: 0),
         Item(name: "regolith", amount: 0),
@@ -21,6 +25,9 @@ struct HomePage: View {
         Item(name: "rubber", amount: 0),
         Item(name: "plastic", amount: 0),
         Item(name: "electronics", amount: 0)
+    ]
+    var energies = [
+        Energy(name: "Energy", amount: 100)
     ]
     
     @EnvironmentObject var gameState: GameState// this is the original
@@ -166,7 +173,7 @@ struct HomePage: View {
                                         .clipShape(RoundedRectangle(cornerRadius: 14))
                                     Rectangle()
                                         .fill(Color(.yellow))
-                                        .frame(width: CGFloat(gameState.energyBar*2), height: 34)
+                                        .frame(width: CGFloat(energyManager.energies[0].amount*2), height: 34)
                                         .clipShape(RoundedRectangle(cornerRadius: 14))
                                 }
                                 Spacer()
@@ -193,6 +200,9 @@ struct HomePage: View {
                                     .fill(Color(white: 0.7))
                                     .clipShape(RoundedRectangle(cornerRadius: 21.6))
                                     .frame(width: 100, height: 100)
+                                Image("\(building2)")
+                                    .resizable()
+                                    .frame(width: 90, height: 90)
                                     
                                 
                             }
@@ -203,12 +213,18 @@ struct HomePage: View {
                                     .fill(Color(white: 0.7))
                                     .clipShape(RoundedRectangle(cornerRadius: 21.6))
                                     .frame(width: 100, height: 100)
+                                Image("\(building3)")
+                                    .resizable()
+                                    .frame(width: 90, height: 90)
                             }
                             ZStack{
                                 Rectangle()
                                     .fill(Color(white: 0.7))
                                     .clipShape(RoundedRectangle(cornerRadius: 21.6))
                                     .frame(width: 100, height: 100)
+                                Image("\(building4)")
+                                    .resizable()
+                                    .frame(width: 90, height: 90)
                             }
                             
                         }
@@ -247,7 +263,7 @@ struct HomePage: View {
                                     
                                 }
                                 Button(action: {
-                                    gameState.energyBar -= 20
+                                    energyManager.energies[0].amount += 20
                                 }, label: {
                                     Text("Eat")
                                         .frame(width:150, height: 30)

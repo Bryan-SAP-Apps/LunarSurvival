@@ -3,6 +3,7 @@ import SDWebImageSwiftUI
 
 struct ProgressBuilding: View {
     @State var isAnimated = true
+    @StateObject var energyManager = EnergyManager()
     @State private var downloadAmount = 0.0
     @State private var pressFromLeft = false
     @State private var pressFromRight = false
@@ -100,7 +101,7 @@ struct ProgressBuilding: View {
 //                        building = "basicshelter"
                         
                         print("gameState.energyBar")
-                        gameState.energyBar -= 10
+                        energyManager.energies[0].amount -= 10
                         goHome = true
                         
                     }, label: {
@@ -130,7 +131,7 @@ struct ProgressBuilding: View {
                 Spacer()
                 VStack{// Existing content of the view goes here
                     
-                    Text("Energy Left: \(gameState.energyBar)")
+                    Text("Energy Left: \(energyManager.energies[0].amount)")
                         .font(.headline)
                         .foregroundColor(.red)
                         .padding(.top, 40)

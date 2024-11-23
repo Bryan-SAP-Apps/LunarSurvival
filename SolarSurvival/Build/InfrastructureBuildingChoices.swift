@@ -11,6 +11,10 @@ import SwiftUI
 struct InfrastructureBuildingChoices: View {
     @State private var basicshelter = false
     @State private var waterfilter = false
+    @State private var solarpanel = false
+    @State private var co2filter = false
+    @State private var regolithinsulation = false
+    @State private var highgainantenna = false
     var body: some View {
         NavigationStack{
             NavigationLink(destination: BasicShelterView(), isActive: $basicshelter) {
@@ -19,7 +23,18 @@ struct InfrastructureBuildingChoices: View {
             NavigationLink(destination: WaterFilterView(), isActive: $waterfilter) {
                 EmptyView()
             }
-           
+            NavigationLink(destination: SolarPanelView(), isActive: $solarpanel) {
+                EmptyView()
+            }
+            NavigationLink(destination: CO2FilterView(), isActive: $co2filter) {
+                EmptyView()
+            }
+            NavigationLink(destination: RegolithInsulationView(), isActive: $regolithinsulation) {
+                EmptyView()
+            }
+            NavigationLink(destination: BasicShelterView(), isActive: $highgainantenna) {
+                EmptyView()
+            }
             ZStack {
                 
                 Spacer()
@@ -46,7 +61,7 @@ struct InfrastructureBuildingChoices: View {
                                 ZStack {
                                     Color.white // Background color
                                         .cornerRadius(10)
-                                        .frame(maxHeight: 60)
+                                        .frame(maxHeight: 76)
                                     
                                     HStack {
                                         Image("basicshelter")
@@ -65,7 +80,7 @@ struct InfrastructureBuildingChoices: View {
                                 ZStack {
                                     Color.white // Background color
                                         .cornerRadius(10)
-                                        .frame(maxHeight: 60)
+                                        .frame(maxHeight: 76)
                                     
                                     HStack {
                                         Image("waterfilter")
@@ -80,42 +95,78 @@ struct InfrastructureBuildingChoices: View {
                         }
                         
                         HStack(spacing: 20) {
-                            Button(action: {}) {
-                                Text("Choice 3")
-                                    .fontWeight(.medium)
-                                    .foregroundColor(.black)
-                                    .frame(maxWidth: .infinity, maxHeight: 60)
-                                    .background(Color.white)
-                                    .cornerRadius(10)
+                            Button(action: {
+                                solarpanel = true
+                            }) {
+                                ZStack {
+                                    Color.white // Background color
+                                        .cornerRadius(10)
+                                        .frame(maxHeight: 76)
+                                    
+                                    HStack {
+                                        Image("solarpanel")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)// Adjust size as needed
+                                        Text("Solar Panel")
+                                            .fontWeight(.medium)
+                                            .foregroundColor(.black)
+                                    }
+                                }
                             }
                             
-                            Button(action: {}) {
-                                Text("Choice 4")
-                                    .fontWeight(.medium)
-                                    .foregroundColor(.black)
-                                    .frame(maxWidth: .infinity, maxHeight: 60)
-                                    .background(Color.white)
-                                    .cornerRadius(10)
+                            Button(action: {
+                                co2filter = true
+                            }) {
+                                ZStack {
+                                    Color.white // Background color
+                                        .cornerRadius(10)
+                                        .frame(maxHeight: 76)
+                                    
+                                    HStack {
+                                        Image("co2filter")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)// Adjust size as needed
+                                        Text("CO2 Filter")
+                                            .fontWeight(.medium)
+                                            .foregroundColor(.black)
+                                    }
+                                }
                             }
                         }
                         
                         HStack(spacing: 20) {
                             Button(action: {}) {
-                                Text("Choice 5")
-                                    .fontWeight(.medium)
-                                    .foregroundColor(.black)
-                                    .frame(maxWidth: .infinity, maxHeight: 60)
-                                    .background(Color.white)
-                                    .cornerRadius(10)
+                                ZStack {
+                                    Color.white // Background color
+                                        .cornerRadius(10)
+                                        .frame(maxHeight: 76)
+                                    
+                                    HStack {
+                                        Image("regolithinsulation")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)// Adjust size as needed
+                                        Text("Regolith Insulation")
+                                            .fontWeight(.medium)
+                                            .foregroundColor(.black)
+                                    }
+                                }
                             }
                             
                             Button(action: {}) {
-                                Text("Choice 6")
-                                    .fontWeight(.medium)
-                                    .foregroundColor(.black)
-                                    .frame(maxWidth: .infinity, maxHeight: 60)
-                                    .background(Color.white)
-                                    .cornerRadius(10)
+                                ZStack {
+                                    Color.white // Background color
+                                        .cornerRadius(10)
+                                        .frame(maxHeight: 76)
+                                    
+                                    HStack {
+                                        Image("highgainantenna")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)// Adjust size as needed
+                                        Text("High Gain Antenna")
+                                            .fontWeight(.medium)
+                                            .foregroundColor(.black)
+                                    }
+                                }
                             }
                         }
                     }

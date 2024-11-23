@@ -6,6 +6,10 @@ struct StartView: View {
     @State private var isAnimated = true
     @State private var continuee = false
     @State private var start = "Start/Continue"
+    @AppStorage("1")var building1 = ""
+    @AppStorage("2")var building2 = ""
+    @AppStorage("3")var building3 = ""
+    @AppStorage("4")var building4 = ""
     
     var playCutscene: () -> Void // Callback to play cutscene again
     
@@ -71,6 +75,10 @@ struct StartView: View {
                             }
                             
                             Button(action: {
+                                building1 = ""
+                                building2 = ""
+                                building3 = ""
+                                building4 = ""
                                 if (continuee == false) {
                                     start = "Start"
                                 } else {

@@ -1,6 +1,12 @@
+//
+//  RegolithInsulationView.swift
+//  SolarSurvival
+//
+//  Created by Bryan Nguyen on 23/11/24.
+//
 import SwiftUI
 
-struct WaterFilterView: View {
+struct RegolithInsulationView: View {
     @EnvironmentObject var gameState: GameState
     @State private var pressOrder: [Int: Int] = [:] // Maps item IDs to press order
     @State private var pressCount = 0 // Tracks number of selections
@@ -11,10 +17,7 @@ struct WaterFilterView: View {
     @AppStorage("3")var building3 = ""
     @AppStorage("4")var building4 = ""
     @AppStorage("day") var day = 0
-    @State private var neededMetal = 5
-    @State private var neededPlastic = 8
-    @State private var neededGlass = 3
-    @State private var neededRubber = 2
+    @State private var neededRegolith = 30
     @State private var showAlert = false
     @AppStorage("structure") var goodStructure = true // Defaults to true
     
@@ -39,10 +42,8 @@ struct WaterFilterView: View {
                 HStack {
                     // Material requirements display
                     VStack(alignment: .leading, spacing: 20) {
-                        materialRequirement(imageName: "questionmark", text: "0/\(neededMetal)")
-                        materialRequirement(imageName: "questionmark", text: "0/\(neededPlastic)")
-                        materialRequirement(imageName: "questionmark", text: "0/\(neededGlass)")
-                        materialRequirement(imageName: "questionmark", text: "0/\(neededRubber)")
+                        materialRequirement(imageName: "questionmark", text: "0/\(neededRegolith)")
+             
                     }
                     
                     Spacer()
@@ -71,18 +72,31 @@ struct WaterFilterView: View {
                     Button(action:{
                         deductResources()
 //                        building1 = "basicshelter"
-                        switch day {
-                        case 0:
-                            building1 = "waterfilter"
-                        case 1:
-                            building2 = "waterfilter"
-                        case 2:
-                            building3 = "waterfilter"
-                        case 3:
-                            building4 = "waterfilter"
-                        default:
-                            print("hello")
+//                        switch day {
+//                        case 0:
+//                            building1 = "waterfilter"
+//                        case 1:
+//                            building2 = "waterfilter"
+//                        case 2:
+//                            building3 = "waterfilter"
+//                        case 3:
+//                            building4 = "waterfilter"
+//                        default:
+//                            print("hello")
+//                        }
+                        
+                        if building1.isEmpty {
+                            building1 = "regolithinsulation"
+                        } else if building2.isEmpty {
+                            building2 = "regolithinsulation"
+                        } else if building3.isEmpty {
+                            building3 = "regolithinsulation"
+                        } else if building4.isEmpty {
+                            building4 = "regolithinsulation"
                         }
+
+                        
+                        
                         
                     }, label:{
                         Text("Next")
@@ -110,7 +124,7 @@ struct WaterFilterView: View {
     private var canProceed: Bool {
         guard pressOrder.count == 4 else { return false }
         
-        let requirements = [neededMetal, neededPlastic, neededGlass, neededRubber]
+        let requirements = [neededRegolith]
         return !pressOrder.keys.contains { index in
             let materialIndex = index
             guard materialIndex < itemManager.items.count else { return true }
@@ -186,7 +200,7 @@ struct WaterFilterView: View {
         }
         
         let sortedPressOrder = pressOrder.sorted { $0.value < $1.value }
-        let requirements = [neededMetal, neededPlastic, neededGlass, neededRubber]
+        let requirements = [neededRegolith]
         var matchedRequirements = 0 // Count of correctly matched materials
         
         for (index, entry) in sortedPressOrder.enumerated() {
@@ -212,5 +226,6 @@ struct WaterFilterView: View {
 }
 
 #Preview{
-    WaterFilterView()
+    RegolithInsulationView()
 }
+

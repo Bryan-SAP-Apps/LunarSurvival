@@ -29,6 +29,10 @@
 		048E9A4A2CE835FE00105FD3 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A492CE835FE00105FD3 /* HomePage.swift */; };
 		048E9A542CE8490E00105FD3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 048E9A532CE8490E00105FD3 /* SDWebImageSwiftUI */; };
 		048E9A802CE88B3900105FD3 /* UsingItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E9A7F2CE88B3900105FD3 /* UsingItemsView.swift */; };
+		04A44ECD2CF176680086D825 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A44ECC2CF176680086D825 /* Energy.swift */; };
+		04CACD882CF1848C0052AA60 /* SolarPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CACD872CF1848C0052AA60 /* SolarPanelView.swift */; };
+		04CACD8A2CF185A10052AA60 /* CO2FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CACD892CF185A10052AA60 /* CO2FilterView.swift */; };
+		04CACD8C2CF1868D0052AA60 /* RegolithInsulationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CACD8B2CF1868D0052AA60 /* RegolithInsulationView.swift */; };
 		59BADA6D2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BADA6C2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift */; };
 		D96186CB2CE58BD50088C94B /* Homepage img2.png in Resources */ = {isa = PBXBuildFile; fileRef = D96186B52CE58BD50088C94B /* Homepage img2.png */; };
 		D96186DB2CE593D00088C94B /* StartPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96186DA2CE593D00088C94B /* StartPage.swift */; };
@@ -62,6 +66,10 @@
 		048E9A472CE8337100105FD3 /* Homepage.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Homepage.gif; sourceTree = "<group>"; };
 		048E9A492CE835FE00105FD3 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		048E9A7F2CE88B3900105FD3 /* UsingItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsingItemsView.swift; sourceTree = "<group>"; };
+		04A44ECC2CF176680086D825 /* Energy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
+		04CACD872CF1848C0052AA60 /* SolarPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarPanelView.swift; sourceTree = "<group>"; };
+		04CACD892CF185A10052AA60 /* CO2FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CO2FilterView.swift; sourceTree = "<group>"; };
+		04CACD8B2CF1868D0052AA60 /* RegolithInsulationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegolithInsulationView.swift; sourceTree = "<group>"; };
 		59BADA6C2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfrastructureBuildingChoices.swift; sourceTree = "<group>"; };
 		D96186B52CE58BD50088C94B /* Homepage img2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Homepage img2.png"; sourceTree = "<group>"; };
 		D96186DA2CE593D00088C94B /* StartPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPage.swift; sourceTree = "<group>"; };
@@ -91,6 +99,7 @@
 				046376642CEF79B500E1EA97 /* LevelManager.swift */,
 				0463CB4B2CED003B0074CA9B /* GameHelper.swift */,
 				0463CB472CECE1740074CA9B /* Item.swift */,
+				04A44ECC2CF176680086D825 /* Energy.swift */,
 				0463CB452CECDFA30074CA9B /* GameState.swift */,
 				0463CB432CECD9610074CA9B /* PlayerConstants.swift */,
 				0463CB3F2CECD2D60074CA9B /* Player.swift */,
@@ -111,14 +120,11 @@
 		048E9A242CD8771E00105FD3 /* SolarSurvival */ = {
 			isa = PBXGroup;
 			children = (
-				59BADA6C2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift */,
-				048E9A7F2CE88B3900105FD3 /* UsingItemsView.swift */,
-				0463CB3D2CEB49C60074CA9B /* WaterFilterView.swift */,
+				04CACD862CF183340052AA60 /* Build */,
 				D96186DA2CE593D00088C94B /* StartPage.swift */,
 				048E9A492CE835FE00105FD3 /* HomePage.swift */,
 				046376682CF16DE600E1EA97 /* AfterEndDay.swift */,
 				0463766A2CF16F7600E1EA97 /* DeathView.swift */,
-				048E9A392CE0A84D00105FD3 /* ProgressBuilding.swift */,
 				048E9A252CD8771E00105FD3 /* SolarSurvivalApp.swift */,
 				048E9A272CD8771E00105FD3 /* PlatformView.swift */,
 				046376422CEECDFE00E1EA97 /* PlatformHolder.swift */,
@@ -142,6 +148,20 @@
 				048E9A2C2CD8771F00105FD3 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		04CACD862CF183340052AA60 /* Build */ = {
+			isa = PBXGroup;
+			children = (
+				0463CB3D2CEB49C60074CA9B /* WaterFilterView.swift */,
+				04CACD872CF1848C0052AA60 /* SolarPanelView.swift */,
+				048E9A392CE0A84D00105FD3 /* ProgressBuilding.swift */,
+				59BADA6C2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift */,
+				04CACD8B2CF1868D0052AA60 /* RegolithInsulationView.swift */,
+				04CACD892CF185A10052AA60 /* CO2FilterView.swift */,
+				048E9A7F2CE88B3900105FD3 /* UsingItemsView.swift */,
+			);
+			path = Build;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,6 +249,7 @@
 				048E9A282CD8771E00105FD3 /* PlatformView.swift in Sources */,
 				0463766B2CF16F7600E1EA97 /* DeathView.swift in Sources */,
 				59BADA6D2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift in Sources */,
+				04CACD882CF1848C0052AA60 /* SolarPanelView.swift in Sources */,
 				0463CB4C2CED003B0074CA9B /* GameHelper.swift in Sources */,
 				048E9A3A2CE0A84D00105FD3 /* ProgressBuilding.swift in Sources */,
 				0463CB482CECE1740074CA9B /* Item.swift in Sources */,
@@ -241,12 +262,15 @@
 				D96186DB2CE593D00088C94B /* StartPage.swift in Sources */,
 				0463CB3E2CEB49C60074CA9B /* WaterFilterView.swift in Sources */,
 				D96186E72CE779B50088C94B /* CongratView.swift in Sources */,
+				04A44ECD2CF176680086D825 /* Energy.swift in Sources */,
 				0463CB462CECDFA30074CA9B /* GameState.swift in Sources */,
 				046376632CEED38300E1EA97 /* NextLevelView.swift in Sources */,
 				048E9A4A2CE835FE00105FD3 /* HomePage.swift in Sources */,
 				046376672CEF7B8300E1EA97 /* GameUIHelper.swift in Sources */,
+				04CACD8A2CF185A10052AA60 /* CO2FilterView.swift in Sources */,
 				046376692CF16DE600E1EA97 /* AfterEndDay.swift in Sources */,
 				046376652CEF79B500E1EA97 /* LevelManager.swift in Sources */,
+				04CACD8C2CF1868D0052AA60 /* RegolithInsulationView.swift in Sources */,
 				D9EFF6132CEA51FA000EDAD8 /* Cutscene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

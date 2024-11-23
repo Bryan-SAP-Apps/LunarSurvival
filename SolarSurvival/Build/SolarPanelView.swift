@@ -1,6 +1,13 @@
+//
+//  SolarPanelView.swift
+//  SolarSurvival
+//
+//  Created by Bryan Nguyen on 23/11/24.
+//
+
 import SwiftUI
 
-struct BasicShelterView: View {
+struct SolarPanelView: View {
     @EnvironmentObject var gameState: GameState
     @State private var pressOrder: [Int: Int] = [:] // Maps item IDs to press order
     @State private var pressCount = 0 // Tracks number of selections
@@ -11,10 +18,10 @@ struct BasicShelterView: View {
     @AppStorage("3")var building3 = ""
     @AppStorage("4")var building4 = ""
     @AppStorage("day") var day = 0
-    @State private var neededMetal = 15
-    @State private var neededPlastic = 10
-    @State private var neededInsulating = 20
-    @State private var neededElectronics = 3
+    @State private var neededMetal = 4
+    @State private var neededGlass = 10
+    @State private var neededPlastic = 2
+    @State private var neededElectronics = 5
     @State private var showAlert = false
     @AppStorage("structure") var goodStructure = true // Defaults to true
     
@@ -40,8 +47,8 @@ struct BasicShelterView: View {
                     // Material requirements display
                     VStack(alignment: .leading, spacing: 20) {
                         materialRequirement(imageName: "questionmark", text: "0/\(neededMetal)")
+                        materialRequirement(imageName: "questionmark", text: "0/\(neededGlass)")
                         materialRequirement(imageName: "questionmark", text: "0/\(neededPlastic)")
-                        materialRequirement(imageName: "questionmark", text: "0/\(neededInsulating)")
                         materialRequirement(imageName: "questionmark", text: "0/\(neededElectronics)")
                     }
                     
@@ -63,28 +70,27 @@ struct BasicShelterView: View {
                     
                     Spacer()
 //                    Button(action: {
-//                        
+//
 //                    }, label: {
 //                        /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
 //                    })
                     // Confirm button
                     Button(action:{
                         deductResources()
-//                        building1 = "basicshelter"
-                        switch day {
-                        case 0:
-                            building1 = "basicshelter"
-                        case 1:
-                            building2 = "basicshelter"
-                        case 2:
-                            building3 = "basicshelter"
-                        case 3:
-                            building4 = "basicshelter"
-                        default:
-                            print("hello")
+//
+                        
+                        if building1.isEmpty {
+                            building1 = "solarpanel"
+                        } else if building2.isEmpty {
+                            building2 = "solarpanel"
+                        } else if building3.isEmpty {
+                            building3 = "solarpanel"
+                        } else if building4.isEmpty {
+                            building4 = "solarpanel"
                         }
-                   
-                        building1 = "basicshelter"
+
+                        
+                        
                         
                     }, label:{
                         Text("Next")
@@ -104,7 +110,6 @@ struct BasicShelterView: View {
                     }
                 }
                 .preferredColorScheme(.dark)
-               
             }
         }
     }
@@ -113,7 +118,7 @@ struct BasicShelterView: View {
     private var canProceed: Bool {
         guard pressOrder.count == 4 else { return false }
         
-        let requirements = [neededMetal, neededPlastic, neededInsulating, neededElectronics]
+        let requirements = [neededMetal, neededGlass, neededPlastic, neededElectronics]
         return !pressOrder.keys.contains { index in
             let materialIndex = index
             guard materialIndex < itemManager.items.count else { return true }
@@ -189,7 +194,7 @@ struct BasicShelterView: View {
         }
         
         let sortedPressOrder = pressOrder.sorted { $0.value < $1.value }
-        let requirements = [neededMetal, neededPlastic, neededInsulating, neededElectronics]
+        let requirements = [neededMetal, neededGlass, neededPlastic, neededElectronics]
         var matchedRequirements = 0 // Count of correctly matched materials
         
         for (index, entry) in sortedPressOrder.enumerated() {
@@ -199,7 +204,7 @@ struct BasicShelterView: View {
             
             // Check if material matches one of the required types
             let selectedMaterial = itemManager.items[materialIndex].name.lowercased()
-            if ["metal", "plastic", "insulating", "electronics"].contains(selectedMaterial) {
+            if ["metal", "plastic", "glass", "rubber"].contains(selectedMaterial) {
                 matchedRequirements += 1
             }
         }
@@ -215,5 +220,6 @@ struct BasicShelterView: View {
 }
 
 #Preview{
-    BasicShelterView()
+    SolarPanelView()
 }
+
