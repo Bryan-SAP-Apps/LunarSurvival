@@ -1,174 +1,104 @@
-//
-//  InfrastructureBuildingChoices.swift
-//  SolarSurvival
-//
-//  Created by Zicheng on 16/11/24.
-//  Amended by Bryan Nguyen
-//
-
 import SwiftUI
 
 struct WaterFilterView: View {
     @EnvironmentObject var gameState: GameState
-    @State private var pressOrder: [Int: Int] = [:]
-    @State private var pressCount = 0
-    @StateObject var itemManager = ItemManager()
-    @State private var goProgressView = false
-    @State private var neededMetal = 5//15
-    @State private var neededPlastic = 8//10
-    @State private var neededGlass = 3//20
-    @State private var neededRubber = 2//3
-    @State private var metalItem = 0
-    @State private var showAlert = false
-    @AppStorage("day") var day: Int = 0
-    @AppStorage("E")var building = ""
+    @State private var pressOrder: [Int: Int] = [:] // Maps item IDs to press order
+    @State private var pressCount = 0 // Tracks number of selections
     
+    @State private var goProgressView = false
+    @AppStorage("1")var building1 = ""
+    @AppStorage("2")var building2 = ""
+    @AppStorage("3")var building3 = ""
+    @AppStorage("4")var building4 = ""
+    @AppStorage("day") var day = 0
+    @State private var neededMetal = 5
+    @State private var neededPlastic = 8
+    @State private var neededGlass = 3
+    @State private var neededRubber = 2
+    @State private var showAlert = false
+    @AppStorage("structure") var goodStructure = true // Defaults to true
+    
+    @StateObject private var itemManager = ItemManager()
+
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    @State private var items = [
-        Item(name: "metal", amount: 0),
-        Item(name: "regolith", amount: 0),
-        Item(name: "glass", amount: 0),
-        Item(name: "rubber", amount: 0),
-        Item(name: "plastic", amount: 0),
-        Item(name: "electronics", amount: 0)
-    ]
-    init() {
-            // Ensure large titles are enabled and custom font size is set
-            UINavigationBar.appearance().prefersLargeTitles = true
-
-            let titleTextAttributes: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor.white,
-                .font: UIFont.boldSystemFont(ofSize: 40) // Adjust font size
-            ]
-            
-            UINavigationBar.appearance().largeTitleTextAttributes = titleTextAttributes
-        }
-
-
+    
     var body: some View {
-        
-        NavigationStack{
+        NavigationStack {
             NavigationLink(destination: ProgressBuilding(), isActive: $goProgressView) {
                 EmptyView()
             }
             ZStack {
-                // Background Image
                 Image("moon surface img")
                     .resizable()
                     .scaledToFill()
                     .ignoresSafeArea()
-                VStack{
-//                    Text("Build the infrastructure using items")
-//                        .font(.largeTitle)
-//                        .fontWeight(.bold)
-//                        .foregroundColor(.white)
-//                        .multilineTextAlignment(.center)
-//                        .background(Color.black.opacity(0.7))
-//                        .cornerRadius(10)
-//                        .padding(.top, 60)  // Added padding to shift it down
-                    HStack {
-                        // Left side: Displaying the items and their amounts
-                        VStack(alignment: .leading, spacing: 20) {
-                                HStack {
-                                    Image("questionmark")
-                                        .resizable()
-                                        .frame(width: 60, height: 60)
-                                    Text(
-                                    "0/\(neededMetal)")
-                                        .font(.title)
-                                        .foregroundColor(.white)
-                                    
-                                }
-                            HStack {
-                                Image("questionmark")
-                                    .resizable()
-                                    .frame(width: 60, height: 60)
-                                Text("0/\(neededPlastic)")
-                                    .font(.title)
-                                    .foregroundColor(.white)
-                                
-                            }
-                            HStack {
-                                Image("questionmark")
-                                    .resizable()
-                                    .frame(width: 60, height: 60)
-                                Text("0/\(neededGlass)")
-                                    .font(.title)
-                                    .foregroundColor(.white)
-                                
-                            }
-                            HStack {
-                                Image("questionmark")
-                                    .resizable()
-                                    .frame(width: 60, height: 60)
-                                Text("0/\(neededRubber)")
-                                    .font(.title)
-                                    .foregroundColor(.white)
-                                
-                            }
-                        }// Set width for the left column
+                
+                HStack {
+                    // Material requirements display
+                    VStack(alignment: .leading, spacing: 20) {
+                        materialRequirement(imageName: "questionmark", text: "0/\(neededMetal)")
+                        materialRequirement(imageName: "questionmark", text: "0/\(neededPlastic)")
+                        materialRequirement(imageName: "questionmark", text: "0/\(neededGlass)")
+                        materialRequirement(imageName: "questionmark", text: "0/\(neededRubber)")
+                    }
+                    
+                    Spacer()
+                    
+                    // Material selection buttons
+                    VStack {
+                        Text("Choose 4 wisely")
+                            .font(.title)
+                            .foregroundColor(.white)
                         
-                        VStack {
-                            Text("Choose 4 wisely")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                            
-                            // 2x3 Buttons Grid
-                            LazyVGrid(columns: columns, spacing: 16) {
-                                ForEach(itemManager.items.indices, id: \.self) { index in
-                                    buttonWithOrder(
-                                        id: index,
-                                        title: itemManager.items[index].name.capitalized
-                                    )
-                                }
+                        LazyVGrid(columns: columns, spacing: 16) {
+                            ForEach(itemManager.items.indices, id: \.self) { index in
+                                materialButton(id: index, title: itemManager.items[index].name.capitalized)
                             }
+                        }
+                        .padding()
+                    }
+                    
+                    Spacer()
+//                    Button(action: {
+//
+//                    }, label: {
+//                        /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
+//                    })
+                    // Confirm button
+                    Button(action:{
+                        deductResources()
+//                        building1 = "basicshelter"
+                        switch day {
+                        case 0:
+                            building1 = "waterfilter"
+                        case 1:
+                            building2 = "waterfilter"
+                        case 2:
+                            building3 = "waterfilter"
+                        case 3:
+                            building4 = "waterfilter"
+                        default:
+                            print("hello")
+                        }
+                        
+                    }, label:{
+                        Text("Next")
+                            .font(.title2)
                             .padding()
-                        }
-                        
-                        .padding(.leading, 0)  // Added padding to shift text to the right
-                        VStack{
-                            Button(action: {
-                                
-                                if let metal = items.firstIndex(where: { $0.name == "metal" }),
-                                   let plastic = items.firstIndex(where: { $0.name == "plastic" }),
-                                   let electronics = items.firstIndex(where: { $0.name == "electronics" }),
-                                   let regolith = items.firstIndex(where: { $0.name == "regolith" })
-                                                                {
-                                    itemManager.items[0].amount -= neededMetal
-                                    itemManager.items[4].amount -= neededPlastic
-                                    itemManager.items[3].amount -= neededRubber
-                                    itemManager.items[2].amount -= neededGlass
-                                    print(items[metal].amount)
-                                    if items[metal].amount < 0{
-                                        showAlert = true
-                                    }else{
-                                        goProgressView = true
-                                    }
-                                }
-                                if day == 0 {
-                                    building = "waterfilter"
-                                }
-                                
-                                
-                            },label: {
-                                Text("Next")
-                                    .font(.title2)
-                                    .padding()
-                                    .background(Color.white)
-                                    .cornerRadius(10)
-                                    .foregroundColor(.green)
-                            })
-                            .alert(isPresented:$showAlert){
-                            Alert (
-                            title:Text("Something went wrong"),
-                            message:Text("Not enough resources"),
-                            dismissButton:. default(Text("done"))
-                            )
-                            }
-                        }
+                            .background(canProceed ? Color.green : Color.gray)
+                            .cornerRadius(10)
+                            .foregroundColor(.white)
+                    })
+                    .disabled(!canProceed)
+                    .alert(isPresented: $showAlert) {
+                        Alert(
+                            title: Text("Not enough resources"),
+                            message: Text("Please scavenge for more"),
+                            dismissButton: .default(Text("OK"))
+                        )
                     }
                 }
                 .preferredColorScheme(.dark)
@@ -176,61 +106,111 @@ struct WaterFilterView: View {
         }
     }
     
-    // Button with Order Logic
-        func buttonWithOrder(id: Int, title: String) -> some View {
-            Button(action: {
-                // Allow pressing only if less than 4 buttons have been pressed
+    // Computed property to enable or disable the "Next" button
+    private var canProceed: Bool {
+        guard pressOrder.count == 4 else { return false }
+        
+        let requirements = [neededMetal, neededPlastic, neededGlass, neededRubber]
+        return !pressOrder.keys.contains { index in
+            let materialIndex = index
+            guard materialIndex < itemManager.items.count else { return true }
+            let currentAmount = itemManager.items[materialIndex].amount
+            let requiredAmount = requirements[pressOrder[index]! - 1]
+            return currentAmount < requiredAmount
+        }
+    }
+    
+    // MARK: - Material Requirement Row
+    private func materialRequirement(imageName: String, text: String) -> some View {
+        HStack {
+            Image(imageName)
+                .resizable()
+                .frame(width: 60, height: 60)
+            Text(text)
+                .font(.title)
+                .foregroundColor(.white)
+                .monospaced()
+        }
+    }
+    
+    // MARK: - Material Button
+    private func materialButton(id: Int, title: String) -> some View {
+        Button(action: {
+            if let order = pressOrder[id] {
+                // Deselect if already selected
+                pressOrder[id] = nil
+                pressCount -= 1
+                // Reorder remaining selections
+                pressOrder = pressOrder.mapValues { $0 > order ? $0 - 1 : $0 }
+            } else if pressCount < 4 {
+                // Select if not already selected
+                pressCount += 1
+                pressOrder[id] = pressCount
+            }
+        }) {
+            ZStack {
+                Color.white
+                    .cornerRadius(10)
+                    .frame(height: 65)
                 
-                if pressCount < 4 && pressOrder[id] == nil {
-                    pressCount += 1
-                    pressOrder[id] = pressCount
-                    // Increment item amount when selected
-                    itemManager.items[id].amount += 1
+                VStack {
+                    Image(itemManager.items[id].name)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 40, height: 40)
+                    Text("\(itemManager.items[id].amount)")
+                        .fontWeight(.medium)
+                        .foregroundColor(.black)
+                        .monospaced()
                 }
-            }) {
-                ZStack {
-                    Color.white
-                        .cornerRadius(10)
-                        .frame(height: 65)
-                    
-                    VStack {
-                        Image(itemManager.items[id].name) // Ensure image assets match names
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 40, height: 40)
-                        Text(title)
-                            .fontWeight(.medium)
-                            .foregroundColor(.black)
-                    }
-                    
-                    // Display the order in the top-right corner
-                    if let order = pressOrder[id] {
-                        Text("\(order)")
-                            .font(.caption)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .padding(4)
-                            .background(Color.red)
-                            .clipShape(Circle())
-                            .offset(x: 110, y: -25) // Position in top-right corner
-                    }
+                
+                if let order = pressOrder[id] {
+                    Text("\(order)")
+                        .font(.caption)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding(4)
+                        .background(Color.red)
+                        .clipShape(Circle())
+                        .offset(x: 110, y: -25)
                 }
             }
-        .disabled(pressOrder[id] != nil || pressCount >= 4) // Disable button after it is clicked
-        .navigationTitle("Build the infrastructure using items")
-        .navigationBarTitleDisplayMode(.large)
+        }
+    }
+    
+    // MARK: - Deduct Resources
+    private func deductResources() {
+        guard canProceed else {
+            showAlert = true
+            return
+        }
+        
+        let sortedPressOrder = pressOrder.sorted { $0.value < $1.value }
+        let requirements = [neededMetal, neededPlastic, neededGlass, neededRubber]
+        var matchedRequirements = 0 // Count of correctly matched materials
+        
+        for (index, entry) in sortedPressOrder.enumerated() {
+            let materialIndex = entry.key
+            let requiredAmount = requirements[index]
+            itemManager.items[materialIndex].amount -= requiredAmount
+            
+            // Check if material matches one of the required types
+            let selectedMaterial = itemManager.items[materialIndex].name.lowercased()
+            if ["metal", "plastic", "glass", "rubber"].contains(selectedMaterial) {
+                matchedRequirements += 1
+            }
+        }
+        
+        goodStructure = matchedRequirements >= 3
+        goProgressView = true
+        
+        // Reset selections
+        pressOrder.removeAll()
+        pressCount = 0
+        
     }
 }
 
-
-struct WaterFilterView_Previews: PreviewProvider {
-    static var previews: some View {
-        // Ensure GameState and Player are properly initialized
-        let gameState = GameState()  // Create an instance of GameState
-        let player = Player(startPosition: CGPoint(x: 200, y: 300))  // Create an instance of Player
-        
-        return WaterFilterView()
-            .environmentObject(gameState)  // Inject GameState to the view
-            .environmentObject(player)     // Inject Player to the view
-    }
+#Preview{
+    WaterFilterView()
 }

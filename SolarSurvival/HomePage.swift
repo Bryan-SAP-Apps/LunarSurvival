@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomePage: View {
     @StateObject var itemManager = ItemManager()
-    @AppStorage("E")var building = ""
+    @AppStorage("1")var building1 = ""
     @State private var showAlert = false
     @AppStorage("day") var day = 0
 
@@ -186,7 +186,7 @@ struct HomePage: View {
                                     .fill(Color(white: 0.7))
                                     .clipShape(RoundedRectangle(cornerRadius: 21.6))
                                     .frame(width: 100, height: 100)
-                                Image("\(building)")
+                                Image("\(building1)")
                                     .resizable()
                                     .frame(width: 90, height: 90)
                             }

@@ -19,6 +19,19 @@ struct Platform {
 // Collectible model
 struct Collectible {
     var position: CGPoint
+    var size: CGSize // Add size property
 }
 
+
+struct LunarFeature {
+    enum FeatureType {
+        case crater
+        case boulder
+    }
+    
+    var position: CGPoint
+    var size: CGFloat
+    var type: FeatureType
+    var isRolling: Bool = false  // New state for rolling boulders
+}
 

@@ -6,6 +6,11 @@ struct BasicShelterView: View {
     @State private var pressCount = 0 // Tracks number of selections
     
     @State private var goProgressView = false
+    @AppStorage("1")var building1 = ""
+    @AppStorage("2")var building2 = ""
+    @AppStorage("3")var building3 = ""
+    @AppStorage("4")var building4 = ""
+    @AppStorage("day") var day = 0
     @State private var neededMetal = 15
     @State private var neededPlastic = 10
     @State private var neededInsulating = 20
@@ -45,7 +50,7 @@ struct BasicShelterView: View {
                     // Material selection buttons
                     VStack {
                         Text("Choose 4 wisely")
-                            .font(.headline)
+                            .font(.title)
                             .foregroundColor(.white)
                         
                         LazyVGrid(columns: columns, spacing: 16) {
@@ -57,16 +62,39 @@ struct BasicShelterView: View {
                     }
                     
                     Spacer()
-                    
+//                    Button(action: {
+//                        
+//                    }, label: {
+//                        /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
+//                    })
                     // Confirm button
-                    Button(action: deductResources) {
+                    Button(action:{
+                        deductResources()
+//                        building1 = "basicshelter"
+                        switch day {
+                        case 0:
+                            building1 = "basicshelter"
+                        case 1:
+                            building2 = "basicshelter"
+                        case 2:
+                            building3 = "basicshelter"
+                        case 3:
+                            building4 = "basicshelter"
+                        default:
+                            print("hello")
+                        }
+                   
+                        building1 = "basicshelter"
+                        
+                    }, label:{
                         Text("Next")
                             .font(.title2)
                             .padding()
-                            .background(Color.white)
+                            .background(canProceed ? Color.green : Color.gray)
                             .cornerRadius(10)
-                            .foregroundColor(.green)
-                    }
+                            .foregroundColor(.white)
+                    })
+                    .disabled(!canProceed)
                     .alert(isPresented: $showAlert) {
                         Alert(
                             title: Text("Not enough resources"),
@@ -76,7 +104,22 @@ struct BasicShelterView: View {
                     }
                 }
                 .preferredColorScheme(.dark)
+               
             }
+        }
+    }
+    
+    // Computed property to enable or disable the "Next" button
+    private var canProceed: Bool {
+        guard pressOrder.count == 4 else { return false }
+        
+        let requirements = [neededMetal, neededPlastic, neededInsulating, neededElectronics]
+        return !pressOrder.keys.contains { index in
+            let materialIndex = index
+            guard materialIndex < itemManager.items.count else { return true }
+            let currentAmount = itemManager.items[materialIndex].amount
+            let requiredAmount = requirements[pressOrder[index]! - 1]
+            return currentAmount < requiredAmount
         }
     }
     
@@ -96,7 +139,14 @@ struct BasicShelterView: View {
     // MARK: - Material Button
     private func materialButton(id: Int, title: String) -> some View {
         Button(action: {
-            if pressCount < 4 && pressOrder[id] == nil {
+            if let order = pressOrder[id] {
+                // Deselect if already selected
+                pressOrder[id] = nil
+                pressCount -= 1
+                // Reorder remaining selections
+                pressOrder = pressOrder.mapValues { $0 > order ? $0 - 1 : $0 }
+            } else if pressCount < 4 {
+                // Select if not already selected
                 pressCount += 1
                 pressOrder[id] = pressCount
             }
@@ -129,52 +179,41 @@ struct BasicShelterView: View {
                 }
             }
         }
-        .disabled(pressOrder[id] != nil || pressCount >= 4)
     }
     
     // MARK: - Deduct Resources
     private func deductResources() {
-        guard pressOrder.count == 4 else {
+        guard canProceed else {
             showAlert = true
             return
         }
         
-        // Sort by selection order
         let sortedPressOrder = pressOrder.sorted { $0.value < $1.value }
         let requirements = [neededMetal, neededPlastic, neededInsulating, neededElectronics]
         var matchedRequirements = 0 // Count of correctly matched materials
         
         for (index, entry) in sortedPressOrder.enumerated() {
             let materialIndex = entry.key
-            if materialIndex < itemManager.items.count {
-                // Check if there's enough resource to deduct
-                let currentAmount = itemManager.items[materialIndex].amount
-                if currentAmount >= requirements[index] {
-                    // Deduct resources
-                    itemManager.items[materialIndex].amount -= requirements[index]
-                    
-                    // Check if material matches one of the required types
-                    let selectedMaterial = itemManager.items[materialIndex].name.lowercased()
-                    if ["metal", "plastic", "insulating", "electronics"].contains(selectedMaterial) {
-                        matchedRequirements += 1
-                    }
-                } else {
-                    // Not enough resource, show alert and exit
-                    showAlert = true
-                    return
-                }
+            let requiredAmount = requirements[index]
+            itemManager.items[materialIndex].amount -= requiredAmount
+            
+            // Check if material matches one of the required types
+            let selectedMaterial = itemManager.items[materialIndex].name.lowercased()
+            if ["metal", "plastic", "insulating", "electronics"].contains(selectedMaterial) {
+                matchedRequirements += 1
             }
         }
         
-        // Check if at least 3 materials are correctly matched
         goodStructure = matchedRequirements >= 3
         goProgressView = true
         
         // Reset selections
         pressOrder.removeAll()
         pressCount = 0
+        
     }
 }
-#Preview {
+
+#Preview{
     BasicShelterView()
 }
