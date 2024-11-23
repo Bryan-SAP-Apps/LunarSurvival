@@ -19,6 +19,8 @@ struct HomePage: View {
     @State private var afterEnd = false
     @AppStorage("day") var day = 0
     @StateObject var energyManager = EnergyManager()
+    
+
     var items = [
         Item(name: "metal", amount: 0),
         Item(name: "regolith", amount: 0),
@@ -46,34 +48,42 @@ struct HomePage: View {
                         
                         ZStack{
                             ZStack{
+                                
                                 Rectangle()
                                     .fill(Color(white: 0.6))
                                     .clipShape(RoundedRectangle(cornerRadius: 19))
-                                    .frame(width: 490, height: 50)
-                                    .padding(.trailing, 30)
+                                    .frame(width: 540, height: 50)
+                                    .padding(.leading, 20)
                                 HStack{
                                     ZStack{
                                         Rectangle()
                                             .fill(Color(white: 0.8))
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
-                                            .frame(width: 60, height: 40)
+                                            .frame(width: 68, height: 40)
+                                            .padding(.leading, 140)
                                         HStack{
+                                           Spacer()
                                             Image("glass")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 30, height: 40)
+                                                .frame(width: 30, height: 60)
+//
+                                                
+
                                             Text("\(itemManager.items[2].amount)")
                                                 .font(.system(size: 10))
+                                                .padding(.trailing, 12)
                                         }
-                                        .frame(width:50)
+//
                                     }
                                     
                                     ZStack{
                                         Rectangle()
                                             .fill(Color(white: 0.8))
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
-                                            .frame(width: 60, height: 40)
+                                            .frame(width: 72, height: 40)
                                         HStack{
+                                            Spacer()
                                             Image("metal")
                                                 .resizable()
                                                 .scaledToFit()
@@ -87,7 +97,7 @@ struct HomePage: View {
                                         Rectangle()
                                             .fill(Color(white: 0.8))
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
-                                            .frame(width: 60, height: 40)
+                                            .frame(width: 72, height: 40)
                                         HStack{
                                             Image("plastic")
                                                 .resizable()
@@ -102,12 +112,12 @@ struct HomePage: View {
                                         Rectangle()
                                             .fill(Color(white: 0.8))
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
-                                            .frame(width: 60, height: 40)
+                                            .frame(width: 72, height: 40)
                                         HStack{
                                             Image("rubber")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 28, height: 40)
+                                                .frame(width: 28, height: 100)
                                             Text("\(itemManager.items[3].amount)")
                                                 .font(.system(size: 10))
                                         }
@@ -117,12 +127,12 @@ struct HomePage: View {
                                         Rectangle()
                                             .fill(Color(white: 0.8))
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
-                                            .frame(width: 60, height: 40)
+                                            .frame(width: 72, height: 40)
                                         HStack{
                                             Image("regolith")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 28, height: 40)
+                                                .frame(width: 20, height: 40)
                                             Text("\(itemManager.items[1].amount)")
                                                 .font(.system(size: 10))
                                         }
@@ -132,16 +142,17 @@ struct HomePage: View {
                                         Rectangle()
                                             .fill(Color(white: 0.8))
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
-                                            .frame(width: 60, height: 40)
+                                            .frame(width: 72, height: 40)
+                                            .padding(.trailing, 92)
                                         HStack{
                                             Image("electronics")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 30, height: 40)
+                                                .frame(width: 20, height: 40)
                                             Text("\(itemManager.items[5].amount)")
                                                 .font(.system(size: 10))
-                                        }
-                                        .frame(width:50)
+                                            
+                                        }.padding(.trailing, 92)
                                     }
                                 }
                                 .padding(.leading, 20)
@@ -151,36 +162,30 @@ struct HomePage: View {
                                     .fill(Color(white: 0.4))
                                     .frame(width: 60)
                                     .padding(.trailing)
-                                    .offset(x: -230 ,y: 0)
+                                    .offset(x: -232 ,y: 0)
                             }
                             
                         }
-                        Spacer()
                         
                         ZStack{
                             
                             Rectangle()
                                 .fill(Color(white: 0.6))
                                 .clipShape(RoundedRectangle(cornerRadius: 19))
-                                .frame(width: 250, height: 50)
+                                .frame(width: 230, height: 50)
                             HStack{
-                                Spacer()
+                                let result = Double(energyManager.energies[0].amount) * 1.5
                                 Image(systemName: "bolt.fill")
-                                Spacer()
-                                ZStack(alignment: .trailing) {
-                                    Rectangle()
-                                        .fill(Color(.white))
-                                        .frame(width: 200, height: 34)
-                                        .clipShape(RoundedRectangle(cornerRadius: 14))
                                     Rectangle()
                                         .fill(Color(.yellow))
-                                        .frame(width: CGFloat(energyManager.energies[0].amount*2), height: 34)
+                                        .frame(width: CGFloat(result), height: 35)
                                         .clipShape(RoundedRectangle(cornerRadius: 14))
-                                }
-                                Spacer()
+                                        
+                                
                                 
                             }
-                        }
+                           
+                        } .offset(x: -70)
                     }
                     //Squares
                     VStack{
@@ -207,6 +212,15 @@ struct HomePage: View {
                                     
                                 
                             }
+                            ZStack{
+                                Rectangle()
+                                    .fill(Color(white: 0.7))
+                                    .clipShape(RoundedRectangle(cornerRadius: 21.6))
+                                    .frame(width: 100, height: 100)
+                                Image("\(building1)")
+                                    .resizable()
+                                    .frame(width: 90, height: 90)
+                            }
                         }
                         HStack{
                             ZStack{
@@ -227,14 +241,25 @@ struct HomePage: View {
                                     .resizable()
                                     .frame(width: 90, height: 90)
                             }
+                            ZStack{
+                                Rectangle()
+                                    .fill(Color(white: 0.7))
+                                    .clipShape(RoundedRectangle(cornerRadius: 21.6))
+                                    .frame(width: 100, height: 100)
+                                Image("\(building4)")
+                                    .resizable()
+                                    .frame(width: 90, height: 90)
+                            }
                             
                         }
+                        
                     }
                     //end of squares
                     
                     
                     
                     HStack{
+                        
                         ZStack{
                             Rectangle()
                                 .fill(Color(white: 0.7))
@@ -264,7 +289,7 @@ struct HomePage: View {
                                     
                                 }
                                 Button(action: {
-                                    energyManager.energies[0].amount += 20
+                                    energyManager.energies[0].amount += 30
                                 }, label: {
                                     Text("Eat")
                                         .frame(width:150, height: 30)

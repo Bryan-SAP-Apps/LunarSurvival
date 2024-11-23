@@ -32,7 +32,7 @@ struct InfrastructureBuildingChoices: View {
             NavigationLink(destination: RegolithInsulationView(), isActive: $regolithinsulation) {
                 EmptyView()
             }
-            NavigationLink(destination: BasicShelterView(), isActive: $highgainantenna) {
+            NavigationLink(destination: HighGainAntennaView(), isActive: $highgainantenna) {
                 EmptyView()
             }
             ZStack {
@@ -135,7 +135,9 @@ struct InfrastructureBuildingChoices: View {
                         }
                         
                         HStack(spacing: 20) {
-                            Button(action: {}) {
+                            Button(action: {
+                                regolithinsulation = true
+                            }) {
                                 ZStack {
                                     Color.white // Background color
                                         .cornerRadius(10)
@@ -152,7 +154,9 @@ struct InfrastructureBuildingChoices: View {
                                 }
                             }
                             
-                            Button(action: {}) {
+                            Button(action: {
+                                highgainantenna = true
+                            }) {
                                 ZStack {
                                     Color.white // Background color
                                         .cornerRadius(10)

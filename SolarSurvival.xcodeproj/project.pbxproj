@@ -33,6 +33,7 @@
 		04CACD882CF1848C0052AA60 /* SolarPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CACD872CF1848C0052AA60 /* SolarPanelView.swift */; };
 		04CACD8A2CF185A10052AA60 /* CO2FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CACD892CF185A10052AA60 /* CO2FilterView.swift */; };
 		04CACD8C2CF1868D0052AA60 /* RegolithInsulationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CACD8B2CF1868D0052AA60 /* RegolithInsulationView.swift */; };
+		04CACD8E2CF191170052AA60 /* HighGainAntenna.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CACD8D2CF191170052AA60 /* HighGainAntenna.swift */; };
 		59BADA6D2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BADA6C2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift */; };
 		D95962F92CF192DC00EB872E /* EndCutscene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95962F82CF192D300EB872E /* EndCutscene.swift */; };
 		D95963032CF1983000EB872E /* IntroCutscene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95963022CF1982900EB872E /* IntroCutscene.swift */; };
@@ -73,6 +74,7 @@
 		04CACD872CF1848C0052AA60 /* SolarPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarPanelView.swift; sourceTree = "<group>"; };
 		04CACD892CF185A10052AA60 /* CO2FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CO2FilterView.swift; sourceTree = "<group>"; };
 		04CACD8B2CF1868D0052AA60 /* RegolithInsulationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegolithInsulationView.swift; sourceTree = "<group>"; };
+		04CACD8D2CF191170052AA60 /* HighGainAntenna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighGainAntenna.swift; sourceTree = "<group>"; };
 		59BADA6C2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfrastructureBuildingChoices.swift; sourceTree = "<group>"; };
 		D95962F82CF192D300EB872E /* EndCutscene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndCutscene.swift; sourceTree = "<group>"; };
 		D95963022CF1982900EB872E /* IntroCutscene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCutscene.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				04CACD8B2CF1868D0052AA60 /* RegolithInsulationView.swift */,
 				04CACD892CF185A10052AA60 /* CO2FilterView.swift */,
 				048E9A7F2CE88B3900105FD3 /* UsingItemsView.swift */,
+				04CACD8D2CF191170052AA60 /* HighGainAntenna.swift */,
 			);
 			path = Build;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				0463CB482CECE1740074CA9B /* Item.swift in Sources */,
 				046376432CEECDFE00E1EA97 /* PlatformHolder.swift in Sources */,
 				048E9A262CD8771E00105FD3 /* SolarSurvivalApp.swift in Sources */,
+				04CACD8E2CF191170052AA60 /* HighGainAntenna.swift in Sources */,
 				0463CB402CECD2D60074CA9B /* Player.swift in Sources */,
 				048E9A382CDDA78500105FD3 /* PlatformCollectibles.swift in Sources */,
 				048E9A802CE88B3900105FD3 /* UsingItemsView.swift in Sources */,

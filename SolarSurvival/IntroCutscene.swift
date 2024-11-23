@@ -57,7 +57,7 @@ struct IntroCutsceneShow: View {
                     }
                 }
             }
-        }
+        }.navigationBarBackButtonHidden()
     }
     
     private func startSlideshow() {

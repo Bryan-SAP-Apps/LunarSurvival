@@ -1,12 +1,13 @@
 //
-//  RegolithInsulationView.swift
+//  HighGainAntenna.swift
 //  SolarSurvival
 //
 //  Created by Bryan Nguyen on 23/11/24.
 //
+
 import SwiftUI
 
-struct RegolithInsulationView: View {
+struct HighGainAntennaView: View {
     @EnvironmentObject var gameState: GameState
     @State private var pressOrder: [Int: Int] = [:] // Maps item IDs to press order
     @State private var pressCount = 0 // Tracks number of selections
@@ -17,7 +18,9 @@ struct RegolithInsulationView: View {
     @AppStorage("3")var building3 = ""
     @AppStorage("4")var building4 = ""
     @AppStorage("day") var day = 0
-    @State private var neededRegolith = 30
+    @State private var neededMetal = 7
+    @State private var neededPlastic = 3
+    @State private var neededElectronics = 4
     @State private var showAlert = false
     @AppStorage("structure") var goodStructure = true // Defaults to true
     
@@ -42,8 +45,9 @@ struct RegolithInsulationView: View {
                 HStack {
                     // Material requirements display
                     VStack(alignment: .leading, spacing: 20) {
-                        materialRequirement(imageName: "questionmark", text: "0/\(neededRegolith)")
-             
+                        materialRequirement(imageName: "questionmark", text: "0/\(neededMetal)")
+                        materialRequirement(imageName: "questionmark", text: "0/\(neededPlastic)")
+                        materialRequirement(imageName: "questionmark", text: "0/\(neededElectronics)")
                     }
                     
                     Spacer()
@@ -71,28 +75,15 @@ struct RegolithInsulationView: View {
                     // Confirm button
                     Button(action:{
                         deductResources()
-//                        building1 = "basicshelter"
-//                        switch day {
-//                        case 0:
-//                            building1 = "waterfilter"
-//                        case 1:
-//                            building2 = "waterfilter"
-//                        case 2:
-//                            building3 = "waterfilter"
-//                        case 3:
-//                            building4 = "waterfilter"
-//                        default:
-//                            print("hello")
-//                        }
                         
                         if building1.isEmpty {
-                            building1 = "regolithinsulation"
+                            building1 = "highgainantenna"
                         } else if building2.isEmpty {
-                            building2 = "regolithinsulation"
+                            building2 = "highgainantenna"
                         } else if building3.isEmpty {
-                            building3 = "regolithinsulation"
+                            building3 = "highgainantenna"
                         } else if building4.isEmpty {
-                            building4 = "regolithinsulation"
+                            building4 = "highgainantenna"
                         }
 
                         
@@ -122,23 +113,17 @@ struct RegolithInsulationView: View {
     
     // Computed property to enable or disable the "Next" button
     private var canProceed: Bool {
-        guard pressOrder.count == 1 else { return false }
+        guard pressOrder.count == 4 else { return false }
         
-        // Extract the selected material index
-        if let selectedMaterialIndex = pressOrder.keys.first,
-           selectedMaterialIndex < itemManager.items.count {
-            let currentAmount = itemManager.items[selectedMaterialIndex].amount
-            let requiredAmount = neededRegolith
-            
-            // Check if the selected material meets the requirement
-            return currentAmount >= requiredAmount
+        let requirements = [neededMetal, neededPlastic, neededElectronics]
+        return !pressOrder.keys.contains { index in
+            let materialIndex = index
+            guard materialIndex < itemManager.items.count else { return true }
+            let currentAmount = itemManager.items[materialIndex].amount
+            let requiredAmount = requirements[pressOrder[index]! - 1]
+            return currentAmount < requiredAmount
         }
-        
-        // Default to false if validation fails
-        return false
     }
-
-
     
     // MARK: - Material Requirement Row
     private func materialRequirement(imageName: String, text: String) -> some View {
@@ -162,7 +147,7 @@ struct RegolithInsulationView: View {
                 pressCount -= 1
                 // Reorder remaining selections
                 pressOrder = pressOrder.mapValues { $0 > order ? $0 - 1 : $0 }
-            } else if pressCount < 1{
+            } else if pressCount < 4 {
                 // Select if not already selected
                 pressCount += 1
                 pressOrder[id] = pressCount
@@ -206,7 +191,7 @@ struct RegolithInsulationView: View {
         }
         
         let sortedPressOrder = pressOrder.sorted { $0.value < $1.value }
-        let requirements = [neededRegolith]
+        let requirements = [neededMetal, neededPlastic, neededElectronics]
         var matchedRequirements = 0 // Count of correctly matched materials
         
         for (index, entry) in sortedPressOrder.enumerated() {
@@ -232,6 +217,5 @@ struct RegolithInsulationView: View {
 }
 
 #Preview{
-    RegolithInsulationView()
+    WaterFilterView()
 }
-
