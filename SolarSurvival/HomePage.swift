@@ -11,6 +11,7 @@ struct HomePage: View {
     @StateObject var itemManager = ItemManager()
     @AppStorage("1")var building1 = ""
     @State private var showAlert = false
+    @State private var afterEnd = false
     @AppStorage("day") var day = 0
 
     var items = [
@@ -172,15 +173,12 @@ struct HomePage: View {
                                 
                             }
                         }
-                        
-                        
-                        
-                        
                     }
                     //Squares
                     VStack{
-                        
+                       
                         HStack{
+                           
                             ZStack{
                                 Rectangle()
                                     .fill(Color(white: 0.7))
@@ -265,15 +263,21 @@ struct HomePage: View {
                             }
                             
                                 
-                        NavigationLink(destination: CongratView()) {
-                            Text("End Day")
-                                .frame(width:150,height: 50)
-                                .font(.title)
-                                .bold()
-                                .padding()
-                                .background(Color.green)
-                                .foregroundColor(.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 19))
+                        NavigationLink(destination: AfterEndDay(), isActive: $afterEnd) {
+                            Button(action: {
+                                day += 1
+                                afterEnd = true
+                            }
+                                   , label: {
+                                Text("End Day")
+                                    .frame(width:150,height: 50)
+                                    .font(.title)
+                                    .bold()
+                                    .padding()
+                                    .background(Color.green)
+                                    .foregroundColor(.white)
+                                    .clipShape(RoundedRectangle(cornerRadius: 19))
+                            })
                             
                         }
 //                        Button(action: {
@@ -303,6 +307,7 @@ struct HomePage: View {
                 .background() {
                     Image("moon surface img")
                 }
+                    
                 //First VSTACK
             }
             .navigationBarBackButtonHidden()
