@@ -13,9 +13,16 @@ struct SolarSurvivalApp: App {
     @StateObject var itemManager = ItemManager()
     @StateObject var gameState = GameState()
     @StateObject var player = Player(startPosition: CGPoint(x: 200, y: 300))// this is the
+    
     init() {
-            itemManager.setGameState(gameState)
+        let currentItemManager = itemManager
+        let currentGameState = gameState
+        DispatchQueue.main.async {
+            currentItemManager.setGameState(currentGameState)
         }
+    }
+
+
     var body: some Scene {
         WindowGroup {
             CutsceneSlideshow()
