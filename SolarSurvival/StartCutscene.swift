@@ -13,7 +13,7 @@ struct CutsceneSlideshow: View {
     @State private var timer: Timer?
     @State private var cutsceneTimes = 0
     @AppStorage("hasSeenCutscene") private var hasSeenCutscene = false // Persistent flag
-
+    
     let images = ["CImg-1","CImg0","CImg0_5","CImg1", "CImg2", "CImg3", "CImg4", "CImg5", "CImg6", "CImg7", "CImg8", "CImg9", "CImg10", "CImg11", "CImg12", "CImg13", "CImg14", "CImg15", "CImg16"] // Replace with your image names
     let durations: [ClosedRange<Double>] = [
         0.5...1.0, //start
@@ -36,7 +36,7 @@ struct CutsceneSlideshow: View {
         3.0...5.5, //15
         4.0...6.5 //16
     ]
-
+    
     var body: some View {
         Group {
             if showNextView {
@@ -47,34 +47,34 @@ struct CutsceneSlideshow: View {
                 
                 ZStack {
                     Color.black.edgesIgnoringSafeArea(.all) // Background color
-
+                    
                     if let currentImage = images[safe: currentIndex] {
                         AsyncImage(name: currentImage) // Lazy-loaded image
                             .scaledToFill()
                             .edgesIgnoringSafeArea(.all)
                             .transition(.opacity)
                     }
-
+                    
                     // Skip Button
                     if cutsceneTimes >= 1 {
-                                            VStack {
-                                                HStack {
-                                                    Spacer()
-                                                    Button(action: {
-                                                        finishCutscene()
-                                                    }) {
-                                                        Text("Skip")
-                                                            .foregroundColor(.white)
-                                                            .padding(.horizontal, 16)
-                                                            .padding(.vertical, 8)
-                                                            .background(Color.red)
-                                                            .cornerRadius(8)
-                                                    }
-                                                    .padding()
-                                                }
-                                                Spacer()
-                                            }
-                                        }
+                        VStack {
+                            HStack {
+                                Spacer()
+                                Button(action: {
+                                    finishCutscene()
+                                }) {
+                                    Text("Skip")
+                                        .foregroundColor(.white)
+                                        .padding(.horizontal, 16)
+                                        .padding(.vertical, 8)
+                                        .background(Color.red)
+                                        .cornerRadius(8)
+                                }
+                                .padding()
+                            }
+                            Spacer()
+                        }
+                    }
                 }
                 .onAppear {
                     if !hasSeenCutscene {
@@ -91,7 +91,7 @@ struct CutsceneSlideshow: View {
             }
         }.navigationBarBackButtonHidden()
     }
-
+    
     private func startSlideshow() {
         if currentIndex >= images.count {
             finishCutscene()
@@ -100,17 +100,17 @@ struct CutsceneSlideshow: View {
         //hasSeenCutscene = true
         // Reset skipping ability
         canSkip = false
-
+        
         // Get duration range for the current image
         let durationRange = durations[safe: currentIndex] ?? 3.0...5.0
         let minTime = durationRange.lowerBound
         let maxTime = durationRange.upperBound
-
+        
         // Schedule timer for min time to allow skipping
         DispatchQueue.main.asyncAfter(deadline: .now() + minTime) {
             canSkip = true
         }
-
+        
         // Schedule timer for automatic transition after max time
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: maxTime, repeats: false) { _ in
@@ -120,7 +120,7 @@ struct CutsceneSlideshow: View {
             }
         }
     }
-
+    
     private func skipToNextImage() {
         timer?.invalidate()
         withAnimation {
@@ -128,14 +128,14 @@ struct CutsceneSlideshow: View {
             startSlideshow()
         }
     }
-
+    
     func playCutscene() {
         currentIndex = 0
         showNextView = false
         hasSeenCutscene = false
         cutsceneTimes += 1
     }
-
+    
     private func finishCutscene() {
         timer?.invalidate()
         hasSeenCutscene = true // Mark cutscene as seen
@@ -153,7 +153,7 @@ extension Array {
 // Lazy-loaded image using AsyncImage
 struct AsyncImage: View {
     let name: String
-
+    
     var body: some View {
         Image(name)
             .resizable()

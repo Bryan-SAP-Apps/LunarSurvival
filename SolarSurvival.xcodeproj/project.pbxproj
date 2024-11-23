@@ -34,13 +34,15 @@
 		04CACD8A2CF185A10052AA60 /* CO2FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CACD892CF185A10052AA60 /* CO2FilterView.swift */; };
 		04CACD8C2CF1868D0052AA60 /* RegolithInsulationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CACD8B2CF1868D0052AA60 /* RegolithInsulationView.swift */; };
 		59BADA6D2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BADA6C2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift */; };
+		D95962F92CF192DC00EB872E /* EndCutscene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95962F82CF192D300EB872E /* EndCutscene.swift */; };
+		D95963032CF1983000EB872E /* IntroCutscene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95963022CF1982900EB872E /* IntroCutscene.swift */; };
 		D96186CB2CE58BD50088C94B /* Homepage img2.png in Resources */ = {isa = PBXBuildFile; fileRef = D96186B52CE58BD50088C94B /* Homepage img2.png */; };
 		D96186DB2CE593D00088C94B /* StartPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96186DA2CE593D00088C94B /* StartPage.swift */; };
 		D96186E72CE779B50088C94B /* CongratView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96186E62CE779AD0088C94B /* CongratView.swift */; };
 		D9EFF5FB2CE83CEC000EDAD8 /* moon surface img.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EFF5FA2CE83CEC000EDAD8 /* moon surface img.png */; };
 		D9EFF5FF2CE8448E000EDAD8 /* Rocket1.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EFF5FE2CE8448E000EDAD8 /* Rocket1.png */; };
 		D9EFF6032CE847DC000EDAD8 /* Astro building.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EFF6022CE847DC000EDAD8 /* Astro building.png */; };
-		D9EFF6132CEA51FA000EDAD8 /* Cutscene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EFF6122CEA51F4000EDAD8 /* Cutscene.swift */; };
+		D9EFF6132CEA51FA000EDAD8 /* StartCutscene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EFF6122CEA51F4000EDAD8 /* StartCutscene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,13 +73,15 @@
 		04CACD892CF185A10052AA60 /* CO2FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CO2FilterView.swift; sourceTree = "<group>"; };
 		04CACD8B2CF1868D0052AA60 /* RegolithInsulationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegolithInsulationView.swift; sourceTree = "<group>"; };
 		59BADA6C2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfrastructureBuildingChoices.swift; sourceTree = "<group>"; };
+		D95962F82CF192D300EB872E /* EndCutscene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndCutscene.swift; sourceTree = "<group>"; };
+		D95963022CF1982900EB872E /* IntroCutscene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCutscene.swift; sourceTree = "<group>"; };
 		D96186B52CE58BD50088C94B /* Homepage img2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Homepage img2.png"; sourceTree = "<group>"; };
 		D96186DA2CE593D00088C94B /* StartPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPage.swift; sourceTree = "<group>"; };
 		D96186E62CE779AD0088C94B /* CongratView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratView.swift; sourceTree = "<group>"; };
 		D9EFF5FA2CE83CEC000EDAD8 /* moon surface img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moon surface img.png"; sourceTree = "<group>"; };
 		D9EFF5FE2CE8448E000EDAD8 /* Rocket1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rocket1.png; sourceTree = "<group>"; };
 		D9EFF6022CE847DC000EDAD8 /* Astro building.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Astro building.png"; sourceTree = "<group>"; };
-		D9EFF6122CEA51F4000EDAD8 /* Cutscene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cutscene.swift; sourceTree = "<group>"; };
+		D9EFF6122CEA51F4000EDAD8 /* StartCutscene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartCutscene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +134,9 @@
 				046376422CEECDFE00E1EA97 /* PlatformHolder.swift */,
 				046376622CEED38300E1EA97 /* NextLevelView.swift */,
 				D96186E62CE779AD0088C94B /* CongratView.swift */,
-				D9EFF6122CEA51F4000EDAD8 /* Cutscene.swift */,
+				D9EFF6122CEA51F4000EDAD8 /* StartCutscene.swift */,
+				D95962F82CF192D300EB872E /* EndCutscene.swift */,
+				D95963022CF1982900EB872E /* IntroCutscene.swift */,
 				048E9A292CD8771F00105FD3 /* Assets.xcassets */,
 				D96186B52CE58BD50088C94B /* Homepage img2.png */,
 				D9EFF5FA2CE83CEC000EDAD8 /* moon surface img.png */,
@@ -246,6 +252,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D95963032CF1983000EB872E /* IntroCutscene.swift in Sources */,
 				048E9A282CD8771E00105FD3 /* PlatformView.swift in Sources */,
 				0463766B2CF16F7600E1EA97 /* DeathView.swift in Sources */,
 				59BADA6D2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift in Sources */,
@@ -262,6 +269,7 @@
 				D96186DB2CE593D00088C94B /* StartPage.swift in Sources */,
 				0463CB3E2CEB49C60074CA9B /* WaterFilterView.swift in Sources */,
 				D96186E72CE779B50088C94B /* CongratView.swift in Sources */,
+				D95962F92CF192DC00EB872E /* EndCutscene.swift in Sources */,
 				04A44ECD2CF176680086D825 /* Energy.swift in Sources */,
 				0463CB462CECDFA30074CA9B /* GameState.swift in Sources */,
 				046376632CEED38300E1EA97 /* NextLevelView.swift in Sources */,
@@ -271,7 +279,7 @@
 				046376692CF16DE600E1EA97 /* AfterEndDay.swift in Sources */,
 				046376652CEF79B500E1EA97 /* LevelManager.swift in Sources */,
 				04CACD8C2CF1868D0052AA60 /* RegolithInsulationView.swift in Sources */,
-				D9EFF6132CEA51FA000EDAD8 /* Cutscene.swift in Sources */,
+				D9EFF6132CEA51FA000EDAD8 /* StartCutscene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
