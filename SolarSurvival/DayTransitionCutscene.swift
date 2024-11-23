@@ -6,10 +6,13 @@
 //
 import SwiftUI
 
-struct OptimizedFullscreenSlideshow: View {
+struct DayTransitionCutscene: View {
+    @Binding var day : Int// The current day to determine the second image
+    let onFinish: () -> Void // Callback for when the slideshow ends
+    
     @State private var currentIndex = 0
     @State private var showNextView = false
-    let images = ["image1", "image2", "image3", "image4"] // Replace with your image names
+    var images = ["Solar Rain", "TempDay1", "TempDay2", "TempDay3", "TempDay4", "TempDay5", "TempDay6", "TempDay7"] // Replace with your image names
     let minTime: Double = 2.0
     let maxTime: Double = 4.0
     
@@ -18,7 +21,7 @@ struct OptimizedFullscreenSlideshow: View {
     var body: some View {
         Group {
             if showNextView {
-                HomePage() // Replace with your next view
+                AfterEndDay() // Replace with your next view
             } else {
                 ZStack {
                     Color.black.edgesIgnoringSafeArea(.all) // Background color
@@ -42,6 +45,7 @@ struct OptimizedFullscreenSlideshow: View {
     private func startSlideshow() {
         if currentIndex >= images.count {
             showNextView = true
+            onFinish()
             return
         }
         
@@ -66,6 +70,6 @@ struct OptimizedFullscreenSlideshow: View {
 
 
 #Preview {
-    OptimizedFullscreenSlideshow()
+    AfterEndDay()
 }
 

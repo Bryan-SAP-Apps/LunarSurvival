@@ -13,6 +13,7 @@ struct AfterEndDay: View {
     @AppStorage("structure") var goodStructure = true
     @State private var goGood = false
     @State private var goDie = false
+    
     var body: some View {
         NavigationStack{
             NavigationLink(

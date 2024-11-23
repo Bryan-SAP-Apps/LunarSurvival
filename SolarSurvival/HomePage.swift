@@ -14,6 +14,7 @@ struct HomePage: View {
     @AppStorage("3")var building3 = ""
     @AppStorage("4")var building4 = ""
     
+    @State private var showCutscene = false
     @State private var showAlert = false
     @State private var afterEnd = false
     @AppStorage("day") var day = 0
@@ -279,10 +280,11 @@ struct HomePage: View {
                             }
                             
                                 
-                        NavigationLink(destination: AfterEndDay(), isActive: $afterEnd) {
+                        NavigationLink(destination: DayTransitionCutscene(day: $day, onFinish: {}), isActive: $showCutscene) {
                             Button(action: {
                                 day += 1
                                 afterEnd = true
+                                showCutscene = true
                             }
                                    , label: {
                                 Text("End Day")
