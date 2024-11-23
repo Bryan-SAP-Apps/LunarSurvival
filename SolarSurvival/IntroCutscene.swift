@@ -12,18 +12,32 @@ struct IntroCutsceneShow: View {
     @State private var canSkip = false // Tracks if skipping is allowed
     @State private var timer: Timer?
     
-    let images = ["Rescue1", "Rescue2", "Rescue3", "Rescue4_2"] // Replace with your image names
+    let images = ["Introtemp1", "Introtemp2", "Introtemp3", "Introtemp4", "Introtemp5", "Intrograv1", "Intrograv2", "Intrograv3", "Intrograv4", "Intrograv5", "Intrograv6", "Intrograv7", "Intrograv8_2", "Intrograv4", "Intrograv5", "Intrograv6", "Intrograv7", "Intrograv3"] // Replace with your image names
     let durations: [ClosedRange<Double>] = [
         1.5...2.5, // Duration range for image 1
-        0.5...1.5, // Duration range for image 2
-        0.5...1.5, // Duration range for image 3
-        1.5...2.5  // Duration range for image 4
+        1.5...2.5, // Duration range for image 2
+        1.5...2.5, // Duration range for image 3
+        1.5...2.5,  // Duration range for image 4
+        1.5...2.5,
+        2.0...3.0,
+        2.0...3.0,
+        1.5...2.5,
+        0.5...1.5,
+        0.5...1.5,
+        0.5...1.5,
+        0.5...1.5,
+        1.5...2.5,
+        0.5...1.5,
+        0.5...1.5,
+        0.5...1.5,
+        0.5...1.5,
+        1.5...2.5
     ]
     
     var body: some View {
         Group {
             if showNextView {
-                CongratView() // Next view after the slideshow
+                HomePage() // Next view after the slideshow
             } else {
                 ZStack {
                     Color.black.edgesIgnoringSafeArea(.all) // Background color

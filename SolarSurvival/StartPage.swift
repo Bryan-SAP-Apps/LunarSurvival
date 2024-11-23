@@ -103,7 +103,7 @@ struct StartView: View {
             }
         }
         // Programmatic NavigationLink
-        NavigationLink(destination: HomePage(), isActive: $isNavigated) {
+        NavigationLink(destination: IntroCutsceneShow(), isActive: $isNavigated) {
             EmptyView() // Use an empty view for the link
         }
         .navigationBarBackButtonHidden()
