@@ -17,6 +17,14 @@ struct DayTransitionCutscene: View {
     let maxTime: Double = 4.0
     
     @State private var timer: Timer?
+   
+    init(day: Int, onFinish: @escaping () -> Void) {
+            self._day = Binding.constant(day) // Initialize the day as a constant binding
+            self.onFinish = onFinish
+            
+            // Initialize images with solar wind + day-specific image
+            self.images = ["Solar Rain", "TempDay\(day)"]
+        }
     
     var body: some View {
         Group {

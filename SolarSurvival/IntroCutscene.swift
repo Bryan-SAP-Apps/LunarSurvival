@@ -12,7 +12,7 @@ struct IntroCutsceneShow: View {
     @State private var canSkip = false // Tracks if skipping is allowed
     @State private var timer: Timer?
     
-    let images = ["Introtemp1", "Introtemp2", "Introtemp3", "Introtemp4", "Introtemp5", "Intrograv1", "Intrograv2", "Intrograv3", "Intrograv4", "Intrograv5", "Intrograv6", "Intrograv7", "Intrograv8_2", "Intrograv4", "Intrograv5", "Intrograv6", "Intrograv7", "Intrograv3"] // Replace with your image names
+    let images = ["Introtemp1", "Introtemp2", "Introtemp3", "Introtemp4", "Introtemp5", "Intrograv1", "Intrograv2", "Intrograv3", "Intrograv4", "Intrograv5", "Intrograv6", "Intrograv7", "Intrograv8_2", "Intrograv7", "Intrograv6", "Intrograv5", "Intrograv4", "Intrograv3"] // Replace with your image names
     let durations: [ClosedRange<Double>] = [
         1.5...2.5, // Duration range for image 1
         1.5...2.5, // Duration range for image 2

@@ -280,7 +280,7 @@ struct HomePage: View {
                             }
                             
                                 
-                        NavigationLink(destination: DayTransitionCutscene(day: $day, onFinish: {}), isActive: $showCutscene) {
+                        NavigationLink(destination: DayTransitionCutscene(day: day, onFinish: {}), isActive: $showCutscene) {
                             Button(action: {
                                 day += 1
                                 afterEnd = true
