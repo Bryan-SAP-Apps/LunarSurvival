@@ -4,12 +4,8 @@ struct WaterFilterView: View {
     @EnvironmentObject var gameState: GameState
     @State private var pressOrder: [Int: Int] = [:] // Maps item IDs to press order
     @State private var pressCount = 0 // Tracks number of selections
-    
+    @EnvironmentObject var buildingManager: BuildingManager
     @State private var goProgressView = false
-    @AppStorage("1")var building1 = ""
-    @AppStorage("2")var building2 = ""
-    @AppStorage("3")var building3 = ""
-    @AppStorage("4")var building4 = ""
     @AppStorage("day") var day = 0
     @State private var neededMetal = 5
     @State private var neededPlastic = 8
@@ -62,42 +58,12 @@ struct WaterFilterView: View {
                     }
                     
                     Spacer()
-//                    Button(action: {
-//
-//                    }, label: {
-//                        /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
-//                    })
+                    
                     // Confirm button
-                    Button(action:{
+                    Button(action: {
                         deductResources()
-//                        building1 = "basicshelter"
-//                        switch day {
-//                        case 0:
-//                            building1 = "waterfilter"
-//                        case 1:
-//                            building2 = "waterfilter"
-//                        case 2:
-//                            building3 = "waterfilter"
-//                        case 3:
-//                            building4 = "waterfilter"
-//                        default:
-//                            print("hello")
-//                        }
-                        
-                        if building1.isEmpty {
-                            building1 = "waterfilter"
-                        } else if building2.isEmpty {
-                            building2 = "waterfilter"
-                        } else if building3.isEmpty {
-                            building3 = "waterfilter"
-                        } else if building4.isEmpty {
-                            building4 = "waterfilter"
-                        }
-
-                        
-                        
-                        
-                    }, label:{
+                        addResourcelToBuilding()
+                    }, label: {
                         Text("Next")
                             .font(.title2)
                             .padding()
@@ -191,6 +157,15 @@ struct WaterFilterView: View {
         }
     }
     
+    // MARK: - Add Water Filter to Building
+    private func addResourcelToBuilding() {
+        if let emptyBuilding = buildingManager.buildings.first(where: { $0.imageName.isEmpty }) {
+            if let index = buildingManager.buildings.firstIndex(of: emptyBuilding) {
+                buildingManager.buildings[index].imageName = "waterfilter"
+            }
+        }
+    }
+    
     // MARK: - Deduct Resources
     private func deductResources() {
         guard canProceed else {
@@ -220,7 +195,6 @@ struct WaterFilterView: View {
         // Reset selections
         pressOrder.removeAll()
         pressCount = 0
-        
     }
 }
 

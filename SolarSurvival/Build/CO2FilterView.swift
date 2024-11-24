@@ -13,10 +13,7 @@ struct CO2FilterView: View {
     @State private var pressCount = 0 // Tracks number of selections
     
     @State private var goProgressView = false
-    @AppStorage("1")var building1 = ""
-    @AppStorage("2")var building2 = ""
-    @AppStorage("3")var building3 = ""
-    @AppStorage("4")var building4 = ""
+    @EnvironmentObject var buildingManager: BuildingManager
     @AppStorage("day") var day = 0
     @State private var neededMetal = 3
     @State private var neededPlastic = 5
@@ -77,30 +74,7 @@ struct CO2FilterView: View {
                     // Confirm button
                     Button(action:{
                         deductResources()
-//                        building1 = "basicshelter"
-//                        switch day {
-//                        case 0:
-//                            building1 = "waterfilter"
-//                        case 1:
-//                            building2 = "waterfilter"
-//                        case 2:
-//                            building3 = "waterfilter"
-//                        case 3:
-//                            building4 = "waterfilter"
-//                        default:
-//                            print("hello")
-//                        }
-                        
-                        if building1.isEmpty {
-                            building1 = "co2filter"
-                        } else if building2.isEmpty {
-                            building2 = "co2filter"
-                        } else if building3.isEmpty {
-                            building3 = "co2filter"
-                        } else if building4.isEmpty {
-                            building4 = "co2filter"
-                        }
-
+                        addResourcelToBuilding()
                         
                         
                         
@@ -139,7 +113,13 @@ struct CO2FilterView: View {
             return currentAmount < requiredAmount
         }
     }
-    
+    private func addResourcelToBuilding() {
+        if let emptyBuilding = buildingManager.buildings.first(where: { $0.imageName.isEmpty }) {
+            if let index = buildingManager.buildings.firstIndex(of: emptyBuilding) {
+                buildingManager.buildings[index].imageName = "co2filter"
+            }
+        }
+    }
     // MARK: - Material Requirement Row
     private func materialRequirement(imageName: String, text: String) -> some View {
         HStack {

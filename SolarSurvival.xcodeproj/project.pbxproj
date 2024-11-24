@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		043E89972CF363B00097877D /* BuildingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E89962CF363B00097877D /* BuildingManager.swift */; };
+		043E89992CF367010097877D /* BuildingGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E89982CF367010097877D /* BuildingGridView.swift */; };
 		046376432CEECDFE00E1EA97 /* PlatformHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046376422CEECDFE00E1EA97 /* PlatformHolder.swift */; };
 		046376632CEED38300E1EA97 /* NextLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046376622CEED38300E1EA97 /* NextLevelView.swift */; };
 		046376652CEF79B500E1EA97 /* LevelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046376642CEF79B500E1EA97 /* LevelManager.swift */; };
@@ -48,6 +50,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		043E89962CF363B00097877D /* BuildingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingManager.swift; sourceTree = "<group>"; };
+		043E89982CF367010097877D /* BuildingGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingGridView.swift; sourceTree = "<group>"; };
 		046376422CEECDFE00E1EA97 /* PlatformHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformHolder.swift; sourceTree = "<group>"; };
 		046376622CEED38300E1EA97 /* NextLevelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextLevelView.swift; sourceTree = "<group>"; };
 		046376642CEF79B500E1EA97 /* LevelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelManager.swift; sourceTree = "<group>"; };
@@ -103,6 +107,7 @@
 		048E9A192CD8771D00105FD3 = {
 			isa = PBXGroup;
 			children = (
+				043E89962CF363B00097877D /* BuildingManager.swift */,
 				046376662CEF7B8300E1EA97 /* GameUIHelper.swift */,
 				046376642CEF79B500E1EA97 /* LevelManager.swift */,
 				0463CB4B2CED003B0074CA9B /* GameHelper.swift */,
@@ -149,6 +154,7 @@
 				D9EFF6022CE847DC000EDAD8 /* Astro building.png */,
 				D9EFF5FE2CE8448E000EDAD8 /* Rocket1.png */,
 				048E9A2B2CD8771F00105FD3 /* Preview Content */,
+				043E89982CF367010097877D /* BuildingGridView.swift */,
 			);
 			path = SolarSurvival;
 			sourceTree = "<group>";
@@ -258,6 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				043E89992CF367010097877D /* BuildingGridView.swift in Sources */,
 				D95963032CF1983000EB872E /* IntroCutscene.swift in Sources */,
 				048E9A282CD8771E00105FD3 /* PlatformView.swift in Sources */,
 				0463766B2CF16F7600E1EA97 /* DeathView.swift in Sources */,
@@ -288,6 +295,7 @@
 				046376652CEF79B500E1EA97 /* LevelManager.swift in Sources */,
 				04CACD8C2CF1868D0052AA60 /* RegolithInsulationView.swift in Sources */,
 				D9EFF6132CEA51FA000EDAD8 /* StartCutscene.swift in Sources */,
+				043E89972CF363B00097877D /* BuildingManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

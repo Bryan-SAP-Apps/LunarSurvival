@@ -15,4 +15,3 @@ struct PlayerConstants {
     static let jumpStrength: CGFloat = -5
     static let gravity: CGFloat = 0.5
 }
-

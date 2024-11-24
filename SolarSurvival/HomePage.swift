@@ -9,10 +9,8 @@ import SwiftUI
 
 struct HomePage: View {
     @StateObject var itemManager = ItemManager()
-    @AppStorage("1")var building1 = ""
-    @AppStorage("2")var building2 = ""
-    @AppStorage("3")var building3 = ""
-    @AppStorage("4")var building4 = ""
+    @EnvironmentObject var buildingManager: BuildingManager
+    
     
     @State private var showCutscene = false
     @State private var showAlert = false
@@ -41,42 +39,30 @@ struct HomePage: View {
     var body: some View {
         NavigationStack{
             ZStack{
-                
                 VStack{
-
                     HStack{
-                        
                         ZStack{
                             ZStack{
-                                
                                 Rectangle()
                                     .fill(Color(white: 0.6))
                                     .clipShape(RoundedRectangle(cornerRadius: 19))
                                     .frame(width: 540, height: 50)
-                                    .padding(.leading, 20)
+                                
                                 HStack{
                                     ZStack{
                                         Rectangle()
                                             .fill(Color(white: 0.8))
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
                                             .frame(width: 68, height: 40)
-                                            .padding(.leading, 140)
                                         HStack{
-                                           Spacer()
                                             Image("glass")
                                                 .resizable()
                                                 .scaledToFit()
                                                 .frame(width: 30, height: 60)
-//
-                                                
-
                                             Text("\(itemManager.items[2].amount)")
                                                 .font(.system(size: 10))
-                                                .padding(.trailing, 12)
                                         }
-//
                                     }
-                                    
                                     ZStack{
                                         Rectangle()
                                             .fill(Color(white: 0.8))
@@ -143,7 +129,7 @@ struct HomePage: View {
                                             .fill(Color(white: 0.8))
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
                                             .frame(width: 72, height: 40)
-                                            .padding(.trailing, 92)
+//                                            .padding(.trailing, 92)
                                         HStack{
                                             Image("electronics")
                                                 .resizable()
@@ -152,19 +138,20 @@ struct HomePage: View {
                                             Text("\(itemManager.items[5].amount)")
                                                 .font(.system(size: 10))
                                             
-                                        }.padding(.trailing, 92)
+                                        }/*.padding(.trailing, 92)*/
                                     }
                                 }
-                                .padding(.leading, 20)
                             }
-                            ZStack{
-                                Circle()
-                                    .fill(Color(white: 0.4))
-                                    .frame(width: 60)
-                                    .padding(.trailing)
-                                    .offset(x: -232 ,y: 0)
-                            }
-                            
+                            HStack{
+                                ZStack{
+                                    Circle()
+                                        .fill(Color(white: 0.4))
+                                        .frame(width: 60)
+                                        
+                                }
+                                Spacer()
+                                Spacer()
+                            }.padding(.trailing, 520)
                         }
                         
                         ZStack{
@@ -172,7 +159,7 @@ struct HomePage: View {
                             Rectangle()
                                 .fill(Color(white: 0.6))
                                 .clipShape(RoundedRectangle(cornerRadius: 19))
-                                .frame(width: 230, height: 50)
+                                .frame(width: 200, height: 50)
                             HStack{
                                 let result = Double(energyManager.energies[0].amount) * 1.5
                                 Image(systemName: "bolt.fill")
@@ -180,82 +167,14 @@ struct HomePage: View {
                                         .fill(Color(.yellow))
                                         .frame(width: CGFloat(result), height: 35)
                                         .clipShape(RoundedRectangle(cornerRadius: 14))
-                                        
-                                
-                                
                             }
                            
-                        } .offset(x: -70)
+                        }
                     }
                     //Squares
-                    VStack{
-                       
-                        HStack{
-                           
-                            ZStack{
-                                Rectangle()
-                                    .fill(Color(white: 0.7))
-                                    .clipShape(RoundedRectangle(cornerRadius: 21.6))
-                                    .frame(width: 100, height: 100)
-                                Image("\(building1)")
-                                    .resizable()
-                                    .frame(width: 90, height: 90)
-                            }
-                            ZStack{
-                                Rectangle()
-                                    .fill(Color(white: 0.7))
-                                    .clipShape(RoundedRectangle(cornerRadius: 21.6))
-                                    .frame(width: 100, height: 100)
-                                Image("\(building2)")
-                                    .resizable()
-                                    .frame(width: 90, height: 90)
-                                    
-                                
-                            }
-                            ZStack{
-                                Rectangle()
-                                    .fill(Color(white: 0.7))
-                                    .clipShape(RoundedRectangle(cornerRadius: 21.6))
-                                    .frame(width: 100, height: 100)
-                                Image("\(building1)")
-                                    .resizable()
-                                    .frame(width: 90, height: 90)
-                            }
-                        }
-                        HStack{
-                            ZStack{
-                                Rectangle()
-                                    .fill(Color(white: 0.7))
-                                    .clipShape(RoundedRectangle(cornerRadius: 21.6))
-                                    .frame(width: 100, height: 100)
-                                Image("\(building3)")
-                                    .resizable()
-                                    .frame(width: 90, height: 90)
-                            }
-                            ZStack{
-                                Rectangle()
-                                    .fill(Color(white: 0.7))
-                                    .clipShape(RoundedRectangle(cornerRadius: 21.6))
-                                    .frame(width: 100, height: 100)
-                                Image("\(building4)")
-                                    .resizable()
-                                    .frame(width: 90, height: 90)
-                            }
-                            ZStack{
-                                Rectangle()
-                                    .fill(Color(white: 0.7))
-                                    .clipShape(RoundedRectangle(cornerRadius: 21.6))
-                                    .frame(width: 100, height: 100)
-                                Image("\(building4)")
-                                    .resizable()
-                                    .frame(width: 90, height: 90)
-                            }
-                            
-                        }
-                        
-                    }
+                    BuildingGridView()
+                        .environmentObject(buildingManager)
                     //end of squares
-                    
                     
                     
                     HStack{
@@ -264,11 +183,11 @@ struct HomePage: View {
                             Rectangle()
                                 .fill(Color(white: 0.7))
                                 .clipShape(RoundedRectangle(cornerRadius: 21.6))
-                                .frame(width: 500, height: 70)
+                                .frame(width: 550, height: 70)
                             HStack{
                                 NavigationLink(destination: PlatformHolder()) {
                                     Text("Scavenge")
-                                        .frame(width:150, height: 30)
+                                        .frame(width:140, height: 30)
                                         .font(.title)
                                         .bold()
                                         .padding()
@@ -279,7 +198,7 @@ struct HomePage: View {
                                 }
                                 NavigationLink(destination: InfrastructureBuildingChoices()) {
                                     Text("Build")
-                                        .frame(width:150, height: 30)
+                                        .frame(width:140, height: 30)
                                         .font(.title)
                                         .bold()
                                         .padding()
@@ -292,7 +211,7 @@ struct HomePage: View {
                                     energyManager.energies[0].amount += 30
                                 }, label: {
                                     Text("Eat")
-                                        .frame(width:150, height: 30)
+                                        .frame(width:140, height: 30)
                                         .font(.title)
                                         .bold()
                                         .padding()

@@ -10,7 +10,9 @@ struct StartView: View {
     @AppStorage("2")var building2 = ""
     @AppStorage("3")var building3 = ""
     @AppStorage("4")var building4 = ""
-    
+    @AppStorage("5")var building5 = ""
+    @AppStorage("5")var building6 = ""
+    @AppStorage("day") var day = 0
     var playCutscene: () -> Void // Callback to play cutscene again
     
     var body: some View {
@@ -79,6 +81,9 @@ struct StartView: View {
                                 building2 = ""
                                 building3 = ""
                                 building4 = ""
+                                building5 = ""
+                                building6 = ""
+                                day = 0
                                 if (continuee == false) {
                                     start = "Start"
                                 } else {
