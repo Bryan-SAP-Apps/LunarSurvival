@@ -15,7 +15,7 @@ struct HomePage: View {
     @State private var showCutscene = false
     @State private var showAlert = false
     @State private var afterEnd = false
-    @AppStorage("day") var day = 0
+    @AppStorage("day") var day = 1
     @StateObject var energyManager = EnergyManager()
     
 
@@ -155,22 +155,28 @@ struct HomePage: View {
                         }
                         
                         ZStack{
-                            
                             Rectangle()
                                 .fill(Color(white: 0.6))
                                 .clipShape(RoundedRectangle(cornerRadius: 19))
-                                .frame(width: 200, height: 50)
+                                .frame(width: 250, height: 50)
                             HStack{
-                                let result = Double(energyManager.energies[0].amount) * 1.5
+                                let result = Double(energyManager.energies[0].amount) * 2
                                 Image(systemName: "bolt.fill")
+                                ZStack(alignment: .leading){
+                                    Rectangle()
+                                        .fill(Color(.white))
+                                        .frame(width: 200, height: 35)
+                                        .clipShape(RoundedRectangle(cornerRadius: 14))
                                     Rectangle()
                                         .fill(Color(.yellow))
                                         .frame(width: CGFloat(result), height: 35)
                                         .clipShape(RoundedRectangle(cornerRadius: 14))
+                                }
                             }
                            
                         }
                     }
+                    
                     //Squares
                     BuildingGridView()
                         .environmentObject(buildingManager)
@@ -224,9 +230,8 @@ struct HomePage: View {
                             }
                             
                                 
-                        NavigationLink(destination: DayTransitionCutscene(day: day, onFinish: {}), isActive: $showCutscene) {
+                        NavigationLink(destination: DayTransitionCutscene( onFinish: {}), isActive: $showCutscene) {
                             Button(action: {
-                                day += 1
                                 afterEnd = true
                                 showCutscene = true
                             }
@@ -268,7 +273,8 @@ struct HomePage_Previews: PreviewProvider {
         // Test with just a basic setup for HomePage
         HomePage()
             .environmentObject(GameState()) // Test if GameState can be injected
-            .environmentObject(Player(startPosition: CGPoint(x: 200, y: 300))) // Test if Player can be injected
+            .environmentObject(Player(startPosition: CGPoint(x: 200, y: 300)))
+            .environmentObject(BuildingManager())// Test if Player can be injected
     }
 }
 

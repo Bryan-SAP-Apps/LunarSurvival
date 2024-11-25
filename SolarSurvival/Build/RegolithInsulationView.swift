@@ -13,7 +13,7 @@ struct RegolithInsulationView: View {
     
     @State private var goProgressView = false
     @EnvironmentObject var buildingManager: BuildingManager
-    @AppStorage("day") var day = 0
+    @AppStorage("day") var day = 1
     @State private var neededRegolith = 30
     @State private var showAlert = false
     @AppStorage("structure") var goodStructure = true // Defaults to true

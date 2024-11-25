@@ -7,19 +7,22 @@
 import SwiftUI
 
 struct DayTransitionCutscene: View {
-    @Binding var day : Int// The current day to determine the second image
     let onFinish: () -> Void // Callback for when the slideshow ends
+    @EnvironmentObject var buildingManager: BuildingManager
+    @State private var goGood = false
+    @State private var goDie = false
     
     @State private var currentIndex = 0
     @State private var showNextView = false
+    @State private var view = ""
+    @AppStorage("day") var day = 1
     var images = ["Solar Rain", "TempDay1", "TempDay2", "TempDay3", "TempDay4", "TempDay5", "TempDay6", "TempDay7"] // Replace with your image names
     let minTime: Double = 2.0
     let maxTime: Double = 4.0
     
     @State private var timer: Timer?
    
-    init(day: Int, onFinish: @escaping () -> Void) {
-            self._day = Binding.constant(day) // Initialize the day as a constant binding
+    init(onFinish: @escaping () -> Void) {
             self.onFinish = onFinish
             
             // Initialize images with solar wind + day-specific image
@@ -27,31 +30,43 @@ struct DayTransitionCutscene: View {
         }
     
     var body: some View {
-        Group {
-            if showNextView {
-                AfterEndDay() // Replace with your next view
-            } else {
-                ZStack {
-                    Color.black.edgesIgnoringSafeArea(.all) // Background color
-                    if let currentImage = images[safe: currentIndex] {
-                        AsyncImage(name: currentImage) // Lazy-loaded image
-                            .scaledToFill()
-                            .edgesIgnoringSafeArea(.all)
-                            .transition(.opacity)
+        NavigationStack{
+            NavigationLink(
+                destination: HomePage(), isActive: $goGood){
+                    EmptyView()
+                }
+            NavigationLink(
+                destination: DeathView(), isActive: $goDie){
+                    EmptyView()
+                }
+            Group {
+                if showNextView {
+                    
+                } else {
+                    ZStack {
+                        Color.black.edgesIgnoringSafeArea(.all) // Background color
+                        if let currentImage = images[safe: currentIndex] {
+                            AsyncImage(name: currentImage) // Lazy-loaded image
+                                .scaledToFill()
+                                .edgesIgnoringSafeArea(.all)
+                                .transition(.opacity)
+                        }
                     }
-                }
-                .onAppear {
-                    startSlideshow()
-                }
-                .onTapGesture {
-                    skipToNextImage()
+                    .onAppear {
+                        startSlideshow()
+                        
+                        
+                    }
+                    .onTapGesture {
+                        skipToNextImage()
+                    }
                 }
             }
         }
     }
-    
     private func startSlideshow() {
         if currentIndex >= images.count {
+            liveOrDie()
             showNextView = true
             onFinish()
             return
@@ -73,6 +88,14 @@ struct DayTransitionCutscene: View {
             currentIndex += 1
             startSlideshow()
         }
+    }
+    private func liveOrDie(){
+        if  buildingManager.buildings.contains { $0.imageName.contains("basicshelter")} && buildingManager.buildings.contains { $0.imageName.contains("regolithinsulation")}
+            {
+               goGood=true
+            } else {
+               goDie = true
+            }
     }
 }
 

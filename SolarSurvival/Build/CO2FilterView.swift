@@ -14,7 +14,7 @@ struct CO2FilterView: View {
     
     @State private var goProgressView = false
     @EnvironmentObject var buildingManager: BuildingManager
-    @AppStorage("day") var day = 0
+    @AppStorage("day") var day = 1
     @State private var neededMetal = 3
     @State private var neededPlastic = 5
     @State private var neededRubber = 2

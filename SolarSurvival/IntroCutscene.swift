@@ -35,29 +35,34 @@ struct IntroCutsceneShow: View {
     ]
     
     var body: some View {
-        Group {
-            if showNextView {
-                HomePage() // Next view after the slideshow
-            } else {
-                ZStack {
-                    Color.black.edgesIgnoringSafeArea(.all) // Background color
-                    if let currentImage = images[safe: currentIndex] {
-                        AsyncImage(name: currentImage) // Lazy-loaded image
-                            .scaledToFill()
-                            .edgesIgnoringSafeArea(.all)
-                            .transition(.opacity)
-                    }
-                }
-                .onAppear {
-                    startSlideshow()
-                }
-                .onTapGesture {
-                    if canSkip {
-                        skipToNextImage()
-                    }
-                }
+        VStack{
+            Button("Skip"){
+                finishSlideshow()
             }
-        }.navigationBarBackButtonHidden()
+            Group {
+                if showNextView {
+                    HomePage() // Next view after the slideshow
+                } else {
+                    ZStack {
+                        Color.black.edgesIgnoringSafeArea(.all) // Background color
+                        if let currentImage = images[safe: currentIndex] {
+                            AsyncImage(name: currentImage) // Lazy-loaded image
+                                .scaledToFill()
+                                .edgesIgnoringSafeArea(.all)
+                                .transition(.opacity)
+                        }
+                    }
+                    .onAppear {
+                        startSlideshow()
+                    }
+                    .onTapGesture {
+                        if canSkip {
+                            skipToNextImage()
+                        }
+                    }
+                }
+            }.navigationBarBackButtonHidden()
+        }
     }
     
     private func startSlideshow() {

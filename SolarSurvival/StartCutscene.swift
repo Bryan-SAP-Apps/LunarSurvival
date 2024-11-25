@@ -12,7 +12,9 @@ struct CutsceneSlideshow: View {
     @State private var canSkip = false
     @State private var timer: Timer?
     @State private var cutsceneTimes = 0
-    @AppStorage("hasSeenCutscene") private var hasSeenCutscene = false // Persistent flag
+    @AppStorage("hasSeenCutscene") private var hasSeenCutscene = false
+    @AppStorage("shouldPlayCutscene") private var shouldPlayCutscene = false
+    // Persistent flag
     
     let images = ["CImg-1","CImg0","CImg0_5","CImg1", "CImg2", "CImg3", "CImg4", "CImg5", "CImg6", "CImg7", "CImg8", "CImg9", "CImg10", "CImg11", "CImg12", "CImg13", "CImg14", "CImg15", "CImg16"] // Replace with your image names
     let durations: [ClosedRange<Double>] = [
@@ -41,7 +43,7 @@ struct CutsceneSlideshow: View {
         Group {
             if showNextView {
                 NavigationStack {
-                    StartView(playCutscene: playCutscene) // Pass callback
+                    StartView() // Pass callback
                 }
             } else {
                 
@@ -77,17 +79,24 @@ struct CutsceneSlideshow: View {
                     }
                 }
                 .onAppear {
-                    if !hasSeenCutscene {
-                        startSlideshow()
-                    } else {
-                        showNextView = true
-                    }
-                }
-                .onTapGesture {
-                    if canSkip {
-                        skipToNextImage()
-                    }
-                }
+                                    if shouldPlayCutscene {
+                                        resetCutscene()
+                                    } else if !hasSeenCutscene {
+                                        startSlideshow()
+                                    } else {
+                                        showNextView = true
+                                    }
+                                }
+                                .onChange(of: shouldPlayCutscene) { newValue in
+                                    if newValue {
+                                        resetCutscene()
+                                    }
+                                }
+                                .onTapGesture {
+                                    if canSkip {
+                                        skipToNextImage()
+                                    }
+                                }
             }
         }.navigationBarBackButtonHidden()
     }
@@ -135,7 +144,15 @@ struct CutsceneSlideshow: View {
         hasSeenCutscene = false
         cutsceneTimes += 1
     }
-    
+    private func resetCutscene() {
+        currentIndex = 0
+        showNextView = false
+        hasSeenCutscene = false
+        cutsceneTimes += 1
+        shouldPlayCutscene = false // Reset the trigger
+        startSlideshow()
+    }
+
     private func finishCutscene() {
         timer?.invalidate()
         hasSeenCutscene = true // Mark cutscene as seen

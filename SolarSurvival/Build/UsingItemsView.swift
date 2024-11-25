@@ -6,7 +6,7 @@ struct BasicShelterView: View {
     @State private var pressCount = 0 // Tracks number of selections
     
     @State private var goProgressView = false
-    @AppStorage("day") var day = 0
+    @AppStorage("day") var day = 1
     @State private var neededMetal = 15
     @State private var neededPlastic = 10
     @State private var neededInsulating = 20

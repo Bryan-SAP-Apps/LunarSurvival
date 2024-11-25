@@ -6,7 +6,7 @@ struct WaterFilterView: View {
     @State private var pressCount = 0 // Tracks number of selections
     @EnvironmentObject var buildingManager: BuildingManager
     @State private var goProgressView = false
-    @AppStorage("day") var day = 0
+    @AppStorage("day") var day = 1
     @State private var neededMetal = 5
     @State private var neededPlastic = 8
     @State private var neededGlass = 3
