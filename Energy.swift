@@ -16,6 +16,14 @@ struct Energy: Identifiable, Codable, Equatable {
 
 
 class EnergyManager: ObservableObject {
+    func clearEnergyAmount() {
+        energies = energies.map { energy in
+            var updatedEnergy = energy
+            updatedEnergy.amount = 100
+            return updatedEnergy
+        }
+        save() // Save the updated state
+    }
     var energies: [Energy] = [
         Energy(name: "Energy", amount: 100)
     ] {

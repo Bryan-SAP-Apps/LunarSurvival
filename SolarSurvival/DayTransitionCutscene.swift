@@ -13,6 +13,7 @@ struct DayTransitionCutscene: View {
     @State private var goDie = false
     
     @State private var currentIndex = 0
+    @AppStorage("survived") var survived = false
     @State private var showNextView = false
     @State private var view = ""
     @AppStorage("day") var day = 1
@@ -69,6 +70,7 @@ struct DayTransitionCutscene: View {
             liveOrDie()
             showNextView = true
             onFinish()
+            day += 1
             return
         }
         
@@ -90,17 +92,42 @@ struct DayTransitionCutscene: View {
         }
     }
     private func liveOrDie(){
-        if  buildingManager.buildings.contains { $0.imageName.contains("basicshelter")} && buildingManager.buildings.contains { $0.imageName.contains("regolithinsulation")}
-            {
-               goGood=true
+        print("Day: \(day)")
+        print("Buildings: \(buildingManager.buildings)")
+
+        print("Day: \(day)")
+        print("Buildings: \(buildingManager.buildings)")
+
+        switch day {
+        case 1:
+            if buildingManager.buildings.contains { $0.imageName.contains("basicshelter") } &&
+               buildingManager.buildings.contains { $0.imageName.contains("regolithinsulation") } {
+                survived = true
+                goGood = true
             } else {
-               goDie = true
+                goDie = true
             }
+        case 2:
+            print("Checking for co2filter...")
+            if buildingManager.buildings.contains { $0.imageName.contains("co2filter") } {
+                survived = true
+                goGood = true
+            } else {
+                goDie = true
+            }
+        case 3:
+            print("Checking for solarpanels...")
+            if buildingManager.buildings.contains { $0.imageName.contains("solarpanel") } {
+                survived = true
+                goGood = true
+            } else {
+                goDie = true
+            }
+        default:
+            goDie = true
+        }
+
     }
 }
 
-
-#Preview {
-    AfterEndDay()
-}
 

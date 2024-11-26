@@ -17,6 +17,7 @@ struct HomePage: View {
     @State private var afterEnd = false
     @AppStorage("day") var day = 1
     @StateObject var energyManager = EnergyManager()
+    @AppStorage("survived") var survived = false
     
 
     var items = [
@@ -255,6 +256,12 @@ struct HomePage: View {
                 .background() {
                     Image("moon surface img")
                 }
+                .alert(isPresented: $survived, content: {
+                    Alert(title: Text("Congratulations"),
+                          message: Text("You survived"),
+                          dismissButton: .default(Text("Ok"))
+                    )
+                })
                     
                 //First VSTACK
             }

@@ -9,6 +9,9 @@ import SwiftUI
 
 struct DeathView: View {
     @State private var showAlert = false
+    @AppStorage("day") var day = 1
+    @EnvironmentObject var buildingManager: BuildingManager
+    @StateObject var energyManager = EnergyManager()
     var body: some View {
         NavigationStack{
             Group{
@@ -19,8 +22,12 @@ struct DeathView: View {
                         Text("Game Over")
                             .font(.largeTitle)
                             .bold()
+                        Text("YOU SURVIVED FOR \(day - 1) DAYS")
                         Button(action: {
                             showAlert = true
+                            day = 1
+                            buildingManager.clearImageNames()
+                            energyManager.clearEnergyAmount()
                         }, label: {
                             Text("Restart")
                                 .padding()

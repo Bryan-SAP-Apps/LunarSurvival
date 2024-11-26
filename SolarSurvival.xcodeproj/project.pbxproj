@@ -13,7 +13,6 @@
 		046376632CEED38300E1EA97 /* NextLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046376622CEED38300E1EA97 /* NextLevelView.swift */; };
 		046376652CEF79B500E1EA97 /* LevelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046376642CEF79B500E1EA97 /* LevelManager.swift */; };
 		046376672CEF7B8300E1EA97 /* GameUIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046376662CEF7B8300E1EA97 /* GameUIHelper.swift */; };
-		046376692CF16DE600E1EA97 /* AfterEndDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046376682CF16DE600E1EA97 /* AfterEndDay.swift */; };
 		0463766B2CF16F7600E1EA97 /* DeathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463766A2CF16F7600E1EA97 /* DeathView.swift */; };
 		0463CB3E2CEB49C60074CA9B /* WaterFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463CB3D2CEB49C60074CA9B /* WaterFilterView.swift */; };
 		0463CB402CECD2D60074CA9B /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0463CB3F2CECD2D60074CA9B /* Player.swift */; };
@@ -56,7 +55,6 @@
 		046376622CEED38300E1EA97 /* NextLevelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextLevelView.swift; sourceTree = "<group>"; };
 		046376642CEF79B500E1EA97 /* LevelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelManager.swift; sourceTree = "<group>"; };
 		046376662CEF7B8300E1EA97 /* GameUIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameUIHelper.swift; sourceTree = "<group>"; };
-		046376682CF16DE600E1EA97 /* AfterEndDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterEndDay.swift; sourceTree = "<group>"; };
 		0463766A2CF16F7600E1EA97 /* DeathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeathView.swift; sourceTree = "<group>"; };
 		0463CB3D2CEB49C60074CA9B /* WaterFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterFilterView.swift; sourceTree = "<group>"; };
 		0463CB3F2CECD2D60074CA9B /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -136,7 +134,6 @@
 				04CACD862CF183340052AA60 /* Build */,
 				D96186DA2CE593D00088C94B /* StartPage.swift */,
 				048E9A492CE835FE00105FD3 /* HomePage.swift */,
-				046376682CF16DE600E1EA97 /* AfterEndDay.swift */,
 				0463766A2CF16F7600E1EA97 /* DeathView.swift */,
 				048E9A252CD8771E00105FD3 /* SolarSurvivalApp.swift */,
 				048E9A272CD8771E00105FD3 /* PlatformView.swift */,
@@ -291,7 +288,6 @@
 				046376672CEF7B8300E1EA97 /* GameUIHelper.swift in Sources */,
 				04CACD8A2CF185A10052AA60 /* CO2FilterView.swift in Sources */,
 				D959631F2CF19BDE00EB872E /* DayTransitionCutscene.swift in Sources */,
-				046376692CF16DE600E1EA97 /* AfterEndDay.swift in Sources */,
 				046376652CEF79B500E1EA97 /* LevelManager.swift in Sources */,
 				04CACD8C2CF1868D0052AA60 /* RegolithInsulationView.swift in Sources */,
 				D9EFF6132CEA51FA000EDAD8 /* StartCutscene.swift in Sources */,

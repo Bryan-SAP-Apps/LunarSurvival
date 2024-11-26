@@ -8,6 +8,7 @@ struct StartView: View {
     @State private var start = "Start/Continue"
     @AppStorage("day") var day = 1
     @EnvironmentObject var buildingManager: BuildingManager
+    @StateObject var energyManager = EnergyManager()
     @AppStorage("shouldPlayCutscene") private var shouldPlayCutscene = false
     
     // Callback to play cutscene again
@@ -76,6 +77,7 @@ struct StartView: View {
                                 
                                 Button(action: {
                                     day = 1
+                                    energyManager.clearEnergyAmount()
                                     buildingManager.clearImageNames()
                                     if (continuee == false) {
                                         start = "Start"
