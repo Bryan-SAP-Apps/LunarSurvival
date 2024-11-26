@@ -8,15 +8,16 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct CongratView: View {
+    @EnvironmentObject var buildingManager: BuildingManager
+    @StateObject var energyManager = EnergyManager()
+    @AppStorage("daysForRescue") var daysForRescue = 3
+    @StateObject var itemManager = ItemManager()
     @State private var isNavigated = false // State variable to control navigation
     @Environment(\.dismiss) var dismiss
     @State var continuee = false
     @State var start = "Start"
-    @State var days = 5
-    @State var infra = 4
-    @State var resources = 22
-    @State var distance = 10
     @State var isAnimated = true
+    @AppStorage("day") var day = 1
     @AppStorage("structure") var goodStructure = true
     
     
@@ -36,37 +37,42 @@ struct CongratView: View {
                         VStack{
                             HStack{
                                 VStack{
-                                    
-                                    Text("\(goodStructure)")
-                                        .foregroundStyle(.white)
-                                    Text("Days survived: \(days)")
-                                        .font(.title2)
-                                    
-                                        .foregroundColor(.white)
-                                        .padding()
-                                    
-                                    Text("Infrastructure built: \(infra)")
-                                        .font(.title2)
-                                    
-                                        .foregroundColor(.white)
-                                    Spacer()
-                                    
+                                    VStack{
+                                        Text("Days survived:")
+                                            .font(.title)
+                                            .foregroundColor(.white)
+                                        Text("\(day)")
+                                            .monospaced()
+                                            .foregroundColor(.white)
+                                            .font(.title)
+                                    }
+                                    .padding()
+                                        
+                                    VStack{
+                                        Text("Infrastructure built: ")
+                                            .font(.title)
+                                            .foregroundColor(.white)
+                                        Text("\(buildingManager.totalBuildingsWithImageName())")
+                                            .monospaced()
+                                            .foregroundColor(.white)
+                                            .font(.title)
+                                        
+                                    }
                                 }
                                 Spacer()
                                 VStack{
                                     
-                                    
-                                    Text("Total resources \n collected: \(resources)")
-                                        .font(.title2)
-                                    
-                                        .foregroundColor(.white)
-                                        .padding()
-                                    
-                                    Text("Total distance traveled \n while scavenging: \(distance)km")
-                                        .font(.title2)
-                                    
-                                        .foregroundColor(.white)
-                                    Spacer()
+                                    VStack{
+                                        Text("Total Resources: ")
+                                            .font(.title)
+                                            .foregroundColor(.white)
+                                        Text("\(itemManager.totalItemAmount)")
+                                            .monospaced()
+                                            .foregroundColor(.white)
+                                            .font(.title)
+                                        
+                                    }
+
                                 }
                             }
                         }
@@ -75,7 +81,10 @@ struct CongratView: View {
                         Spacer()
                         Button(action: {
                              isNavigated = true // Set the state to true to navigate
-                            
+                            daysForRescue = 3
+                            day = 1
+                            buildingManager.clearImageNames()
+                            energyManager.clearEnergyAmount()
                             if (continuee == false){
                                 start = "Start"
                             } else {
@@ -122,6 +131,8 @@ struct CongratView_Previews: PreviewProvider {
         
         return CongratView()
             .environmentObject(gameState)  // Pass GameState to the view
-            .environmentObject(player)  // Pass Player to the view
+            .environmentObject(player)
+            .environmentObject(BuildingManager())
+            .environmentObject(ItemManager())// Pass Player to the view
     }
 }

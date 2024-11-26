@@ -26,7 +26,6 @@ struct DeathView: View {
                         Text("YOU SURVIVED FOR \(day - 1) DAYS")
                         Button(action: {
                             daysForRescue = 3
-                            showAlert = true
                             day = 1
                             buildingManager.clearImageNames()
                             energyManager.clearEnergyAmount()

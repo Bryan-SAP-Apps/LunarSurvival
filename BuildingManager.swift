@@ -18,6 +18,9 @@ class BuildingManager: ObservableObject {
         }
         save() // Save the updated state
     }
+    func totalBuildingsWithImageName() -> Int {
+            return buildings.filter { !$0.imageName.isEmpty }.count
+        }
     func canProceedWithShelterAndInsulation(goodStructure: Bool) -> Bool {
             guard goodStructure else { return false }
 

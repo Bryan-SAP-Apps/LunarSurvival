@@ -22,10 +22,12 @@ class ItemManager: ObservableObject {
         }
     }
     private var gameState: GameState?
-    
+    var totalItemAmount: Int {
+            items.reduce(0) { $0 + $1.amount }
+        }
     init(gameState: GameState? = nil) {
             self.gameState = gameState
-      
+        
         // Default items
         items = [
             Item(name: "metal", amount: 0),
