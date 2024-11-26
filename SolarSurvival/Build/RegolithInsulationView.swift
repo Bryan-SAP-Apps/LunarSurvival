@@ -195,7 +195,7 @@ struct RegolithInsulationView: View {
             
             // Check if material matches one of the required types
             let selectedMaterial = itemManager.items[materialIndex].name.lowercased()
-            if ["metal", "plastic", "glass", "rubber"].contains(selectedMaterial) {
+            if ["regolith"].contains(selectedMaterial) {
                 matchedRequirements += 1
             }
         }

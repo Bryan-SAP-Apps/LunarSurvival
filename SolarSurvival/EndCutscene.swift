@@ -19,7 +19,6 @@ struct EndCutsceneShow: View {
         0.5...1.5, // Duration range for image 3
         1.5...2.5  // Duration range for image 4
     ]
-    
     var body: some View {
         Group {
             if showNextView {
@@ -44,6 +43,7 @@ struct EndCutsceneShow: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden()
     }
     
     private func startSlideshow() {

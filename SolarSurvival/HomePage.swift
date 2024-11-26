@@ -18,6 +18,9 @@ struct HomePage: View {
     @AppStorage("day") var day = 1
     @StateObject var energyManager = EnergyManager()
     @AppStorage("survived") var survived = false
+    @State private var alertTriggered = false
+    @AppStorage("rescue") var rescued = false
+    @AppStorage("daysForRescue") var daysForRescue = 3
     
 
     var items = [
@@ -70,11 +73,9 @@ struct HomePage: View {
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
                                             .frame(width: 72, height: 40)
                                         HStack{
-                                            Spacer()
                                             Image("metal")
                                                 .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 26, height: 40)
+                                                .frame(width: 20, height: 32)
                                             Text("\(itemManager.items[0].amount)")
                                                 .font(.system(size: 10))
                                         }
@@ -88,8 +89,7 @@ struct HomePage: View {
                                         HStack{
                                             Image("plastic")
                                                 .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 24, height: 40)
+                                                .frame(width: 20, height: 30)
                                             Text("\(itemManager.items[4].amount)")
                                                 .font(.system(size: 10))
                                         }
@@ -103,8 +103,7 @@ struct HomePage: View {
                                         HStack{
                                             Image("rubber")
                                                 .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 28, height: 100)
+                                                .frame(width: 20, height: 40)
                                             Text("\(itemManager.items[3].amount)")
                                                 .font(.system(size: 10))
                                         }
@@ -130,17 +129,17 @@ struct HomePage: View {
                                             .fill(Color(white: 0.8))
                                             .clipShape(RoundedRectangle(cornerRadius: 15))
                                             .frame(width: 72, height: 40)
-//                                            .padding(.trailing, 92)
+                                        //                                            .padding(.trailing, 92)
                                         HStack{
                                             Image("electronics")
                                                 .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 20, height: 40)
+                                                .frame(width: 20, height: 16)
                                             Text("\(itemManager.items[5].amount)")
                                                 .font(.system(size: 10))
                                             
-                                        }/*.padding(.trailing, 92)*/
+                                        }.frame(width:50)
                                     }
+                                    
                                 }
                             }
                             HStack{
@@ -148,7 +147,7 @@ struct HomePage: View {
                                     Circle()
                                         .fill(Color(white: 0.4))
                                         .frame(width: 60)
-                                        
+                                    
                                 }
                                 Spacer()
                                 Spacer()
@@ -174,7 +173,7 @@ struct HomePage: View {
                                         .clipShape(RoundedRectangle(cornerRadius: 14))
                                 }
                             }
-                           
+                            
                         }
                     }
                     
@@ -228,13 +227,15 @@ struct HomePage: View {
                                 })
                                 
                             }
-                            }
-                            
-                                
+                        }
+                        
+                        
                         NavigationLink(destination: DayTransitionCutscene( onFinish: {}), isActive: $showCutscene) {
                             Button(action: {
                                 afterEnd = true
                                 showCutscene = true
+                                survived = false
+                                rescued = false
                             }
                                    , label: {
                                 Text("End Day")
@@ -248,27 +249,52 @@ struct HomePage: View {
                             })
                             
                         }
-
-                      
+                        
+                        
                         
                     }
                 }
                 .background() {
                     Image("moon surface img")
                 }
-                .alert(isPresented: $survived, content: {
-                    Alert(title: Text("Congratulations"),
-                          message: Text("You survived"),
-                          dismissButton: .default(Text("Ok"))
-                    )
-                })
-                    
-                //First VSTACK
+                // New flag to track intentional triggering
+                
+                .alert(isPresented: Binding<Bool>(
+                    get: { (survived || rescued) && alertTriggered },
+                    set: { _ in
+                        survived = false
+                        rescued = false
+                        alertTriggered = false // Reset the flag after the alert is dismissed
+                    }
+                )) {
+                    if rescued {
+                        return Alert(
+                            title: Text("Help is on the way!"),
+                            message: Text("Survive for \(daysForRescue + 1) days more"),
+                            dismissButton: .default(Text("Ok"))
+                        )
+                    } else if survived {
+                        return Alert(
+                            title: Text("Congratulations"),
+                            message: Text("You survived"),
+                            dismissButton: .default(Text("Ok"))
+                        )
+                    }
+                    fatalError("This alert should not be presented")
+                }
+                
+                // Example method to trigger the alert intentionally:
+               
             }
             .navigationBarBackButtonHidden()
         }
         .environmentObject(gameState)   // Inject gameState instance here to Pass GameState to child views
         .environmentObject(player) // Inject player instance here to Pass GameState to child views
+    }
+    func triggerSurvivedAlert() {
+        survived = true
+        alertTriggered = true
+        
     }
     
 }

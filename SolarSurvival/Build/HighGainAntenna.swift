@@ -98,7 +98,7 @@ struct HighGainAntennaView: View {
     
     // Computed property to enable or disable the "Next" button
     private var canProceed: Bool {
-        guard pressOrder.count == 4 else { return false }
+        guard pressOrder.count == 3 else { return false }
         
         let requirements = [neededMetal, neededPlastic, neededElectronics]
         return !pressOrder.keys.contains { index in
@@ -112,7 +112,7 @@ struct HighGainAntennaView: View {
     private func addResourcelToBuilding() {
         if let emptyBuilding = buildingManager.buildings.first(where: { $0.imageName.isEmpty }) {
             if let index = buildingManager.buildings.firstIndex(of: emptyBuilding) {
-                buildingManager.buildings[index].imageName = "highgainantena"
+                buildingManager.buildings[index].imageName = "highgainantenna"
             }
         }
     }
@@ -192,7 +192,7 @@ struct HighGainAntennaView: View {
             
             // Check if material matches one of the required types
             let selectedMaterial = itemManager.items[materialIndex].name.lowercased()
-            if ["metal", "plastic", "glass", "rubber"].contains(selectedMaterial) {
+            if ["metal", "plastic", "electronics"].contains(selectedMaterial) {
                 matchedRequirements += 1
             }
         }

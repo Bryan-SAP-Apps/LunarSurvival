@@ -11,6 +11,7 @@ struct DayTransitionCutscene: View {
     @EnvironmentObject var buildingManager: BuildingManager
     @State private var goGood = false
     @State private var goDie = false
+    @State private var goEnd = false
     
     @State private var currentIndex = 0
     @AppStorage("survived") var survived = false
@@ -18,6 +19,11 @@ struct DayTransitionCutscene: View {
     @State private var view = ""
     @AppStorage("day") var day = 1
     var images = ["Solar Rain", "TempDay1", "TempDay2", "TempDay3", "TempDay4", "TempDay5", "TempDay6", "TempDay7"] // Replace with your image names
+    @State private var electricstable = false
+    
+    @AppStorage("rescue") var rescued = false
+    @AppStorage("daysForRescue") var daysForRescue = 3
+    
     let minTime: Double = 2.0
     let maxTime: Double = 4.0
     
@@ -32,10 +38,14 @@ struct DayTransitionCutscene: View {
     
     var body: some View {
         NavigationStack{
-            NavigationLink(
-                destination: HomePage(), isActive: $goGood){
+                NavigationLink(destination: EndCutsceneShow(), isActive: $goEnd){
                     EmptyView()
                 }
+                NavigationLink(
+                    destination: HomePage(), isActive: $goGood){
+                        EmptyView()
+                    }
+            
             NavigationLink(
                 destination: DeathView(), isActive: $goDie){
                     EmptyView()
@@ -63,17 +73,31 @@ struct DayTransitionCutscene: View {
                     }
                 }
             }
+            .navigationBarBackButtonHidden()
         }
     }
+    private func checkRescueOrEnd() {
+            if buildingManager.buildings.contains(where: { $0.imageName.contains("highgainantenna") }) {
+                rescued = true
+                daysForRescue -= 1
+                if rescued, daysForRescue <= 0 {
+                    survived = false
+                    rescued = false
+                    goEnd = true
+                } else {
+                    showNextView = true
+                }
+                goGood = true
+            }
+        }
     private func startSlideshow() {
         if currentIndex >= images.count {
-            liveOrDie()
-            showNextView = true
-            onFinish()
-            day += 1
-            return
-        }
-        
+                   checkRescueOrEnd()
+                   liveOrDie()
+                   onFinish()
+                   day += 1
+                   return
+               }
         let displayTime = Double.random(in: minTime...maxTime)
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: displayTime, repeats: false) { _ in
@@ -92,11 +116,6 @@ struct DayTransitionCutscene: View {
         }
     }
     private func liveOrDie(){
-        print("Day: \(day)")
-        print("Buildings: \(buildingManager.buildings)")
-
-        print("Day: \(day)")
-        print("Buildings: \(buildingManager.buildings)")
 
         switch day {
         case 1:
@@ -108,7 +127,6 @@ struct DayTransitionCutscene: View {
                 goDie = true
             }
         case 2:
-            print("Checking for co2filter...")
             if buildingManager.buildings.contains { $0.imageName.contains("co2filter") } {
                 survived = true
                 goGood = true
@@ -119,14 +137,18 @@ struct DayTransitionCutscene: View {
             print("Checking for solarpanels...")
             if buildingManager.buildings.contains { $0.imageName.contains("solarpanel") } {
                 survived = true
+                electricstable = true
                 goGood = true
             } else {
                 goDie = true
             }
-        default:
+        case 7:
             goDie = true
+        default:
+            survived = true
+            goGood = true
         }
-
+        
     }
 }
 

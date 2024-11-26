@@ -12,6 +12,7 @@ struct DeathView: View {
     @AppStorage("day") var day = 1
     @EnvironmentObject var buildingManager: BuildingManager
     @StateObject var energyManager = EnergyManager()
+    @AppStorage("daysForRescue") var daysForRescue = 3
     var body: some View {
         NavigationStack{
             Group{
@@ -24,6 +25,7 @@ struct DeathView: View {
                             .bold()
                         Text("YOU SURVIVED FOR \(day - 1) DAYS")
                         Button(action: {
+                            daysForRescue = 3
                             showAlert = true
                             day = 1
                             buildingManager.clearImageNames()

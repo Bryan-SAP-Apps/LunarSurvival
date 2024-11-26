@@ -192,7 +192,7 @@ struct SolarPanelView: View {
             
             // Check if material matches one of the required types
             let selectedMaterial = itemManager.items[materialIndex].name.lowercased()
-            if ["metal", "plastic", "glass", "rubber"].contains(selectedMaterial) {
+            if ["metal", "glass", "plastic", "electronics"].contains(selectedMaterial) {
                 matchedRequirements += 1
             }
         }
