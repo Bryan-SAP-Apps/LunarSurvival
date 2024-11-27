@@ -13,6 +13,10 @@ struct HomePage: View {
     
     
     @State private var showCutscene = false
+    @AppStorage("eat") var eat = 0
+    @State private var toEat = 1
+    @State private var eatenTooMuch = false
+    @State private var isPresented = false
     @State private var showAlert = false
     @State private var afterEnd = false
     @AppStorage("day") var day = 1
@@ -42,6 +46,9 @@ struct HomePage: View {
     
     var body: some View {
         NavigationStack{
+            NavigationLink(destination: AstronautHandbookView(), isActive: $isPresented){
+                EmptyView()
+            }
             ZStack{
                 VStack{
                     HStack{
@@ -147,6 +154,8 @@ struct HomePage: View {
                                     Circle()
                                         .fill(Color(white: 0.4))
                                         .frame(width: 60)
+                                    Image("inventory")
+                                        .frame(width: 32)
                                     
                                 }
                                 Spacer()
@@ -175,14 +184,39 @@ struct HomePage: View {
                             }
                             
                         }
+                    }.padding(.top, 72)
+                    HStack{
+                        HStack{
+                            Button(action: {
+                                isPresented = true
+                            }, label: {
+                               Image("manual")
+                                    .resizable()
+                                    .frame(width: 72, height: 72)
+//                                    .padding(.top, 12)
+                            })
+                            Spacer()
+                            Spacer()
+                        }
+                        .padding(.bottom, 200)
+                        
+                        //Squares
+                        BuildingGridView()
+                            .environmentObject(buildingManager)
+                            .padding(.trailing, 180)
+                       
+                        //end of squares
+                        Spacer()
+                        VStack{
+                            Text("Day \(day)")
+                                .font(.title2)
+                                .bold()
+                                .foregroundColor(.white)
+                                .padding(.bottom, 180)
+                            Spacer()
+                            Spacer()
+                        }
                     }
-                    
-                    //Squares
-                    BuildingGridView()
-                        .environmentObject(buildingManager)
-                    //end of squares
-                    
-                    
                     HStack{
                         
                         ZStack{
@@ -214,7 +248,19 @@ struct HomePage: View {
                                     
                                 }
                                 Button(action: {
-                                    energyManager.energies[0].amount += 30
+//                                    eat += toEat
+//                                    if energyManager.energies[0].amount == 100{
+//                                        eatenTooMuch = true
+//                                    } else{
+//                                        if eat > 3{
+//                                            eatenTooMuch = true
+//                                            toEat = 0
+//                                        } else{
+//                                            energyManager.energies[0].amount += 10
+//                                            eatenTooMuch = false
+//                                        }
+//                                    }
+                                    eatenTooMuch = true
                                 }, label: {
                                     Text("Eat")
                                         .frame(width:140, height: 30)
@@ -252,7 +298,9 @@ struct HomePage: View {
                         
                         
                         
-                    }
+                    }.padding(.bottom, 68)
+                    Spacer()
+                    Spacer()
                 }
                 .background() {
                     Image("moon surface img")
@@ -260,28 +308,46 @@ struct HomePage: View {
                 // New flag to track intentional triggering
                 
                 .alert(isPresented: Binding<Bool>(
-                    get: { (survived || rescued) && alertTriggered },
+                    get: { (eatenTooMuch || survived || rescued) && alertTriggered },
                     set: { _ in
-                        survived = false
-                        rescued = false
-                        alertTriggered = false // Reset the flag after the alert is dismissed
+                        alertTriggered = false // Reset only the alert flag here
                     }
                 )) {
-                    if rescued {
+                    if eatenTooMuch {
                         return Alert(
-                            title: Text("Help is on the way!"),
-                            message: Text("Survive for \(daysForRescue + 1) days more"),
-                            dismissButton: .default(Text("Ok"))
+                            title: Text("You are too full"),
+                            message: Text("You cannot eat anymore"),
+                            dismissButton: .default(Text("Ok"), action: {
+                                eatenTooMuch = false // Reset state explicitly
+                            })
                         )
+                   
                     } else if survived {
                         return Alert(
                             title: Text("Congratulations"),
                             message: Text("You survived"),
+                            dismissButton: .default(Text("Ok"), action: {
+                                survived = false // Reset state explicitly
+                            })
+                        )
+                    } else  if rescued {
+                        return Alert(
+                            title: Text("Help is on the way!"),
+                            message: Text("Survive for \(daysForRescue + 1) days more"),
+                            dismissButton: .default(Text("Ok"), action: {
+                                rescued = false // Reset state explicitly
+                            })
+                        )
+                    } else {
+                        // Return a default alert (should never reach here if logic is correct)
+                        return Alert(
+                            title: Text("Unknown"),
+                            message: Text("Something unexpected happened"),
                             dismissButton: .default(Text("Ok"))
                         )
                     }
-                    fatalError("This alert should not be presented")
                 }
+
                 
                 // Example method to trigger the alert intentionally:
                

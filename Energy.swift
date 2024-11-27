@@ -11,7 +11,21 @@ import SwiftUI
 struct Energy: Identifiable, Codable, Equatable {
     var id = UUID()
     var name: String
-    var amount: Int
+    var amount: Double {
+            didSet {
+                // Clamp the value between 0 and 100
+                if amount > 100 {
+                    amount = 100
+                } else if amount < 0 {
+                    amount = 0
+                }
+            }
+        }
+    init(name: String, amount: Int) {
+            self.name = name
+            // Clamp the value during initialization
+        self.amount = Double(min(max(amount, 0), 100))
+        }
 }
 
 
@@ -34,6 +48,9 @@ class EnergyManager: ObservableObject {
         
     init() {
         load()
+        energies = energies.map {
+            Energy(name: $0.name, amount: Int($0.amount))
+                }
     }
     
     private func getArchiveURL() -> URL {

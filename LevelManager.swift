@@ -10,7 +10,6 @@ struct Level {
     let platforms: [Platform]
     let collectibles: [Collectible]
     let stars: [CGPoint]
-    let craters: [LunarFeature]
     let boulders: [LunarFeature]
     let endpoint: CGPoint
 }
@@ -32,7 +31,6 @@ class LevelManager: ObservableObject {
                     area: CGRect(x: 50, y: 100, width: 700, height: 200)
                 ),
                 stars: GameHelper.generateStars(count: 100),
-                craters: GameHelper.generateLunarFeatures(count: 4, type: .crater, groundLevel: 300),
                 boulders: GameHelper.generateLunarFeatures(count: 3, type: .boulder, groundLevel: 300),
                 endpoint: CGPoint(x: 750, y: 300)
             ),

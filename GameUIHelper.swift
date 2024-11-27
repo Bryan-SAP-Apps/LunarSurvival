@@ -21,15 +21,6 @@ class GameUIHelper {
             .position(x: 700, y: groundLevel + 25)
     }
 
-    // Method to draw craters
-    static func drawCraters(craters: [LunarFeature]) -> some View {
-        ForEach(craters.indices, id: \.self) { index in
-            Circle()
-                .fill(Color.gray.opacity(0.8))
-                .frame(width: craters[index].size, height: craters[index].size)
-                .position(craters[index].position)
-        }
-    }
 
     // Method to draw boulders
     static func drawBoulders(boulders: [LunarFeature]) -> some View {
@@ -66,14 +57,12 @@ class GameUIHelper {
         stars: [CGPoint],
         platforms: [Platform],
         collectibles: [Collectible],
-        craters: [LunarFeature],
         boulders: [LunarFeature],
         groundLevel: CGFloat
     ) -> some View {
         Group {
             drawStars(stars: stars)
             drawLunarDust(groundLevel: groundLevel)
-            drawCraters(craters: craters)
             drawBoulders(boulders: boulders)
             drawPlatforms(platforms: platforms)
             drawCollectibles(collectibles: collectibles)

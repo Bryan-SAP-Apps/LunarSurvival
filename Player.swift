@@ -38,7 +38,7 @@ class Player: ObservableObject {
     // changes here
     
     func jump() {
-        if !isJumping && (self.position.y >= groundLevel || isOnPlatform) {
+        if !isJumping && (self.position.y >= groundLevel) {
                     velocity = jumpStrength
                     isJumping = true
                     isOnPlatform = false

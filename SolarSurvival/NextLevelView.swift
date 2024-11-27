@@ -7,13 +7,12 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct NextLevelView: View {
-    
+    @State private var isRunning = false
+    @State private var goHome = false
     @EnvironmentObject var gameState: GameState
     @EnvironmentObject var player: Player
-    
+    @State private var boulders: [LunarFeature] = []
     @State private var platforms: [Platform] = []
     @State private var collectibles: [Collectible] = []
     @State private var stars: [CGPoint] = []
@@ -21,59 +20,45 @@ struct NextLevelView: View {
     @State private var gameTimer: Timer? // Correctly define gameTimer here
     @State private var path = NavigationPath()
     @Binding var isSecondView: Bool
-    
+    @StateObject var energyManager = EnergyManager()
     private let groundLevel: CGFloat = 300
     private let frameDuration = 0.016
     private let platformXPositions: [CGFloat] = [150, 400, 650]
     
     @StateObject private var itemManager = ItemManager()
 
-    private func displayScoreAndInventory() -> some View {
-        VStack {
-            HStack {
-                Text("Score: \(gameState.score)")
-                    .font(.title)
-                    .foregroundColor(.white)
-                Spacer()
-                VStack {
-                    Text("Inventory")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                    ForEach(gameState.inventory.keys.sorted(), id: \.self) { item in
-                        HStack {
-                            Text("\(item): \(gameState.inventory[item]!)")
-                                .foregroundColor(.white)
-                        }
-                    }
-                }
-                .padding()
-            }
-            .padding()
-            Spacer()
-        }
-    }
-
     var body: some View {
         NavigationStack(path: $path){
-//            NavigationLink(destination: NextLevelView(), isActive: $endPoint) {
-//                EmptyView()
-//            }
-
+            NavigationLink(destination: HomePage(), isActive: $goHome){
+                EmptyView()
+            }
             ZStack {
+                
                 Color.black.ignoresSafeArea()
-                drawStars()
-                drawGround()
-                drawPlatforms()
-                drawCollectibles()
+                GameUIHelper.drawLevelElements(
+                    stars: stars,
+                    platforms: platforms,
+                    collectibles: collectibles,
+                    boulders: boulders,
+                    groundLevel: groundLevel
+                )
+//                drawPlatforms()
+//                drawCollectibles()
                 drawPlayer()
                 displayItems()
                 drawControls()
             }
-            .onAppear(perform: setupGame)
+            .onAppear(perform: {
+                startDecrementing()
+            })
+            .onAppear(perform: setupGame
+                      )
             .onDisappear(perform: cleanUpGame)
-            .onReceive(Timer.publish(every: 1, on: .main, in: .default).autoconnect()) { _ in
-                gameState.energyBar = max(gameState.energyBar - 1, 0)
-            }
+            .onDisappear(perform: {
+                stopDecrementing()
+            })
+            
+
 //            .navigationDestination(for: String.self) { value in
 //                            if value == "NextLevelView" {
 //                                NextLevelView(path: $path)
@@ -84,6 +69,28 @@ struct NextLevelView: View {
     }
     
     // MARK: - Game Setup
+    func startDecrementing() {
+            // Only start the decrementing process if it's not already running
+            if !isRunning {
+                isRunning = true
+                DispatchQueue.global(qos: .background).async {
+                    while energyManager.energies[0].amount > 0 && isRunning {
+                        DispatchQueue.main.async {
+                            energyManager.energies[0].amount -= 0.5
+                        }
+                        Thread.sleep(forTimeInterval: 1) // Sleep for 1 second
+                    }
+                    DispatchQueue.main.async {
+                        isRunning = false // Stop when the value reaches 0 or is manually stopped
+                    }
+                }
+            }
+        }
+
+        func stopDecrementing() {
+            // Set isRunning to false to stop the decrementing process
+            isRunning = false
+        }
     private func setupGame() {
         gameState.loadProgress(player: player)  // Load progress when the level starts
         gameState.currentLevel = 1
@@ -97,6 +104,7 @@ struct NextLevelView: View {
         platforms = generated.platforms
         collectibles = generated.collectibles
         stars = GameHelper.generateStars(count: 100)
+        boulders = GameHelper.generateLunarFeatures(count: 3, type: .boulder, groundLevel: groundLevel)
         startGameLoop()
         
         print("Player position: \(player.position.x)")
@@ -109,39 +117,6 @@ struct NextLevelView: View {
     }
     
     // MARK: - UI Components
-    private func drawStars() -> some View {
-        ForEach(stars.indices, id: \.self) { index in
-            Circle()
-                .fill(Color.white)
-                .frame(width: 2, height: 2)
-                .position(stars[index])
-        }
-    }
-    
-    private func drawGround() -> some View {
-        Rectangle()
-            .fill(Color.gray)
-            .frame(width: 1400, height: 50)
-            .position(x: 200, y: groundLevel + 25)
-    }
-    
-    private func drawPlatforms() -> some View {
-        ForEach(platforms.indices, id: \.self) { index in
-            Rectangle()
-                .fill(Color.gray)
-                .frame(width: platforms[index].size.width, height: platforms[index].size.height)
-                .position(platforms[index].position)
-        }
-    }
-    
-    private func drawCollectibles() -> some View {
-        ForEach(collectibles.indices, id: \.self) { index in
-            Circle()
-                .fill(Color.yellow)
-                .frame(width: 20, height: 20)
-                .position(collectibles[index].position)
-        }
-    }
     
     private func drawPlayer() -> some View {
         Image(player.iconImage) // Use the iconImage from Player class
@@ -151,23 +126,63 @@ struct NextLevelView: View {
     }
 
     private func displayItems() -> some View {
-        VStack {
-            HStack {
-                ForEach(itemManager.items, id: \.id) { item in
-                    VStack {
-                        Image(item.name)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 50, height: 50)
-                        Text("\(item.amount)")
-                            .font(.title3)
-                            .foregroundColor(.white)
+        VStack{
+            HStack{
+                HStack{
+                    Button {
+                        goHome = true
+
+                    } label: {
+                        HStack {
+                            Image(systemName: "chevron.backward")
+                            Text("Back")
+                        }
                     }
                 }
+                HStack {
+                    ForEach(itemManager.items, id: \.id) { item in
+                        VStack {
+                            Image(item.name)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40, height: 40)
+                            
+                            HStack{
+                                Text("\(item.amount)")
+                                    .font(.title3)
+                                    .foregroundColor(.white)
+                                    .padding()
+                            }
+                        }
+                    }
+                }
+                .padding()
+                Spacer()
+                ZStack{
+                    Rectangle()
+                        .fill(Color(white: 0.6))
+                        .clipShape(RoundedRectangle(cornerRadius: 19))
+                        .frame(width: 250, height: 50)
+                    HStack{
+                        let result = Double(energyManager.energies[0].amount) * 2
+                        Image(systemName: "bolt.fill")
+                        ZStack(alignment: .leading){
+                            Rectangle()
+                                .fill(Color(.white))
+                                .frame(width: 200, height: 35)
+                                .clipShape(RoundedRectangle(cornerRadius: 14))
+                            Rectangle()
+                                .fill(Color(.yellow))
+                                .frame(width: CGFloat(result), height: 35)
+                                .clipShape(RoundedRectangle(cornerRadius: 14))
+                        }
+                    }
+                    
+                }
             }
-            .padding()
             Spacer()
         }
+        
     }
     
     private func drawControls() -> some View {
@@ -264,34 +279,23 @@ struct NextLevelView: View {
             // Check collision with platforms
             for platform in platforms {
                 let platformTop = platform.position.y - platform.size.height / 2
-                let platformBottom = platform.position.y + platform.size.height / 2
-                let platformLeft = platform.position.x - 150 / 2 // Platform width is 150
-                let platformRight = platform.position.x + 150 / 2
+                let withinPlatformBounds = player.position.x >= platform.position.x - 75 && player.position.x <= platform.position.x + 75
 
-                let playerTop = player.position.y - playerHeight / 2
-                let playerBottom = player.position.y + playerHeight / 2
-                let playerLeft = player.position.x - playerWidth / 2
-                let playerRight = player.position.x + playerWidth / 2
+                // Player should land only if they are falling and just above the platform
+                if velocity >= 0 && withinPlatformBounds {
+                    let playerBottom = player.position.y + playerHeight / 2
+                    let isLanding = playerBottom >= platformTop && playerBottom <= platformTop + velocity
 
-                // Check if the astronaut is within the horizontal bounds of the platform
-                let withinPlatformBounds = playerLeft >= platformLeft && playerRight <= platformRight
-
-                // Astronaut lands only when they are directly above the platform
-                if velocity >= 0, // Falling down
-                   withinPlatformBounds, // Horizontal bounds of the platform
-                   playerBottom > platformTop, // Bottom is below the platform's top
-                   playerTop < platformTop { // Top is above the platform's top
-                    player.position.y = platformTop - playerHeight / 2 // Place player on top of the platform
-                    velocity = 0
-                    player.isJumping = false
-                    currentlyOnPlatform = true
-                    break
+                    if isLanding {
+                        // Player is landing on the platform
+                        player.position.y = platformTop - playerHeight / 2
+                        velocity = 0
+                        player.isJumping = false
+                        currentlyOnPlatform = true
+                        break
+                    }
                 }
 
-                // Astronaut falls off if they are not within platform bounds
-                if !withinPlatformBounds {
-                    currentlyOnPlatform = false
-                }
             }
 
             // Ensure the astronaut is falling if not on any platform
@@ -303,7 +307,8 @@ struct NextLevelView: View {
         // Handle movement and collectibles
         handlePlayerMovement()
         handleCollectibles()
-
+        handleBoulderPush()
+        updateBoulders()
         // Check if the player has reached the level endpoint
         if player.position.x >= 750 {
 //            path.removeLast(path.count)
@@ -314,12 +319,45 @@ struct NextLevelView: View {
             gameState.saveProgress(player: player) // Save progress when level is completed
         }
     }
+    private func handleBoulderPush() {
+        for boulder in boulders {
+            let boulderBounds = CGRect(
+                x: boulder.position.x - boulder.size / 2,
+                y: boulder.position.y - boulder.size / 2,
+                width: boulder.size,
+                height: boulder.size
+            )
+
+            let playerBounds = CGRect(
+                x: player.position.x - 100 / 2,
+                y: player.position.y - 100 / 2,
+                width: 100,
+                height: 100
+            )
+
+            // Check if the player is on the ground level and horizontally aligned with the boulder
+            if boulderBounds.intersects(playerBounds) && player.position.y >= groundLevel {
+                // Push the player to the right or left, depending on their position relative to the boulder
+                if player.position.x < boulder.position.x {
+                    player.position.x -= 15 // Push to the left
+                }
+            }
+        }
+    }
+
+    private func updateBoulders() {
+        for i in boulders.indices {
+            // Move the boulders left at a constant rate
+            boulders[i].position.x -= 100 * CGFloat(frameDuration) // 100 is the boulder speed
+
+            // Reset position if out of bounds
+            if boulders[i].position.x < 0 {
+                boulders[i].position.x = CGFloat.random(in: UIScreen.main.bounds.width...UIScreen.main.bounds.width + 500)
+            }
+        }
+    }
 
 
-
-
-
-    
     private func handlePlayerMovement() {
         if player.isMovingLeft {
             player.moveLeft()

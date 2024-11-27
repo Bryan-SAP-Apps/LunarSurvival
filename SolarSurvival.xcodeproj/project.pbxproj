@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		043E89972CF363B00097877D /* BuildingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E89962CF363B00097877D /* BuildingManager.swift */; };
 		043E89992CF367010097877D /* BuildingGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E89982CF367010097877D /* BuildingGridView.swift */; };
+		043E899B2CF760ED0097877D /* ManualView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E899A2CF760ED0097877D /* ManualView.swift */; };
 		046376432CEECDFE00E1EA97 /* PlatformHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046376422CEECDFE00E1EA97 /* PlatformHolder.swift */; };
 		046376632CEED38300E1EA97 /* NextLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046376622CEED38300E1EA97 /* NextLevelView.swift */; };
 		046376652CEF79B500E1EA97 /* LevelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046376642CEF79B500E1EA97 /* LevelManager.swift */; };
@@ -51,6 +52,7 @@
 /* Begin PBXFileReference section */
 		043E89962CF363B00097877D /* BuildingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingManager.swift; sourceTree = "<group>"; };
 		043E89982CF367010097877D /* BuildingGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingGridView.swift; sourceTree = "<group>"; };
+		043E899A2CF760ED0097877D /* ManualView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualView.swift; sourceTree = "<group>"; };
 		046376422CEECDFE00E1EA97 /* PlatformHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformHolder.swift; sourceTree = "<group>"; };
 		046376622CEED38300E1EA97 /* NextLevelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextLevelView.swift; sourceTree = "<group>"; };
 		046376642CEF79B500E1EA97 /* LevelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelManager.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				04CACD862CF183340052AA60 /* Build */,
 				D96186DA2CE593D00088C94B /* StartPage.swift */,
 				048E9A492CE835FE00105FD3 /* HomePage.swift */,
+				043E899A2CF760ED0097877D /* ManualView.swift */,
 				0463766A2CF16F7600E1EA97 /* DeathView.swift */,
 				048E9A252CD8771E00105FD3 /* SolarSurvivalApp.swift */,
 				048E9A272CD8771E00105FD3 /* PlatformView.swift */,
@@ -265,6 +268,7 @@
 				D95963032CF1983000EB872E /* IntroCutscene.swift in Sources */,
 				048E9A282CD8771E00105FD3 /* PlatformView.swift in Sources */,
 				0463766B2CF16F7600E1EA97 /* DeathView.swift in Sources */,
+				043E899B2CF760ED0097877D /* ManualView.swift in Sources */,
 				59BADA6D2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift in Sources */,
 				04CACD882CF1848C0052AA60 /* SolarPanelView.swift in Sources */,
 				0463CB4C2CED003B0074CA9B /* GameHelper.swift in Sources */,

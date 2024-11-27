@@ -50,7 +50,7 @@ class GameHelper {
     }
     
     static func resetGameState(player: Player, groundLevel: CGFloat, platforms: inout [Platform], collectibles: inout [Collectible], stars: inout [CGPoint]) {
-        player.position = CGPoint(x: 200, y: groundLevel) // Reset player position
+        player.position = CGPoint(x: 50, y: groundLevel) // Reset player position
         platforms.removeAll()
         collectibles.removeAll()
         stars.removeAll()
