@@ -184,7 +184,7 @@ struct HomePage: View {
                             }
                             
                         }
-                    }.padding(.top, 72)
+                    }.padding(.top, 92)
                     HStack{
                         HStack{
                             Button(action: {
@@ -306,47 +306,39 @@ struct HomePage: View {
                     Image("moon surface img")
                 }
                 // New flag to track intentional triggering
-                
-                .alert(isPresented: Binding<Bool>(
-                    get: { (eatenTooMuch || survived || rescued) && alertTriggered },
-                    set: { _ in
-                        alertTriggered = false // Reset only the alert flag here
-                    }
-                )) {
+                let alert: Alert = {
                     if eatenTooMuch {
                         return Alert(
                             title: Text("You are too full"),
                             message: Text("You cannot eat anymore"),
                             dismissButton: .default(Text("Ok"), action: {
-                                eatenTooMuch = false // Reset state explicitly
+                                eatenTooMuch = false
                             })
                         )
-                   
                     } else if survived {
                         return Alert(
                             title: Text("Congratulations"),
                             message: Text("You survived"),
                             dismissButton: .default(Text("Ok"), action: {
-                                survived = false // Reset state explicitly
+                                survived = false
                             })
                         )
-                    } else  if rescued {
+                    } else if rescued {
                         return Alert(
                             title: Text("Help is on the way!"),
                             message: Text("Survive for \(daysForRescue + 1) days more"),
                             dismissButton: .default(Text("Ok"), action: {
-                                rescued = false // Reset state explicitly
+                                rescued = false
                             })
                         )
                     } else {
-                        // Return a default alert (should never reach here if logic is correct)
                         return Alert(
                             title: Text("Unknown"),
                             message: Text("Something unexpected happened"),
                             dismissButton: .default(Text("Ok"))
                         )
                     }
-                }
+                }()
 
                 
                 // Example method to trigger the alert intentionally:

@@ -76,7 +76,7 @@ struct PlatformView: View {
                 DispatchQueue.global(qos: .background).async {
                     while energyManager.energies[0].amount > 0 && isRunning {
                         DispatchQueue.main.async {
-                            energyManager.energies[0].amount -= 0.5
+                            energyManager.energies[0].amount -= 0.25
                         }
                         Thread.sleep(forTimeInterval: 1) // Sleep for 1 second
                     }
