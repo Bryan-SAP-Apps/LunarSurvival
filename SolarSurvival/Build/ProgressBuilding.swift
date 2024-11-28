@@ -199,7 +199,7 @@ struct ProgressBuilding: View {
     
 }
     func roundToOnes(_ x : Double) -> Int {
-        return 10 * Int((x / 1.0).rounded())
+        return Int((x / 1.0).rounded())
     }
     private func startTimer() {
         // Reset time and start timer

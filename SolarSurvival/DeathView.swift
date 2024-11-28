@@ -28,6 +28,7 @@ struct DeathView: View {
                         Button(action: {
                             daysForRescue = 3
                             day = 1
+                            showAlert = true
                             buildingManager.clearImageNames()
                             energyManager.clearEnergyAmount()
                             itemManager.resetItemAmounts()
