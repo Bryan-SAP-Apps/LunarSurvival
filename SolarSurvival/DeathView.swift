@@ -12,6 +12,7 @@ struct DeathView: View {
     @AppStorage("day") var day = 1
     @EnvironmentObject var buildingManager: BuildingManager
     @StateObject var energyManager = EnergyManager()
+    @StateObject var itemManager = ItemManager()
     @AppStorage("daysForRescue") var daysForRescue = 3
     var body: some View {
         NavigationStack{
@@ -29,6 +30,7 @@ struct DeathView: View {
                             day = 1
                             buildingManager.clearImageNames()
                             energyManager.clearEnergyAmount()
+                            itemManager.resetItemAmounts()
                         }, label: {
                             Text("Restart")
                                 .padding()

@@ -16,6 +16,12 @@ struct Item: Identifiable, Codable, Equatable {
 
 // Item Manager
 class ItemManager: ObservableObject {
+    func resetItemAmounts() {
+        for index in items.indices {
+            items[index].amount = 0
+        }
+        save() // Save the updated items to persist changes
+    }
     @Published var items: [Item] {
         didSet {
             save() // Ensure items are saved when updated

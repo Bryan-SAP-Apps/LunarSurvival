@@ -131,7 +131,7 @@ struct ProgressBuilding: View {
                 Spacer()
                 VStack{// Existing content of the view goes here
                     
-                    Text("Energy Left: \(energyManager.energies[0].amount)")
+                    Text("Energy Left: \(roundToOnes(energyManager.energies[0].amount))")
                         .font(.headline)
                         .foregroundColor(.red)
                         .padding(.top, 40)
@@ -198,7 +198,9 @@ struct ProgressBuilding: View {
     }.navigationBarBackButtonHidden()
     
 }
-    
+    func roundToOnes(_ x : Double) -> Int {
+        return 10 * Int((x / 1.0).rounded())
+    }
     private func startTimer() {
         // Reset time and start timer
         timeRemaining = 10.0

@@ -282,6 +282,7 @@ struct HomePage: View {
                                 showCutscene = true
                                 survived = false
                                 rescued = false
+                                energyManager.energies[0].amount += 50
                             }
                                    , label: {
                                 Text("End Day")

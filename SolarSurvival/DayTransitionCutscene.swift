@@ -142,7 +142,7 @@ struct DayTransitionCutscene: View {
             } else {
                 goDie = true
             }
-        case 7:
+        case 7...:
             goDie = true
         default:
             survived = true

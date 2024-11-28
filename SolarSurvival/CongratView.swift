@@ -85,6 +85,7 @@ struct CongratView: View {
                             day = 1
                             buildingManager.clearImageNames()
                             energyManager.clearEnergyAmount()
+                            itemManager.resetItemAmounts()
                             if (continuee == false){
                                 start = "Start"
                             } else {

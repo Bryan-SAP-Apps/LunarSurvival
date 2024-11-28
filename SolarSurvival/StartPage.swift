@@ -9,6 +9,7 @@ struct StartView: View {
     @AppStorage("day") var day = 1
     @EnvironmentObject var buildingManager: BuildingManager
     @StateObject var energyManager = EnergyManager()
+    @StateObject var itemManager = ItemManager()
     @AppStorage("daysForRescue") var daysForRescue = 3
     @AppStorage("shouldPlayCutscene") private var shouldPlayCutscene = false
     
@@ -81,6 +82,7 @@ struct StartView: View {
                                     daysForRescue = 3
                                     energyManager.clearEnergyAmount()
                                     buildingManager.clearImageNames()
+                                    itemManager.resetItemAmounts()
                                     if (continuee == false) {
                                         start = "Start"
                                     } else {

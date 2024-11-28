@@ -70,23 +70,25 @@ struct NextLevelView: View {
     
     // MARK: - Game Setup
     func startDecrementing() {
-            // Only start the decrementing process if it's not already running
-            if !isRunning {
-                isRunning = true
-                DispatchQueue.global(qos: .background).async {
-                    while energyManager.energies[0].amount > 0 && isRunning {
-                        DispatchQueue.main.async {
-                            energyManager.energies[0].amount -= 0.25
-                        }
-                        Thread.sleep(forTimeInterval: 1) // Sleep for 1 second
-                    }
+        // Only start the decrementing process if it's not already running
+        if !isRunning {
+            isRunning = true
+            DispatchQueue.global(qos: .background).async {
+                while energyManager.energies[0].amount > 0 && isRunning {
                     DispatchQueue.main.async {
-                        isRunning = false // Stop when the value reaches 0 or is manually stopped
+                        energyManager.energies[0].amount -= 0.25
+                    }
+                    Thread.sleep(forTimeInterval: 1) // Sleep for 1 second
+                }
+                DispatchQueue.main.async {
+                    isRunning = false // Stop when the value reaches 0 or is manually stopped
+                    if energyManager.energies[0].amount <= 0 {
+                        goHome = true // Trigger navigation to home
                     }
                 }
             }
         }
-
+    }
         func stopDecrementing() {
             // Set isRunning to false to stop the decrementing process
             isRunning = false
