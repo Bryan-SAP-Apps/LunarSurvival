@@ -10,6 +10,7 @@
 		043E89972CF363B00097877D /* BuildingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E89962CF363B00097877D /* BuildingManager.swift */; };
 		043E89992CF367010097877D /* BuildingGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E89982CF367010097877D /* BuildingGridView.swift */; };
 		043E899B2CF760ED0097877D /* ManualView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E899A2CF760ED0097877D /* ManualView.swift */; };
+		043E899D2CF8B88B0097877D /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E899C2CF8B88B0097877D /* Alert.swift */; };
 		046376432CEECDFE00E1EA97 /* PlatformHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046376422CEECDFE00E1EA97 /* PlatformHolder.swift */; };
 		046376632CEED38300E1EA97 /* NextLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046376622CEED38300E1EA97 /* NextLevelView.swift */; };
 		046376652CEF79B500E1EA97 /* LevelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046376642CEF79B500E1EA97 /* LevelManager.swift */; };
@@ -53,6 +54,7 @@
 		043E89962CF363B00097877D /* BuildingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingManager.swift; sourceTree = "<group>"; };
 		043E89982CF367010097877D /* BuildingGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingGridView.swift; sourceTree = "<group>"; };
 		043E899A2CF760ED0097877D /* ManualView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualView.swift; sourceTree = "<group>"; };
+		043E899C2CF8B88B0097877D /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		046376422CEECDFE00E1EA97 /* PlatformHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformHolder.swift; sourceTree = "<group>"; };
 		046376622CEED38300E1EA97 /* NextLevelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextLevelView.swift; sourceTree = "<group>"; };
 		046376642CEF79B500E1EA97 /* LevelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelManager.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				046376642CEF79B500E1EA97 /* LevelManager.swift */,
 				0463CB4B2CED003B0074CA9B /* GameHelper.swift */,
 				0463CB472CECE1740074CA9B /* Item.swift */,
+				043E899C2CF8B88B0097877D /* Alert.swift */,
 				04A44ECC2CF176680086D825 /* Energy.swift */,
 				0463CB452CECDFA30074CA9B /* GameState.swift */,
 				0463CB432CECD9610074CA9B /* PlayerConstants.swift */,
@@ -294,6 +297,7 @@
 				D959631F2CF19BDE00EB872E /* DayTransitionCutscene.swift in Sources */,
 				046376652CEF79B500E1EA97 /* LevelManager.swift in Sources */,
 				04CACD8C2CF1868D0052AA60 /* RegolithInsulationView.swift in Sources */,
+				043E899D2CF8B88B0097877D /* Alert.swift in Sources */,
 				D9EFF6132CEA51FA000EDAD8 /* StartCutscene.swift in Sources */,
 				043E89972CF363B00097877D /* BuildingManager.swift in Sources */,
 			);

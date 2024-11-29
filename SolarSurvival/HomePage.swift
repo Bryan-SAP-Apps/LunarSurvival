@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-
 struct HomePage: View {
     @StateObject var itemManager = ItemManager()
     @EnvironmentObject var buildingManager: BuildingManager
-    
+    @State private var activeAlert: ActiveAlert = .none
+    @EnvironmentObject var alertViewModel: AlertViewModel
     
     @State private var showCutscene = false
     @AppStorage("eat") var eat = 0
@@ -45,6 +45,8 @@ struct HomePage: View {
     @EnvironmentObject var player: Player
     
     var body: some View {
+        
+        
         NavigationStack{
             NavigationLink(destination: AstronautHandbookView(), isActive: $isPresented){
                 EmptyView()
@@ -260,7 +262,8 @@ struct HomePage: View {
 //                                            eatenTooMuch = false
 //                                        }
 //                                    }
-                                    eatenTooMuch = true
+                                    activeAlert = .alert1
+                                    print("eating like a pro")
                                 }, label: {
                                     Text("Eat")
                                         .frame(width:140, height: 30)
@@ -306,14 +309,30 @@ struct HomePage: View {
                 .background() {
                     Image("moon surface img")
                 }
-                // New flag to track intentional triggering
-                let alert: Alert = {
-                    if eatenTooMuch {
+                .alert(isPresented: .constant(activeAlert == .alert1)) {
+                    Alert(
+                        title: Text("You are too full"),
+                        message: Text("You cannot eat anymore"),
+                        dismissButton: .default(Text("Ok"), action: {
+                            eatenTooMuch = false
+                            activeAlert = .none
+                        })
+                    )
+                }
+               
+               
+                .alert(isPresented: Binding<Bool>(
+                    get: { (survived || rescued) && alertTriggered },
+                    set: { _ in
+                        alertTriggered = false // Reset only the alert flag here
+                    }
+                )) {
+                    if rescued {
                         return Alert(
-                            title: Text("You are too full"),
-                            message: Text("You cannot eat anymore"),
+                            title: Text("Help is on the way!"),
+                            message: Text("Survive for \(daysForRescue + 1) days more"),
                             dismissButton: .default(Text("Ok"), action: {
-                                eatenTooMuch = false
+                                rescued = false // Reset rescued after dismissal
                             })
                         )
                     } else if survived {
@@ -321,15 +340,7 @@ struct HomePage: View {
                             title: Text("Congratulations"),
                             message: Text("You survived"),
                             dismissButton: .default(Text("Ok"), action: {
-                                survived = false
-                            })
-                        )
-                    } else if rescued {
-                        return Alert(
-                            title: Text("Help is on the way!"),
-                            message: Text("Survive for \(daysForRescue + 1) days more"),
-                            dismissButton: .default(Text("Ok"), action: {
-                                rescued = false
+                                survived = false // Reset survived after dismissal
                             })
                         )
                     } else {
@@ -339,13 +350,20 @@ struct HomePage: View {
                             dismissButton: .default(Text("Ok"))
                         )
                     }
-                }()
+                }
 
-                
-                // Example method to trigger the alert intentionally:
-               
             }
             .navigationBarBackButtonHidden()
+            .alert(isPresented: .constant(activeAlert == .alert2)) {
+                Alert(
+                    title: Text("Congratulations"),
+                    message: Text("You survived!"),
+                    dismissButton: .default(Text("Ok"), action: {
+                        survived = false
+                        activeAlert = .none
+                    })
+                )
+            }
         }
         .environmentObject(gameState)   // Inject gameState instance here to Pass GameState to child views
         .environmentObject(player) // Inject player instance here to Pass GameState to child views

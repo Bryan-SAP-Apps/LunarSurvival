@@ -11,7 +11,7 @@ import SwiftUI
 struct Item: Identifiable, Codable, Equatable {
     var id = UUID()
     var name: String
-    var amount: Int
+    var amount: Int = 0 
 }
 
 // Item Manager

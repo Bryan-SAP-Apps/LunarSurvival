@@ -150,14 +150,19 @@ struct PlatformView: View {
                                 .scaledToFit()
                                 .frame(width: 40, height: 40)
                             
-                            HStack{
-                                Text("\(item.amount)")
+                            HStack {
+//                                Text("\(item.amount)")
+//                                    .font(.title3)
+//                                    .foregroundColor(.white)
+//                                    .padding()
+                                Text("\(item.amount) ")
                                     .font(.title3)
                                     .foregroundColor(.white)
                                     .padding()
                             }
                         }
                     }
+
                 }
                 .padding()
                 Spacer()
