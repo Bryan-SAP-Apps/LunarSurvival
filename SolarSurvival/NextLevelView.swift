@@ -150,7 +150,7 @@ struct NextLevelView: View {
                                 .frame(width: 40, height: 40)
                             
                             HStack{
-                                Text("\(item.amount)")
+                                Text("\(item.amount) ")
                                     .font(.title3)
                                     .foregroundColor(.white)
                                     .padding()

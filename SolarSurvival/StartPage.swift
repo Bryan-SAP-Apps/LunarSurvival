@@ -7,6 +7,7 @@ struct StartView: View {
     @State private var continuee = false
     @State private var start = "Start/Continue"
     @AppStorage("day") var day = 1
+    @AppStorage("eat") var eat = 0
     @EnvironmentObject var buildingManager: BuildingManager
     @StateObject var energyManager = EnergyManager()
     @StateObject var itemManager = ItemManager()
@@ -80,9 +81,10 @@ struct StartView: View {
                                 Button(action: {
                                     day = 1
                                     daysForRescue = 3
+                                    eat = 0
                                     energyManager.clearEnergyAmount()
                                     buildingManager.clearImageNames()
-                                    itemManager.resetItemAmounts()
+//                                    itemManager.resetItemAmounts()
                                     if (continuee == false) {
                                         start = "Start"
                                     } else {

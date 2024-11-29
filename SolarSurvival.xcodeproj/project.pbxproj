@@ -176,9 +176,9 @@
 				0463CB3D2CEB49C60074CA9B /* WaterFilterView.swift */,
 				04CACD872CF1848C0052AA60 /* SolarPanelView.swift */,
 				048E9A392CE0A84D00105FD3 /* ProgressBuilding.swift */,
+				04CACD892CF185A10052AA60 /* CO2FilterView.swift */,
 				59BADA6C2CE887D100E57FB5 /* InfrastructureBuildingChoices.swift */,
 				04CACD8B2CF1868D0052AA60 /* RegolithInsulationView.swift */,
-				04CACD892CF185A10052AA60 /* CO2FilterView.swift */,
 				048E9A7F2CE88B3900105FD3 /* UsingItemsView.swift */,
 				04CACD8D2CF191170052AA60 /* HighGainAntenna.swift */,
 			);

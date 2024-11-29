@@ -14,6 +14,7 @@ struct DeathView: View {
     @StateObject var energyManager = EnergyManager()
     @StateObject var itemManager = ItemManager()
     @AppStorage("daysForRescue") var daysForRescue = 3
+    @AppStorage("eat") var eat = 0
     var body: some View {
         NavigationStack{
             Group{
@@ -28,10 +29,11 @@ struct DeathView: View {
                         Button(action: {
                             daysForRescue = 3
                             day = 1
+                            eat = 0
                             showAlert = true
                             buildingManager.clearImageNames()
                             energyManager.clearEnergyAmount()
-                            itemManager.resetItemAmounts()
+//                            itemManager.resetItemAmounts()
                         }, label: {
                             Text("Restart")
                                 .padding()

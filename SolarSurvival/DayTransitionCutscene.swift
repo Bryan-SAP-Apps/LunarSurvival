@@ -7,9 +7,11 @@
 import SwiftUI
 
 struct DayTransitionCutscene: View {
+    
     let onFinish: () -> Void // Callback for when the slideshow ends
+//    @StateObject var alertManager = AlertManager()
     @EnvironmentObject var buildingManager: BuildingManager
-    @EnvironmentObject var alertViewModel: AlertViewModel
+    @EnvironmentObject var alertManager: AlertManager
     @State private var goGood = false
     @State private var goDie = false
     @State private var goEnd = false
@@ -79,8 +81,8 @@ struct DayTransitionCutscene: View {
     }
     private func checkRescueOrEnd() {
             if buildingManager.buildings.contains(where: { $0.imageName.contains("highgainantenna") }) {
-                alertViewModel.activeAlert = .alert3
                 daysForRescue -= 1
+                rescued = true
                 if daysForRescue <= 0 {
                     survived = false
                     goEnd = true
@@ -115,28 +117,26 @@ struct DayTransitionCutscene: View {
             startSlideshow()
         }
     }
-    private func liveOrDie(){
-
+    private func liveOrDie() {
         switch day {
         case 1:
             if buildingManager.buildings.contains { $0.imageName.contains("basicshelter") } &&
                buildingManager.buildings.contains { $0.imageName.contains("regolithinsulation") } {
-                   alertViewModel.activeAlert = .alert2
+                survived = true// Triggers the alert
                 goGood = true
             } else {
                 goDie = true
             }
         case 2:
             if buildingManager.buildings.contains { $0.imageName.contains("co2filter") } {
-                alertViewModel.activeAlert = .alert2
+                survived = true
                 goGood = true
             } else {
                 goDie = true
             }
         case 3:
-            print("Checking for solarpanels...")
             if buildingManager.buildings.contains { $0.imageName.contains("solarpanel") } {
-                alertViewModel.activeAlert = .alert2
+                survived = true
                 electricstable = true
                 goGood = true
             } else {
@@ -145,10 +145,9 @@ struct DayTransitionCutscene: View {
         case 7...:
             goDie = true
         default:
-            alertViewModel.activeAlert = .alert2
+            survived = true
             goGood = true
         }
-        
     }
 }
 

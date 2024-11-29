@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PlatformView: View {
+    @AppStorage("platform") var currentlyOnPlatform: Bool = false
     @State private var isRunning = false
     @State private var goHome = false
     @EnvironmentObject var gameState: GameState
@@ -269,7 +270,6 @@ struct PlatformView: View {
         let playerHeight: CGFloat = 40 // Adjust to match the player's height
 
         var velocity: CGFloat = 0
-        var currentlyOnPlatform = false
 
         // Apply gravity and update position
         velocity += gravity * CGFloat(frameDuration)
@@ -286,26 +286,17 @@ struct PlatformView: View {
         } else {
             // Check collision with platforms
             for platform in platforms {
-                let platformTop = platform.position.y - platform.size.height / 2
-                let withinPlatformBounds = player.position.x >= platform.position.x - 75 && player.position.x <= platform.position.x + 75
-
-                // Player should land only if they are falling and just above the platform
-                if velocity >= 0 && withinPlatformBounds {
-                    let playerBottom = player.position.y + playerHeight / 2
-                    let isLanding = playerBottom >= platformTop && playerBottom <= platformTop + velocity
-
-                    if isLanding {
-                        // Player is landing on the platform
-                        player.position.y = platformTop - playerHeight / 2
-                        velocity = 0
-                        player.isJumping = false
-                        currentlyOnPlatform = true
-                        break
-                    }
+                // Check if the player is above the platform and within platform boundaries
+                if abs(player.position.x - platform.position.x) < (20 + platform.size.width / 2) &&
+                    abs(player.position.y - platform.position.y) < (20 + platform.size.height / 2) &&
+                    velocity >= 0 { // Check if falling onto platform
+                    player.position.y = platform.position.y - 20 // Place player on top of the platform
+                    velocity = 0
+                    player.isJumping = false
+                    currentlyOnPlatform = true
+                    break
                 }
-
             }
-
             // Ensure the astronaut is falling if not on any platform
             if !currentlyOnPlatform {
                 velocity += gravity * CGFloat(frameDuration)

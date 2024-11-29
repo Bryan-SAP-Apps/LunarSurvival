@@ -9,9 +9,8 @@ import SwiftUI
 struct HomePage: View {
     @StateObject var itemManager = ItemManager()
     @EnvironmentObject var buildingManager: BuildingManager
-    @State private var activeAlert: ActiveAlert = .none
-    @EnvironmentObject var alertViewModel: AlertViewModel
-    
+    @StateObject var alertManager = AlertManager()
+    @State private var alertData: AlertData?
     @State private var showCutscene = false
     @AppStorage("eat") var eat = 0
     @State private var toEat = 1
@@ -250,20 +249,19 @@ struct HomePage: View {
                                     
                                 }
                                 Button(action: {
-//                                    eat += toEat
-//                                    if energyManager.energies[0].amount == 100{
-//                                        eatenTooMuch = true
-//                                    } else{
-//                                        if eat > 3{
-//                                            eatenTooMuch = true
-//                                            toEat = 0
-//                                        } else{
-//                                            energyManager.energies[0].amount += 10
-//                                            eatenTooMuch = false
-//                                        }
-//                                    }
-                                    activeAlert = .alert1
-                                    print("eating like a pro")
+                                    eat += toEat
+                                    if energyManager.energies[0].amount == 100{
+                                        alertManager.triggerAlert(title: "You are too full", message: "You cannot eat anymore")
+                                    } else{
+                                        if eat > 3{
+                                            alertManager.triggerAlert(title: "You are too full", message: "You cannot eat anymore")
+                                            toEat = 0
+                                        } else{
+                                            energyManager.energies[0].amount += 10
+                                            eatenTooMuch = false
+                                        }
+                                    }
+                                    
                                 }, label: {
                                     Text("Eat")
                                         .frame(width:140, height: 30)
@@ -309,69 +307,42 @@ struct HomePage: View {
                 .background() {
                     Image("moon surface img")
                 }
-                .alert(isPresented: .constant(activeAlert == .alert1)) {
-                    Alert(
-                        title: Text("You are too full"),
-                        message: Text("You cannot eat anymore"),
-                        dismissButton: .default(Text("Ok"), action: {
-                            eatenTooMuch = false
-                            activeAlert = .none
-                        })
-                    )
-                }
-               
-               
-                .alert(isPresented: Binding<Bool>(
-                    get: { (survived || rescued) && alertTriggered },
-                    set: { _ in
-                        alertTriggered = false // Reset only the alert flag here
-                    }
-                )) {
-                    if rescued {
-                        return Alert(
-                            title: Text("Help is on the way!"),
-                            message: Text("Survive for \(daysForRescue + 1) days more"),
-                            dismissButton: .default(Text("Ok"), action: {
-                                rescued = false // Reset rescued after dismissal
-                            })
-                        )
-                    } else if survived {
-                        return Alert(
-                            title: Text("Congratulations"),
-                            message: Text("You survived"),
-                            dismissButton: .default(Text("Ok"), action: {
-                                survived = false // Reset survived after dismissal
-                            })
-                        )
-                    } else {
-                        return Alert(
-                            title: Text("Unknown"),
-                            message: Text("Something unexpected happened"),
-                            dismissButton: .default(Text("Ok"))
-                        )
-                    }
-                }
+                .alert(
+                                alertManager.alertTitle,
+                                isPresented: $alertManager.isAlertPresented
+                            ) {
+                                Button("OK", role: .cancel) {
+                                    alertManager.resetAlert()
+                                }
+                            } message: {
+                                Text(alertManager.alertMessage)
+                            }
 
             }
             .navigationBarBackButtonHidden()
-            .alert(isPresented: .constant(activeAlert == .alert2)) {
-                Alert(
-                    title: Text("Congratulations"),
-                    message: Text("You survived!"),
-                    dismissButton: .default(Text("Ok"), action: {
-                        survived = false
-                        activeAlert = .none
-                    })
-                )
-            }
+            .onAppear(perform: {
+                if survived == true{
+                    alertManager.triggerAlert(title: "Congratulations", message: "You survived")
+                    survived = false
+                }
+                if rescued == true{
+                    alertManager.triggerAlert(title: "Help is on the way!", message: "Survive for \(daysForRescue + 1) days more")
+                    rescued = false
+                }
+            })
+//            .alert(isPresented: .constant(activeAlert == .alert2)) {
+//                Alert(
+//                    title: Text("Congratulations"),
+//                    message: Text("You survived!"),
+//                    dismissButton: .default(Text("Ok"), action: {
+//                        survived = false
+//                        activeAlert = .none
+//                    })
+//                )
+//            }
         }
         .environmentObject(gameState)   // Inject gameState instance here to Pass GameState to child views
         .environmentObject(player) // Inject player instance here to Pass GameState to child views
-    }
-    func triggerSurvivedAlert() {
-        survived = true
-        alertTriggered = true
-        
     }
     
 }

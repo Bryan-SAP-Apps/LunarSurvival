@@ -83,7 +83,8 @@ struct AstronautHandbookView: View {
                                     .font(.headline)
                                     .id("shelterConstruction") // ID for navigation
                                 Text("""
-                                Construct a basic shelter using all the materials available in the rocket's storage, including insulation materials. Glass may be used optionally in the construction.
+                                Construct a basic shelter using all the materials available in the rocket's storage, including insulation materials. 
+                                Glass may be used optionally in the construction.
                                 Gather moon regolith on Day 1 for additional insulation to endure the Moon’s temperatures.
                                 """)
                                 .font(.body)
@@ -92,7 +93,8 @@ struct AstronautHandbookView: View {
                                     .font(.headline)
                                     .id("powerSupply") // ID for navigation
                                 Text("""
-                                Stored electronics only have limited amounts of electricity. Deploy solar panels to generate additional power.
+                                Stored electronics only have limited amounts of electricity. 
+                                Deploy solar panels to generate additional power.
                                 """)
                                 .font(.body)
                                 
@@ -100,8 +102,8 @@ struct AstronautHandbookView: View {
                                     .font(.headline)
                                     .id("lifeSupportSystems") // ID for navigation
                                 Text("""
-                                - Prioritize building a CO2 filter to prevent carbon dioxide poisoning by the second day.
-                                - Assemble the water filter by the third day to ensure access to uncontaminated water.
+                                Prioritize building a CO2 filter to prevent carbon dioxide poisoning by the second day.
+                                Assemble the water filter by the third day to ensure access to uncontaminated water.
                                 """)
                                 .font(.body)
                                 

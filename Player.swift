@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 class Player: ObservableObject {
     @Published var position: CGPoint
     @Published var velocity: CGFloat = 0
@@ -13,7 +14,7 @@ class Player: ObservableObject {
     @Published var isMovingLeft: Bool = false
     @Published var isMovingRight: Bool = false
     @Published var iconImage: String = PlayerConstants.astronautIdle
-    @Published var isOnPlatform = false
+    @AppStorage("platform") var currentlyOnPlatform: Bool = false
     
     let groundLevel: CGFloat = 300
     let jumpStrength: CGFloat = -5
@@ -38,11 +39,11 @@ class Player: ObservableObject {
     // changes here
     
     func jump() {
-        if !isJumping && (self.position.y >= groundLevel) {
-                    velocity = jumpStrength
-                    isJumping = true
-                    isOnPlatform = false
-                }
+        if !isJumping && (self.position.y >= groundLevel || currentlyOnPlatform) {
+            velocity = jumpStrength
+            isJumping = true
+            currentlyOnPlatform = false // Set to false so gravity takes over after the jump
+        }
     }
     
     func updatePosition(frameDuration: CGFloat) {

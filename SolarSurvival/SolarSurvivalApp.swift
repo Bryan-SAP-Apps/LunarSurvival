@@ -11,6 +11,7 @@ import SwiftUI
 struct SolarSurvivalApp: App {
     // Create the ItemManager instance
     @StateObject var itemManager = ItemManager()
+    @StateObject var alertManager = AlertManager()
     @StateObject var alertViewModel = AlertViewModel()
     @StateObject var buildingManager = BuildingManager()
     @StateObject var gameState = GameState()
@@ -33,7 +34,7 @@ struct SolarSurvivalApp: App {
                 .environmentObject(buildingManager)
                 .environmentObject(gameState)
                 .environmentObject(player)
-                .environmentObject(alertViewModel)
+                .environmentObject(alertManager)
         }
     }
 }

@@ -16,6 +16,7 @@ struct CongratView: View {
     @Environment(\.dismiss) var dismiss
     @State var continuee = false
     @State var start = "Start"
+    @AppStorage("eat") var eat = 0
     @State var isAnimated = true
     @AppStorage("day") var day = 1
     @AppStorage("structure") var goodStructure = true
@@ -78,26 +79,32 @@ struct CongratView: View {
                         }
                         Spacer()
                         HStack{
+                            VStack{
+                                Text("Created By")
+                                    .font(.title3)
+                                    .foregroundColor(Color.white)
+                                Text("Bryan Nguyen, Yanxi, Zi Cheng, Ted Tan")
+                                    .foregroundColor(Color.white)
+                                Text("Swift Accelerator Program 2024")
+                                    .font(.subheadline)
+                                    .foregroundColor(Color.white)
+                            }
                         Spacer()
                         Button(action: {
                              isNavigated = true // Set the state to true to navigate
                             daysForRescue = 3
                             day = 1
+                            eat = 0
                             buildingManager.clearImageNames()
                             energyManager.clearEnergyAmount()
-                            itemManager.resetItemAmounts()
-                            if (continuee == false){
-                                start = "Start"
-                            } else {
-                                start = "Continue"
-                            }
+//                            itemManager.resetItemAmounts()
                         }) {
                             Text("Restart game")
                                 .font(.title)
                                 .padding()
                                 .padding(.trailing, 20)
                                 .padding(.leading, 20)
-                                .background(Color.blue)
+                                .background(Color.green)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                             
