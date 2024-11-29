@@ -36,9 +36,7 @@ struct IntroCutsceneShow: View {
     
     var body: some View {
         VStack{
-            Button("Skip"){
-                finishSlideshow()
-            }
+            
             Group {
                 if showNextView {
                     HomePage() // Next view after the slideshow
@@ -51,7 +49,25 @@ struct IntroCutsceneShow: View {
                                 .edgesIgnoringSafeArea(.all)
                                 .transition(.opacity)
                         }
+                        VStack {
+                            HStack {
+                                Spacer()
+                                Button(action: {
+                                    finishSlideshow()
+                                }) {
+                                    Text("Skip")
+                                        .foregroundColor(.white)
+                                        .padding(.horizontal, 16)
+                                        .padding(.vertical, 8)
+                                        .background(Color.red)
+                                        .cornerRadius(8)
+                                }
+                                .padding()
+                            }
+                            Spacer()
+                        }
                     }
+                        
                     .onAppear {
                         startSlideshow()
                     }

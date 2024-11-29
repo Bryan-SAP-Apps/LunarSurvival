@@ -21,11 +21,13 @@ struct DeathView: View {
                 if showAlert == true{
                     StartView()
                 } else {
-                    VStack {
+                    VStack(spacing: 20) {
                         Text("Game Over")
                             .font(.largeTitle)
                             .bold()
+                        
                         Text("YOU SURVIVED FOR \(day - 1) DAYS")
+                      
                         Button(action: {
                             daysForRescue = 3
                             day = 1
@@ -33,7 +35,7 @@ struct DeathView: View {
                             showAlert = true
                             buildingManager.clearImageNames()
                             energyManager.clearEnergyAmount()
-//                            itemManager.resetItemAmounts()
+                            itemManager.resetItemAmounts()
                         }, label: {
                             Text("Restart")
                                 .padding()

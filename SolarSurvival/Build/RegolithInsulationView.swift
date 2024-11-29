@@ -163,15 +163,20 @@ struct RegolithInsulationView: View {
                         .monospaced()
                 }
                 
-                if let order = pressOrder[id] {
-                    Text("\(order)")
-                        .font(.caption)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding(4)
-                        .background(Color.red)
-                        .clipShape(Circle())
-                        .offset(x: 110, y: -25)
+                HStack{
+                    Spacer()
+                    VStack{
+                        if let order = pressOrder[id] {
+                            Text("\(order)")
+                                .font(.caption)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .background(Color.red)
+                                .clipShape(Circle())
+                            Spacer()
+                        }
+                    }
+                   
                 }
             }
         }

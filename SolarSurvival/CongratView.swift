@@ -97,7 +97,7 @@ struct CongratView: View {
                             eat = 0
                             buildingManager.clearImageNames()
                             energyManager.clearEnergyAmount()
-//                            itemManager.resetItemAmounts()
+                            itemManager.resetItemAmounts()
                         }) {
                             Text("Restart game")
                                 .font(.title)

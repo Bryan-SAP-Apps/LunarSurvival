@@ -4,8 +4,8 @@ import SDWebImageSwiftUI
 struct StartView: View {
     @State private var isNavigated = false
     @State private var isAnimated = true
-    @State private var continuee = false
-    @State private var start = "Start/Continue"
+    @AppStorage("continuee") var continuee = false
+    @State private var start = "Start"
     @AppStorage("day") var day = 1
     @AppStorage("eat") var eat = 0
     @EnvironmentObject var buildingManager: BuildingManager
@@ -63,6 +63,7 @@ struct StartView: View {
                                 // Button to navigate to the second view
                                 Button(action: {
                                     isNavigated = true // Set the state to true to navigate
+                                    continuee = true
                                     if (continuee == false) {
                                         start = "Start"
                                     } else {
@@ -84,7 +85,7 @@ struct StartView: View {
                                     eat = 0
                                     energyManager.clearEnergyAmount()
                                     buildingManager.clearImageNames()
-//                                    itemManager.resetItemAmounts()
+                                    itemManager.resetItemAmounts()
                                     if (continuee == false) {
                                         start = "Start"
                                     } else {

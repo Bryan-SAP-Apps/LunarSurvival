@@ -85,6 +85,7 @@ struct DayTransitionCutscene: View {
                 rescued = true
                 if daysForRescue <= 0 {
                     survived = false
+                    rescued = false
                     goEnd = true
                 } else {
                     showNextView = true
