@@ -199,7 +199,7 @@ struct HomePage: View {
                             Spacer()
                             Spacer()
                         }
-                        .padding(.bottom, 200)
+                        .padding(.bottom, 160)
                         
                         //Squares
                         BuildingGridView()
