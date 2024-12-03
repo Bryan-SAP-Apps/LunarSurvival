@@ -19,6 +19,7 @@ struct DayTransitionCutscene: View {
     @State private var goEnd = false
     @AppStorage("eat") var eat = 0
     @State private var currentIndex = 0
+    @AppStorage("justDied") var justDied = false
     @AppStorage("survived") var survived = false
     @State private var showNextView = false
     @State private var view = ""
@@ -100,7 +101,12 @@ struct DayTransitionCutscene: View {
                    checkRescueOrEnd()
                    liveOrDie()
                    onFinish()
-                   day += 1
+            if justDied == true{
+                day = 1
+            } else{
+                day += 1
+            }
+                   
                    return
                }
         let displayTime = Double.random(in: minTime...maxTime)
@@ -124,6 +130,7 @@ struct DayTransitionCutscene: View {
         daysForRescue = 3
         day = 1
         eat = 0
+        justDied = true
         buildingManager.clearImageNames()
         energyManager.clearEnergyAmount()
         itemManager.resetItemAmounts()

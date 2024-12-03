@@ -24,6 +24,8 @@ struct HomePage: View {
     @State private var alertTriggered = false
     @AppStorage("rescue") var rescued = false
     @AppStorage("daysForRescue") var daysForRescue = 3
+    @AppStorage("justDied") var justDied = false
+    @State private var dayOrDays = "DAY"
     
     
     var items = [
@@ -251,13 +253,21 @@ struct HomePage: View {
                 }
                 .navigationBarBackButtonHidden()
                 .onAppear(perform: {
+                    if justDied == true{
+                        day = 1
+                    }
                     if survived == true{
                         alertManager.triggerAlert(title: "Congratulations", message: "You survived")
                         survived = false
                     }
                     if rescued == true{
-                        alertManager.triggerAlert(title: "Help is on the way!", message: "Survive for \(daysForRescue + 1) days more")
+                        alertManager.triggerAlert(title: "Help is on the way!", message: "Survive for \(daysForRescue + 1) \(dayOrDays) more")
                         rescued = false
+                    }
+                    if daysForRescue + 1 == 1{
+                        dayOrDays = "day"
+                    } else{
+                        dayOrDays = "days"
                     }
                 })
                 //            .alert(isPresented: .constant(activeAlert == .alert2)) {
