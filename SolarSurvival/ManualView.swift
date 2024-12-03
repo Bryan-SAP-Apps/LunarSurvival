@@ -140,7 +140,6 @@ struct AstronautHandbookView: View {
                 .foregroundColor(.white)
             }
         }
-        .navigationTitle("Astronaut's Handbook")
     }
 }
 

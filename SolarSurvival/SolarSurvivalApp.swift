@@ -14,6 +14,7 @@ struct SolarSurvivalApp: App {
     @StateObject var alertManager = AlertManager()
     @StateObject var alertViewModel = AlertViewModel()
     @StateObject var buildingManager = BuildingManager()
+    @StateObject var energyManager = EnergyManager()
     @StateObject var gameState = GameState()
     @StateObject var player = Player(startPosition: CGPoint(x: 200, y: 300))// this is the
     
@@ -34,6 +35,7 @@ struct SolarSurvivalApp: App {
                 .environmentObject(buildingManager)
                 .environmentObject(gameState)
                 .environmentObject(player)
+                .environmentObject(energyManager)
                 .environmentObject(alertManager)
         }
     }

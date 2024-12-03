@@ -99,8 +99,6 @@ struct ProgressBuilding: View {
                     .padding(.bottom, 20)
                     Button(action: {
 //                        building = "basicshelter"
-                        
-                        print("gameState.energyBar")
                         energyManager.energies[0].amount -= 10
                         goHome = true
                         
@@ -154,7 +152,6 @@ struct ProgressBuilding: View {
                         gameState.energyBar -= 10 // Decrease penalty
                         restartTimer()
                         showTooSlowPopup = false
-                        print(gameState.energyBar)
                     }
                     .padding()
                     .background(Color.green)

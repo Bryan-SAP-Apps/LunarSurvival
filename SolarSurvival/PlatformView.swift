@@ -111,8 +111,6 @@ struct PlatformView: View {
         boulders = GameHelper.generateLunarFeatures(count: 3, type: .boulder, groundLevel: groundLevel)
         startGameLoop()
         
-        print("Player position: \(player.position.x)")
-
     }
     
     private func cleanUpGame() {

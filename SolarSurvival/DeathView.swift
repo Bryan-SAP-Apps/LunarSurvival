@@ -29,13 +29,9 @@ struct DeathView: View {
                         Text("YOU SURVIVED FOR \(day - 1) DAYS")
                       
                         Button(action: {
-                            daysForRescue = 3
                             day = 1
-                            eat = 0
                             showAlert = true
-                            buildingManager.clearImageNames()
-                            energyManager.clearEnergyAmount()
-                            itemManager.resetItemAmounts()
+                            
                         }, label: {
                             Text("Restart")
                                 .padding()

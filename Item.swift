@@ -66,9 +66,7 @@ class ItemManager: ObservableObject {
         do {
             let encodedItems = try jsonEncoder.encode(items)
             try encodedItems.write(to: archiveURL, options: .noFileProtection)
-            print("Saved items to file: \(archiveURL)") // Debug
         } catch {
-            print("Failed to save items to file: \(error)")
         }
     }
     
@@ -81,7 +79,6 @@ class ItemManager: ObservableObject {
             let retrievedItemData = try Data(contentsOf: archiveURL)
             items = try jsonDecoder.decode([Item].self, from: retrievedItemData)
         } catch {
-            print("Failed to load items: \(error)")
         }
     }
     func setGameState(_ gameState: GameState) {
