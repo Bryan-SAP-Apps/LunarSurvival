@@ -4,6 +4,8 @@ import SDWebImageSwiftUI
 struct ProgressBuilding: View {
     @State var isAnimated = true
     @StateObject var energyManager = EnergyManager()
+    @StateObject var buildingManager = BuildingManager()
+    @AppStorage("finishedInfrastructure") var finishedInfrastructure = ""
     @State private var downloadAmount = 0.0
     @State private var pressFromLeft = false
     @State private var pressFromRight = false
@@ -21,172 +23,181 @@ struct ProgressBuilding: View {
     @State private var goHome = false
     
     var body: some View {
-    NavigationStack{
-        NavigationLink(destination: HomePage(), isActive: $goHome){
-            EmptyView()
-        }
-        ZStack {
-            VStack {
-                // Placeholder Text
-                Text("Time Remaining: \(Int(timeRemaining))s")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding(.top, 40)
-                Text("Tap fast on both areas\nto build the base")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                    .padding(.all, 3)
-                
-                
-                
-                
-                HStack {
-                    // Left Button
-                    Button {
-                        if !showSuccessPopup && !showTooSlowPopup {
-                            pressFromLeft = true
-                            checkSimultaneousPress()
-                        }
-                    } label: {
-                        Text("CLICK\nME")
-                            .font(.title)
-                            .bold()
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.white)
-                            .frame(width: 150, height: 250)
-                            .background(Color.green)
-                            .cornerRadius(50)
-                            .shadow(radius: 10)
-                    }
-                    
-                    Spacer()
-                    
-                    // Right Button
-                    Button {
-                        if !showSuccessPopup && !showTooSlowPopup {
-                            pressFromRight = true
-                            checkSimultaneousPress()
-                        }
-                    } label: {
-                        Text("CLICK\nME")
-                            .font(.title)
-                            .bold()
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.white)
-                            .frame(width: 150, height: 250)
-                            .background(Color.green)
-                            .cornerRadius(50)
-                            .shadow(radius: 10)
-                    }
+        GeometryReader{ geometry in
+            NavigationStack{
+                NavigationLink(destination: HomePage(), isActive: $goHome){
+                    EmptyView()
                 }
-                .padding(.horizontal, 40)
-                .padding(.bottom, 20)
-                
-                
-                
-                // Progress Bar
-                HStack{
+                ZStack {
                     VStack {
-                        ProgressView(value: downloadAmount, total: 100)
-                            .progressViewStyle(LinearProgressViewStyle(tint: .black))
-                            .scaleEffect(x: 1, y: 4, anchor: .center)
-                            .padding(.horizontal, 20)
+                        // Placeholder Text
+                        Text("Time Remaining: \(Int(timeRemaining))s")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding(.top, 40)
+                        Text("Tap fast on both areas simultaneously!")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                            .padding(.all, 3)
                         
-                        Text("Building…")
-                            .font(.footnote)
-                            .foregroundColor(.black)
-                            .padding(.top, 4)
+                        
+                        
+                        
+                        HStack {
+                            // Left Button
+                            Button {
+                                if !showSuccessPopup && !showTooSlowPopup {
+                                    pressFromLeft = true
+                                    checkSimultaneousPress()
+                                }
+                            } label: {
+                                Text("CLICK\nME")
+                                    .font(.title)
+                                    .bold()
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(.white)
+                                    .frame(width: geometry.size.width * 0.2, height: geometry.size.height * 0.5)
+                                    .background(Color.green)
+                                    .cornerRadius(50)
+                                    .shadow(radius: 10)
+                            }
+                            
+                            Spacer()
+                            
+                            // Right Button
+                            Button {
+                                if !showSuccessPopup && !showTooSlowPopup {
+                                    pressFromRight = true
+                                    checkSimultaneousPress()
+                                }
+                            } label: {
+                                Text("CLICK\nME")
+                                    .font(.title)
+                                    .bold()
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(.white)
+                                    .frame(width: geometry.size.width * 0.2, height: geometry.size.height * 0.5)
+                                    .background(Color.green)
+                                    .cornerRadius(50)
+                                    .shadow(radius: 10)
+                            }
+                        }
+                        .padding(.horizontal, 40)
+                        .padding(.bottom, 20)
+                        
+                        
+                        
+                        // Progress Bar
+                        HStack{
+                            VStack {
+                                ProgressView(value: downloadAmount, total: 100)
+                                    .progressViewStyle(LinearProgressViewStyle(tint: .black))
+                                    .scaleEffect(x: 1, y: 4, anchor: .center)
+                                    .padding(.horizontal, 20)
+                                
+                                Text("Building…")
+                                    .font(.footnote)
+                                    .bold()
+                                    .foregroundColor(.white)
+                                    .padding(.top, 4)
+                            }
+                            .padding(.bottom, 20)
+                            
+                        }
                     }
-                    .padding(.bottom, 20)
-            
-                }
-            }
-            .background() {
-                Image("moon surface img")
-                    .resizable()
-                    .scaledToFill()
-                    .edgesIgnoringSafeArea(.all)
-            }
-            VStack{
-                AnimatedImage(name: "Astro building", isAnimating: $isAnimated)
-                    .resizable()
-                    .scaledToFit()
-                    .padding(.top, 60)
-            }
-            
-            HStack {
-                Spacer()
-                VStack{// Existing content of the view goes here
-                    
-                    Text("Energy Left: \(roundToOnes(energyManager.energies[0].amount))")
-                        .font(.headline)
-                        .foregroundColor(.red)
-                        .padding(.top, 40)
-                        .padding(.trailing, 30)
-                    Spacer()
-                }
-            }
-            
-            if showTooSlowPopup {
-                VStack {
-                    Text("You are too slow!")
-                        .font(.headline)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(10)
-                        .foregroundStyle(.black)
-                    
-                    Button("Try Again") {
-                        retryCount += 1
-                        gameState.energyBar -= 10 // Decrease penalty
-                        restartTimer()
-                        showTooSlowPopup = false
+                    .background() {
+                        Image("moon surface img")
+                            .resizable()
+                            .scaledToFill()
+                            .edgesIgnoringSafeArea(.all)
                     }
-                    .padding()
-                    .background(Color.green)
-                    .cornerRadius(10)
-                    .foregroundColor(.white)
-                }
-                .frame(width: 200, height: 150)
-                .background(Color.black.opacity(0.75))
-                .cornerRadius(20)
-                .shadow(radius: 10)
-            }
-            
-            if showSuccessPopup {
-                
-                VStack {
-                    Text("Build Succeeded!")
-                        .font(.headline)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(10)
-                        .foregroundStyle(.black)
+                    VStack{
+                        AnimatedImage(name: "Astro building", isAnimating: $isAnimated)
+                            .resizable()
+                            .scaledToFit()
+                            .padding(.top, 60)
+                    }
                     
-                    NavigationLink(destination: HomePage()) {
-                        Text("Go Back")
+                    HStack {
+                        Spacer()
+                        VStack{// Existing content of the view goes here
+                            
+                            Text("Energy Left: \(roundToOnes(energyManager.energies[0].amount))")
+                                .font(.headline)
+                                .foregroundColor(.red)
+                                .padding(.top, 40)
+                                .padding(.trailing, 30)
+                            Spacer()
+                        }
+                    }
+                    
+                    if showTooSlowPopup {
+                        VStack {
+                            Text("You are too slow!")
+                                .font(.headline)
+                                .padding()
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .foregroundStyle(.black)
+                            
+                            Button("Try Again") {
+                                retryCount += 1
+                                gameState.energyBar -= 10 // Decrease penalty
+                                restartTimer()
+                                showTooSlowPopup = false
+                            }
                             .padding()
-                            .background(Color.blue)
+                            .background(Color.green)
                             .cornerRadius(10)
                             .foregroundColor(.white)
+                        }
+                        .frame(width: 200, height: 150)
+                        .background(Color.black.opacity(0.75))
+                        .cornerRadius(20)
+                        .shadow(radius: 10)
+                    }
+                    
+                    if showSuccessPopup {
+                        
+                        VStack {
+                            Text("Build Succeeded!")
+                                .font(.headline)
+                                .padding()
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .foregroundStyle(.black)
+                            Button(action: {
+                                goHome = true
+                                if let emptyBuilding = buildingManager.buildings.first(where: { $0.imageName.isEmpty }) {
+                                    if let index = buildingManager.buildings.firstIndex(of: emptyBuilding) {
+                                        buildingManager.buildings[index].imageName = finishedInfrastructure
+                                    }
+                                }
+                            }, label: {
+                                Text("Go Back")
+                                    .padding()
+                                    .background(Color.blue)
+                                    .cornerRadius(10)
+                                    .foregroundColor(.white)
+                            })
+                            
+                        }
+                        .frame(width: 200, height: 150)
+                        .background(Color.black.opacity(0.75))
+                        .cornerRadius(20)
+                        .shadow(radius: 10)
                     }
                 }
-                .frame(width: 200, height: 150)
-                .background(Color.black.opacity(0.75))
-                .cornerRadius(20)
-                .shadow(radius: 10)
+                .onAppear(perform: {
+                    startTimer()
+                    if showSuccessPopup == true{
+                        energyManager.energies[0].amount -= 10
+                    }})
+                .onDisappear {
+                    timer?.invalidate() // Stop the timer when the view disappears
+                }
             }
-        }
-        .onAppear(perform: {
-            startTimer()
-            if showSuccessPopup == true{
-                energyManager.energies[0].amount -= 10
-            }})
-        .onDisappear {
-            timer?.invalidate() // Stop the timer when the view disappears
-        }
-        
     }.navigationBarBackButtonHidden()
     
 }
@@ -236,6 +247,7 @@ struct ProgressBuilding: View {
             }
         }
     }
+        
 }
 
 

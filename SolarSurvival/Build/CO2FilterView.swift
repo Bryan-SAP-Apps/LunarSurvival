@@ -11,7 +11,7 @@ struct CO2FilterView: View {
     @EnvironmentObject var gameState: GameState
     @State private var pressOrder: [Int: Int] = [:] // Maps item IDs to press order
     @State private var pressCount = 0 // Tracks number of selections
-    
+    @AppStorage("finishedInfrastructure") var finishedInfrastructure = ""
     @State private var goProgressView = false
     @EnvironmentObject var buildingManager: BuildingManager
     @AppStorage("day") var day = 1
@@ -120,11 +120,9 @@ struct CO2FilterView: View {
         }
     }
     private func addResourcelToBuilding() {
-        if let emptyBuilding = buildingManager.buildings.first(where: { $0.imageName.isEmpty }) {
-            if let index = buildingManager.buildings.firstIndex(of: emptyBuilding) {
-                buildingManager.buildings[index].imageName = "co2filter"
-            }
-        }
+
+        finishedInfrastructure = "co2filter"
+
     }
     // MARK: - Material Requirement Row
     private func materialRequirement(imageName: String, text: String) -> some View {

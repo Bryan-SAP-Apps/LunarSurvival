@@ -5,6 +5,7 @@ struct WaterFilterView: View {
     @State private var pressOrder: [Int: Int] = [:] // Maps item IDs to press order
     @State private var pressCount = 0 // Tracks number of selections
     @EnvironmentObject var buildingManager: BuildingManager
+    @AppStorage("finishedInfrastructure") var finishedInfrastructure = ""
     @State private var goProgressView = false
     @AppStorage("day") var day = 1
     @State private var neededMetal = 5
@@ -177,11 +178,7 @@ struct WaterFilterView: View {
     
     // MARK: - Add Water Filter to Building
     private func addResourcelToBuilding() {
-        if let emptyBuilding = buildingManager.buildings.first(where: { $0.imageName.isEmpty }) {
-            if let index = buildingManager.buildings.firstIndex(of: emptyBuilding) {
-                buildingManager.buildings[index].imageName = "waterfilter"
-            }
-        }
+        finishedInfrastructure = "waterfilter"
     }
     
     // MARK: - Deduct Resources

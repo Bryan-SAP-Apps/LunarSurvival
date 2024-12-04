@@ -10,6 +10,7 @@ import SwiftUI
 struct SolarPanelView: View {
     @EnvironmentObject var gameState: GameState
     @State private var pressOrder: [Int: Int] = [:] // Maps item IDs to press order
+    @AppStorage("finishedInfrastructure") var finishedInfrastructure = ""
     @State private var pressCount = 0 // Tracks number of selections
     @EnvironmentObject var buildingManager: BuildingManager
     @State private var goProgressView = false
@@ -129,11 +130,7 @@ struct SolarPanelView: View {
         }
     }
     private func addResourcelToBuilding() {
-        if let emptyBuilding = buildingManager.buildings.first(where: { $0.imageName.isEmpty }) {
-            if let index = buildingManager.buildings.firstIndex(of: emptyBuilding) {
-                buildingManager.buildings[index].imageName = "solarpanel"
-            }
-        }
+        finishedInfrastructure = "solarpanel"
     }
     // MARK: - Material Button
     private func materialButton(id: Int, title: String) -> some View {

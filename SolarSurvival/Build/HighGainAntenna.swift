@@ -14,6 +14,7 @@ struct HighGainAntennaView: View {
     
     @State private var goProgressView = false
     @EnvironmentObject var buildingManager: BuildingManager
+    @AppStorage("finishedInfrastructure") var finishedInfrastructure = ""
     @AppStorage("day") var day = 1
     @State private var neededMetal = 7
     @State private var neededPlastic = 3
@@ -116,11 +117,8 @@ struct HighGainAntennaView: View {
         }
     }
     private func addResourcelToBuilding() {
-        if let emptyBuilding = buildingManager.buildings.first(where: { $0.imageName.isEmpty }) {
-            if let index = buildingManager.buildings.firstIndex(of: emptyBuilding) {
-                buildingManager.buildings[index].imageName = "highgainantenna"
-            }
-        }
+        finishedInfrastructure = "highgainantenna"
+
     }
     // MARK: - Material Requirement Row
     private func materialRequirement(imageName: String, text: String) -> some View {
