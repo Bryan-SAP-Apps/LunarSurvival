@@ -11,6 +11,7 @@
 		043E89992CF367010097877D /* BuildingGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E89982CF367010097877D /* BuildingGridView.swift */; };
 		043E899B2CF760ED0097877D /* ManualView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E899A2CF760ED0097877D /* ManualView.swift */; };
 		043E899D2CF8B88B0097877D /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043E899C2CF8B88B0097877D /* Alert.swift */; };
+		0447463E2D0089B200F56E40 /* moon surface img.png in Resources */ = {isa = PBXBuildFile; fileRef = 0447463D2D0089B200F56E40 /* moon surface img.png */; };
 		046376432CEECDFE00E1EA97 /* PlatformHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046376422CEECDFE00E1EA97 /* PlatformHolder.swift */; };
 		046376632CEED38300E1EA97 /* NextLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046376622CEED38300E1EA97 /* NextLevelView.swift */; };
 		046376652CEF79B500E1EA97 /* LevelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046376642CEF79B500E1EA97 /* LevelManager.swift */; };
@@ -44,7 +45,6 @@
 		D96186CB2CE58BD50088C94B /* Homepage img2.png in Resources */ = {isa = PBXBuildFile; fileRef = D96186B52CE58BD50088C94B /* Homepage img2.png */; };
 		D96186DB2CE593D00088C94B /* StartPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96186DA2CE593D00088C94B /* StartPage.swift */; };
 		D96186E72CE779B50088C94B /* CongratView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96186E62CE779AD0088C94B /* CongratView.swift */; };
-		D9EFF5FB2CE83CEC000EDAD8 /* moon surface img.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EFF5FA2CE83CEC000EDAD8 /* moon surface img.png */; };
 		D9EFF5FF2CE8448E000EDAD8 /* Rocket1.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EFF5FE2CE8448E000EDAD8 /* Rocket1.png */; };
 		D9EFF6032CE847DC000EDAD8 /* Astro building.png in Resources */ = {isa = PBXBuildFile; fileRef = D9EFF6022CE847DC000EDAD8 /* Astro building.png */; };
 		D9EFF6132CEA51FA000EDAD8 /* StartCutscene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EFF6122CEA51F4000EDAD8 /* StartCutscene.swift */; };
@@ -55,6 +55,7 @@
 		043E89982CF367010097877D /* BuildingGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingGridView.swift; sourceTree = "<group>"; };
 		043E899A2CF760ED0097877D /* ManualView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualView.swift; sourceTree = "<group>"; };
 		043E899C2CF8B88B0097877D /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		0447463D2D0089B200F56E40 /* moon surface img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moon surface img.png"; sourceTree = "<group>"; };
 		046376422CEECDFE00E1EA97 /* PlatformHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformHolder.swift; sourceTree = "<group>"; };
 		046376622CEED38300E1EA97 /* NextLevelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextLevelView.swift; sourceTree = "<group>"; };
 		046376642CEF79B500E1EA97 /* LevelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelManager.swift; sourceTree = "<group>"; };
@@ -88,7 +89,6 @@
 		D96186B52CE58BD50088C94B /* Homepage img2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Homepage img2.png"; sourceTree = "<group>"; };
 		D96186DA2CE593D00088C94B /* StartPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPage.swift; sourceTree = "<group>"; };
 		D96186E62CE779AD0088C94B /* CongratView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratView.swift; sourceTree = "<group>"; };
-		D9EFF5FA2CE83CEC000EDAD8 /* moon surface img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moon surface img.png"; sourceTree = "<group>"; };
 		D9EFF5FE2CE8448E000EDAD8 /* Rocket1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rocket1.png; sourceTree = "<group>"; };
 		D9EFF6022CE847DC000EDAD8 /* Astro building.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Astro building.png"; sourceTree = "<group>"; };
 		D9EFF6122CEA51F4000EDAD8 /* StartCutscene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartCutscene.swift; sourceTree = "<group>"; };
@@ -151,8 +151,8 @@
 				D95963022CF1982900EB872E /* IntroCutscene.swift */,
 				D959631E2CF19BCB00EB872E /* DayTransitionCutscene.swift */,
 				048E9A292CD8771F00105FD3 /* Assets.xcassets */,
+				0447463D2D0089B200F56E40 /* moon surface img.png */,
 				D96186B52CE58BD50088C94B /* Homepage img2.png */,
-				D9EFF5FA2CE83CEC000EDAD8 /* moon surface img.png */,
 				048E9A472CE8337100105FD3 /* Homepage.gif */,
 				D9EFF6022CE847DC000EDAD8 /* Astro building.png */,
 				D9EFF5FE2CE8448E000EDAD8 /* Rocket1.png */,
@@ -250,12 +250,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9EFF5FB2CE83CEC000EDAD8 /* moon surface img.png in Resources */,
 				D96186CB2CE58BD50088C94B /* Homepage img2.png in Resources */,
 				D9EFF6032CE847DC000EDAD8 /* Astro building.png in Resources */,
 				D9EFF5FF2CE8448E000EDAD8 /* Rocket1.png in Resources */,
 				048E9A482CE8337100105FD3 /* Homepage.gif in Resources */,
 				048E9A2D2CD8771F00105FD3 /* Preview Assets.xcassets in Resources */,
+				0447463E2D0089B200F56E40 /* moon surface img.png in Resources */,
 				048E9A2A2CD8771F00105FD3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

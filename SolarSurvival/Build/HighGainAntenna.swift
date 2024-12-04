@@ -18,6 +18,8 @@ struct HighGainAntennaView: View {
     @State private var neededMetal = 7
     @State private var neededPlastic = 3
     @State private var neededElectronics = 4
+    @State private var geometryForOrder: CGFloat = 0
+    @State private var geometryForFont: CGFloat = 0
     @State private var showAlert = false
     @AppStorage("structure") var goodStructure = true // Defaults to true
     
@@ -33,12 +35,13 @@ struct HighGainAntennaView: View {
             NavigationLink(destination: ProgressBuilding(), isActive: $goProgressView) {
                 EmptyView()
             }
-            ZStack {
-                Image("moon surface img")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-                
+            GeometryReader{ geometry in
+                ZStack {
+                    Image("moon surface img")
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea()
+                }
                 HStack {
                     // Material requirements display
                     VStack(alignment: .leading, spacing: 20) {
@@ -83,6 +86,9 @@ struct HighGainAntennaView: View {
                             .foregroundColor(.white)
                     })
                     .disabled(!canProceed)
+                    .onAppear(perform: {
+                        geometryForOrder =  geometry.size.width
+                    })
                     .alert(isPresented: $showAlert) {
                         Alert(
                             title: Text("Not enough resources"),
@@ -131,7 +137,9 @@ struct HighGainAntennaView: View {
     
     // MARK: - Material Button
     private func materialButton(id: Int, title: String) -> some View {
+        
         Button(action: {
+            geometryForFont = geometryForOrder * 0.02
             if let order = pressOrder[id] {
                 // Deselect if already selected
                 pressOrder[id] = nil
@@ -163,15 +171,20 @@ struct HighGainAntennaView: View {
                 HStack{
                     Spacer()
                     VStack{
-                        if let order = pressOrder[id] {
-                            Text("\(order)")
-                                .font(.caption)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .background(Color.red)
-                                .clipShape(Circle())
-                            Spacer()
+                        ZStack{
+                            if let order = pressOrder[id] {
+                                Circle()
+                                    .foregroundColor(Color.red)
+                                    .frame(width: geometryForOrder * 0.02, height: geometryForOrder * 0.02)
+                                Text("\(order)")
+                                    .font(.system(size: geometryForFont))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                
+                               
+                            }
                         }
+                        Spacer()
                     }
                    
                 }

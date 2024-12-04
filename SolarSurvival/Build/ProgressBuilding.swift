@@ -14,6 +14,8 @@ struct ProgressBuilding: View {
     @State private var showTooSlowPopup = false
     @State private var showSuccessPopup = false
     @State private var retryCount = 0
+    @State private var geometryForOrder: CGFloat = 0
+    @State private var geometryForFont: CGFloat = 0
     @EnvironmentObject var gameState: GameState
     @State private var timer: Timer?
     @State private var goHome = false
@@ -97,19 +99,7 @@ struct ProgressBuilding: View {
                             .padding(.top, 4)
                     }
                     .padding(.bottom, 20)
-                    Button(action: {
-//                        building = "basicshelter"
-                        energyManager.energies[0].amount -= 10
-                        goHome = true
-                        
-                    }, label: {
-                        Text("Done")
-                            .background(Color.green)
-                            .cornerRadius(10)
-                            .padding()
-                            .foregroundColor(.white)
-                            
-                    })
+            
                 }
             }
             .background() {
@@ -165,6 +155,7 @@ struct ProgressBuilding: View {
             }
             
             if showSuccessPopup {
+                
                 VStack {
                     Text("Build Succeeded!")
                         .font(.headline)
@@ -187,7 +178,11 @@ struct ProgressBuilding: View {
                 .shadow(radius: 10)
             }
         }
-        .onAppear(perform: startTimer)
+        .onAppear(perform: {
+            startTimer()
+            if showSuccessPopup == true{
+                energyManager.energies[0].amount -= 10
+            }})
         .onDisappear {
             timer?.invalidate() // Stop the timer when the view disappears
         }

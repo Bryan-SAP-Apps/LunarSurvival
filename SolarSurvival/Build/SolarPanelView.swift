@@ -19,6 +19,8 @@ struct SolarPanelView: View {
     @State private var neededPlastic = 2
     @State private var neededElectronics = 5
     @State private var showAlert = false
+    @State private var geometryForOrder: CGFloat = 0
+    @State private var geometryForFont: CGFloat = 0
     @AppStorage("structure") var goodStructure = true // Defaults to true
     
     @StateObject private var itemManager = ItemManager()
@@ -33,65 +35,69 @@ struct SolarPanelView: View {
             NavigationLink(destination: ProgressBuilding(), isActive: $goProgressView) {
                 EmptyView()
             }
-            ZStack {
-                Image("moon surface img")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-                
-                HStack {
-                    // Material requirements display
-                    VStack(alignment: .leading, spacing: 20) {
-                        materialRequirement(imageName: "questionmark", text: "0/\(neededMetal)")
-                        materialRequirement(imageName: "questionmark", text: "0/\(neededGlass)")
-                        materialRequirement(imageName: "questionmark", text: "0/\(neededPlastic)")
-                        materialRequirement(imageName: "questionmark", text: "0/\(neededElectronics)")
-                    }
-                    
-                    Spacer()
-                    
-                    // Material selection buttons
-                    VStack {
-                        Text("Choose 4 wisely")
-                            .font(.title)
-                            .foregroundColor(.white)
-                        
-                        LazyVGrid(columns: columns, spacing: 16) {
-                            ForEach(itemManager.items.indices, id: \.self) { index in
-                                materialButton(id: index, title: itemManager.items[index].name.capitalized)
-                            }
-                        }
-                        .padding()
-                    }
-                    
-                    Spacer()
-//                    Button(action: {
-//
-//                    }, label: {
-//                        /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
-//                    })
-                    // Confirm button
-                    Button(action:{
-                        deductResources()
-                        addResourcelToBuilding()
-                    }, label:{
-                        Text("Next")
-                            .font(.title2)
-                            .padding()
-                            .background(canProceed ? Color.green : Color.gray)
-                            .cornerRadius(10)
-                            .foregroundColor(.white)
-                    })
-                    .disabled(!canProceed)
-                    .alert(isPresented: $showAlert) {
-                        Alert(
-                            title: Text("Not enough resources"),
-                            message: Text("Please scavenge for more"),
-                            dismissButton: .default(Text("OK"))
-                        )
-                    }
+            GeometryReader{ geometry in
+                ZStack {
+                    Image("moon surface img")
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea()
                 }
-                .preferredColorScheme(.dark)
+                    HStack {
+                        // Material requirements display
+                        VStack(alignment: .leading, spacing: 20) {
+                            materialRequirement(imageName: "questionmark", text: "0/\(neededMetal)")
+                            materialRequirement(imageName: "questionmark", text: "0/\(neededGlass)")
+                            materialRequirement(imageName: "questionmark", text: "0/\(neededPlastic)")
+                            materialRequirement(imageName: "questionmark", text: "0/\(neededElectronics)")
+                        }
+                        
+                        Spacer()
+                        
+                        // Material selection buttons
+                        VStack {
+                            Text("Choose 4 wisely")
+                                .font(.title)
+                                .foregroundColor(.white)
+                            
+                            LazyVGrid(columns: columns, spacing: 16) {
+                                ForEach(itemManager.items.indices, id: \.self) { index in
+                                    materialButton(id: index, title: itemManager.items[index].name.capitalized)
+                                }
+                            }
+                            .padding()
+                        }
+                        
+                        Spacer()
+                        //                    Button(action: {
+                        //
+                        //                    }, label: {
+                        //                        /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
+                        //                    })
+                        // Confirm button
+                        Button(action:{
+                            deductResources()
+                            addResourcelToBuilding()
+                        }, label:{
+                            Text("Next")
+                                .font(.title2)
+                                .padding()
+                                .background(canProceed ? Color.green : Color.gray)
+                                .cornerRadius(10)
+                                .foregroundColor(.white)
+                        })
+                        .disabled(!canProceed)
+                        .onAppear(perform: {
+                            geometryForOrder =  geometry.size.width
+                        })
+                        .alert(isPresented: $showAlert) {
+                            Alert(
+                                title: Text("Not enough resources"),
+                                message: Text("Please scavenge for more"),
+                                dismissButton: .default(Text("OK"))
+                            )
+                        }
+                    }
+                    .preferredColorScheme(.dark)
             }
         }
     }
@@ -131,7 +137,9 @@ struct SolarPanelView: View {
     }
     // MARK: - Material Button
     private func materialButton(id: Int, title: String) -> some View {
+        
         Button(action: {
+            geometryForFont = geometryForOrder * 0.02
             if let order = pressOrder[id] {
                 // Deselect if already selected
                 pressOrder[id] = nil
@@ -163,15 +171,20 @@ struct SolarPanelView: View {
                 HStack{
                     Spacer()
                     VStack{
-                        if let order = pressOrder[id] {
-                            Text("\(order)")
-                                .font(.caption)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .background(Color.red)
-                                .clipShape(Circle())
-                            Spacer()
+                        ZStack{
+                            if let order = pressOrder[id] {
+                                Circle()
+                                    .foregroundColor(Color.red)
+                                    .frame(width: geometryForOrder * 0.02, height: geometryForOrder * 0.02)
+                                Text("\(order)")
+                                    .font(.system(size: geometryForFont))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                
+                               
+                            }
                         }
+                        Spacer()
                     }
                    
                 }

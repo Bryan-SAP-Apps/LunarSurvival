@@ -20,6 +20,8 @@ struct CO2FilterView: View {
     @State private var neededRubber = 2
     @State private var neededElectronics = 3
     @State private var showAlert = false
+    @State private var geometryForOrder: CGFloat = 0
+    @State private var geometryForFont: CGFloat = 0
     @AppStorage("structure") var goodStructure = true // Defaults to true
     
     @StateObject private var itemManager = ItemManager()
@@ -34,12 +36,13 @@ struct CO2FilterView: View {
             NavigationLink(destination: ProgressBuilding(), isActive: $goProgressView) {
                 EmptyView()
             }
-            ZStack {
-                Image("moon surface img")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-                
+            GeometryReader{ geometry in
+                ZStack {
+                    Image("moon surface img")
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea()
+                }
                 HStack {
                     // Material requirements display
                     VStack(alignment: .leading, spacing: 20) {
@@ -87,6 +90,9 @@ struct CO2FilterView: View {
                             .foregroundColor(.white)
                     })
                     .disabled(!canProceed)
+                    .onAppear(perform: {
+                        geometryForOrder =  geometry.size.width
+                    })
                     .alert(isPresented: $showAlert) {
                         Alert(
                             title: Text("Not enough resources"),
@@ -136,6 +142,7 @@ struct CO2FilterView: View {
     // MARK: - Material Button
     private func materialButton(id: Int, title: String) -> some View {
         Button(action: {
+            geometryForFont = geometryForOrder * 0.02
             if let order = pressOrder[id] {
                 // Deselect if already selected
                 pressOrder[id] = nil
@@ -167,15 +174,20 @@ struct CO2FilterView: View {
                 HStack{
                     Spacer()
                     VStack{
-                        if let order = pressOrder[id] {
-                            Text("\(order)")
-                                .font(.caption)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .background(Color.red)
-                                .clipShape(Circle())
-                            Spacer()
+                        ZStack{
+                            if let order = pressOrder[id] {
+                                Circle()
+                                    .foregroundColor(Color.red)
+                                    .frame(width: geometryForOrder * 0.02, height: geometryForOrder * 0.02)
+                                Text("\(order)")
+                                    .font(.system(size: geometryForFont))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                
+                               
+                            }
                         }
+                        Spacer()
                     }
                    
                 }

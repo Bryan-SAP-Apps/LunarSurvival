@@ -47,6 +47,7 @@ class ItemManager: ObservableObject {
         let archiveURL = getArchiveURL()
         if FileManager.default.fileExists(atPath: archiveURL.path) {
             load() // Load items if the file exists
+            print(getArchiveURL())
         } else {
             save() // Save default items if no file exists
         }

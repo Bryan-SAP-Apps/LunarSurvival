@@ -127,6 +127,7 @@ struct DayTransitionCutscene: View {
         }
     }
     private func restart(){
+        
         daysForRescue = 3
         day = 1
         eat = 0
@@ -134,6 +135,7 @@ struct DayTransitionCutscene: View {
         buildingManager.clearImageNames()
         energyManager.clearEnergyAmount()
         itemManager.resetItemAmounts()
+        print(itemManager.items)
     }
     private func liveOrDie() {
         switch day {

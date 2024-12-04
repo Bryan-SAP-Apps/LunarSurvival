@@ -26,6 +26,8 @@ struct BuildingGridView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 21.6))
                             .frame(width: geometry.size.width * 0.20, height: geometry.size.width * 0.20)
                         Image("\(building.imageName)")
+                            .resizable()
+                            .frame(width: geometry.size.width * 0.15, height: geometry.size.width * 0.15)
 //
                     }
                 }

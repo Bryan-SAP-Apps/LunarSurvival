@@ -12,75 +12,82 @@ struct WaterFilterView: View {
     @State private var neededGlass = 3
     @State private var neededRubber = 2
     @State private var showAlert = false
+    @State private var geometryForOrder: CGFloat = 0
+    @State private var geometryForFont: CGFloat = 0
+    
     @AppStorage("structure") var goodStructure = true // Defaults to true
     
     @StateObject private var itemManager = ItemManager()
-
+    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
     
     var body: some View {
-        NavigationStack {
-            NavigationLink(destination: ProgressBuilding(), isActive: $goProgressView) {
-                EmptyView()
-            }
+            NavigationStack {
+                NavigationLink(destination: ProgressBuilding(), isActive: $goProgressView) {
+                    EmptyView()
+                }
+        GeometryReader{ geometry in
             ZStack {
                 Image("moon surface img")
                     .resizable()
                     .scaledToFill()
                     .ignoresSafeArea()
-                
-                HStack {
-                    // Material requirements display
-                    VStack(alignment: .leading, spacing: 20) {
-                        materialRequirement(imageName: "questionmark", text: "0/\(neededMetal)")
-                        materialRequirement(imageName: "questionmark", text: "0/\(neededPlastic)")
-                        materialRequirement(imageName: "questionmark", text: "0/\(neededGlass)")
-                        materialRequirement(imageName: "questionmark", text: "0/\(neededRubber)")
-                    }
-                    
-                    Spacer()
-                    
-                    // Material selection buttons
-                    VStack {
-                        Text("Choose 4 wisely")
-                            .font(.title)
-                            .foregroundColor(.white)
-                        
-                        LazyVGrid(columns: columns, spacing: 16) {
-                            ForEach(itemManager.items.indices, id: \.self) { index in
-                                materialButton(id: index, title: itemManager.items[index].name.capitalized)
-                            }
+            }
+                    HStack {
+                        // Material requirements display
+                        VStack(alignment: .leading, spacing: 20) {
+                            materialRequirement(imageName: "questionmark", text: "0/\(neededMetal)")
+                            materialRequirement(imageName: "questionmark", text: "0/\(neededPlastic)")
+                            materialRequirement(imageName: "questionmark", text: "0/\(neededGlass)")
+                            materialRequirement(imageName: "questionmark", text: "0/\(neededRubber)")
                         }
-                        .padding()
-                    }
-                    
-                    Spacer()
-                    
-                    // Confirm button
-                    Button(action: {
-                        deductResources()
-                        addResourcelToBuilding()
-                    }, label: {
-                        Text("Next")
-                            .font(.title2)
+                        
+                        Spacer()
+                        
+                        // Material selection buttons
+                        VStack {
+                            Text("Choose 4 wisely")
+                                .font(.title)
+                                .foregroundColor(.white)
+                            
+                            LazyVGrid(columns: columns, spacing: 16) {
+                                ForEach(itemManager.items.indices, id: \.self) { index in
+                                    materialButton(id: index, title: itemManager.items[index].name.capitalized)
+                                }
+                            }
                             .padding()
-                            .background(canProceed ? Color.green : Color.gray)
-                            .cornerRadius(10)
-                            .foregroundColor(.white)
-                    })
-                    .disabled(!canProceed)
-                    .alert(isPresented: $showAlert) {
-                        Alert(
-                            title: Text("Not enough resources"),
-                            message: Text("Please scavenge for more"),
-                            dismissButton: .default(Text("OK"))
-                        )
+                        }
+                        
+                        Spacer()
+                        
+                        // Confirm button
+                        Button(action: {
+                            deductResources()
+                            addResourcelToBuilding()
+                        }, label: {
+                            Text("Next")
+                                .font(.title2)
+                                .padding()
+                                .background(canProceed ? Color.green : Color.gray)
+                                .cornerRadius(10)
+                                .foregroundColor(.white)
+                        })
+                        .disabled(!canProceed)
+                        .onAppear(perform: {
+                            geometryForOrder =  geometry.size.width
+                        })
+                        .alert(isPresented: $showAlert) {
+                            Alert(
+                                title: Text("Not enough resources"),
+                                message: Text("Please scavenge for more"),
+                                dismissButton: .default(Text("OK"))
+                            )
+                        }
                     }
-                }
-                .preferredColorScheme(.dark)
+                    .preferredColorScheme(.dark)
             }
         }
     }
@@ -115,6 +122,7 @@ struct WaterFilterView: View {
     // MARK: - Material Button
     private func materialButton(id: Int, title: String) -> some View {
         Button(action: {
+            geometryForFont = geometryForOrder * 0.02
             if let order = pressOrder[id] {
                 // Deselect if already selected
                 pressOrder[id] = nil
@@ -145,17 +153,23 @@ struct WaterFilterView: View {
                 HStack{
                     Spacer()
                     VStack{
+                        
                         if let order = pressOrder[id] {
-                            Text("\(order)")
-                                .font(.caption)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .background(Color.red)
-                                .clipShape(Circle())
-                            Spacer()
+                            ZStack{
+                                Circle()
+                                    .foregroundColor(Color.red)
+                                    .frame(width: geometryForOrder * 0.02, height: geometryForOrder * 0.02)
+                                Text("\(order)")
+                                    .font(.system(size: geometryForFont))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                
+                                
+                            }
                         }
+                        Spacer()
                     }
-                   
+                    
                 }
             }
         }
