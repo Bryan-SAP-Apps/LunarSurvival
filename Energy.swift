@@ -1,58 +1,50 @@
-//
-//  Energy.swift
-//  SolarSurvival
-//
-//  Created by Bryan Nguyen on 23/11/24.
-//
 import Foundation
-import Observation
 import SwiftUI
 
+// MARK: - Energy Struct
 struct Energy: Identifiable, Codable, Equatable {
     var id = UUID()
     var name: String
     var amount: Double {
-            didSet {
-                // Clamp the value between 0 and 100
-                if amount > 100 {
-                    amount = 100
-                } else if amount < 0 {
-                    amount = 0
-                }
-            }
+        didSet {
+            amount = clamped(to: 0...100)
         }
-    init(name: String, amount: Int) {
-            self.name = name
-            // Clamp the value during initialization
-        self.amount = Double(min(max(amount, 0), 100))
-        }
+    }
+    
+    init(name: String, amount: Double) {
+        self.name = name
+        self.amount = amount.clamped(to: 0...100)
+    }
+    
+    private func clamped(to range: ClosedRange<Double>) -> Double {
+        min(max(amount, range.lowerBound), range.upperBound)
+    }
 }
 
-
+// MARK: - EnergyManager Class
 class EnergyManager: ObservableObject {
-    func clearEnergyAmount() {
-        energies = energies.map { energy in
-            var updatedEnergy = energy
-            updatedEnergy.amount = 100
-            return updatedEnergy
-        }
-        save() // Save the updated state
-    }
-    var energies: [Energy] = [
+    @Published var energies: [Energy] = [
         Energy(name: "Energy", amount: 100)
     ] {
         didSet {
             save()
         }
     }
-        
+    
     init() {
         load()
-        energies = energies.map {
-            Energy(name: $0.name, amount: Int($0.amount))
-                }
     }
     
+    // Reset all energy amounts to 100
+    func clearEnergyAmount() {
+        energies = energies.map { energy in
+            var updatedEnergy = energy
+            updatedEnergy.amount = 100
+            return updatedEnergy
+        }
+    }
+    
+    // MARK: - Persistence
     private func getArchiveURL() -> URL {
         URL.documentsDirectory.appending(path: "energies.json")
     }
@@ -62,18 +54,32 @@ class EnergyManager: ObservableObject {
         let jsonEncoder = JSONEncoder()
         jsonEncoder.outputFormatting = .prettyPrinted
         
-        let encodedEnergies = try? jsonEncoder.encode(energies)
-        try? encodedEnergies?.write(to: archiveURL, options: .noFileProtection)
+        do {
+            let encodedEnergies = try jsonEncoder.encode(energies)
+            try encodedEnergies.write(to: archiveURL, options: .atomic)
+        } catch {
+            print("Error saving energies: \(error.localizedDescription)")
+        }
     }
     
     private func load() {
         let archiveURL = getArchiveURL()
         let jsonDecoder = JSONDecoder()
-                
-        if let retrievedEnergyData = try? Data(contentsOf: archiveURL),
-           let energiesDecoded = try? jsonDecoder.decode([Energy].self, from: retrievedEnergyData) {
-            energies = energiesDecoded
+        
+        do {
+            let retrievedEnergyData = try Data(contentsOf: archiveURL)
+            let decodedEnergies = try jsonDecoder.decode([Energy].self, from: retrievedEnergyData)
+            energies = decodedEnergies
+        } catch {
+            print("Error loading energies: \(error.localizedDescription)")
         }
+    }
+}
+
+// MARK: - Extensions
+extension Comparable {
+    func clamped(to range: ClosedRange<Self>) -> Self {
+        return min(max(self, range.lowerBound), range.upperBound)
     }
 }
 

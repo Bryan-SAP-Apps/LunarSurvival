@@ -9,10 +9,14 @@ import SwiftUI
 
 struct PlatformView: View {
     @AppStorage("platform") var currentlyOnPlatform: Bool = false
+    @Environment(\.presentationMode) var presentationMode
+        @State private var showAlert = false
     @State private var isRunning = false
     @State private var goHome = false
     @EnvironmentObject var gameState: GameState
     @EnvironmentObject var player: Player
+    @State private var geometryForPlatform: CGFloat = 0
+    @State private var geometryForPlatform2: CGFloat = 0
     @State private var boulders: [LunarFeature] = []
     @State private var platforms: [Platform] = []
     @State private var collectibles: [Collectible] = []
@@ -33,31 +37,36 @@ struct PlatformView: View {
             NavigationLink(destination: HomePage(), isActive: $goHome){
                 EmptyView()
             }
-            ZStack {
+            GeometryReader{ geometry in
+                ZStack {
+                    
+                    Color.black.ignoresSafeArea()
+                    GameUIHelper.drawLevelElements(
+                        stars: stars,
+                        platforms: platforms,
+                        collectibles: collectibles,
+                        boulders: boulders,
+                        groundLevel: groundLevel
+                    )
+                    //                drawPlatforms()
+                    //                drawCollectibles()
+                    drawPlayer()
+                    displayItems()
+                    drawControls()
+                }
                 
-                Color.black.ignoresSafeArea()
-                GameUIHelper.drawLevelElements(
-                    stars: stars,
-                    platforms: platforms,
-                    collectibles: collectibles,
-                    boulders: boulders,
-                    groundLevel: groundLevel
+                .onAppear(perform: {
+                    startDecrementing()
+                    geometryForPlatform = geometry.size.width
+                    geometryForPlatform2 = geometry.size.height
+                })
+                .onAppear(perform: setupGame
                 )
-//                drawPlatforms()
-//                drawCollectibles()
-                drawPlayer()
-                displayItems()
-                drawControls()
+                .onDisappear(perform: cleanUpGame)
+                .onDisappear(perform: {
+                    stopDecrementing()
+                })
             }
-            .onAppear(perform: {
-                startDecrementing()
-            })
-            .onAppear(perform: setupGame
-                      )
-            .onDisappear(perform: cleanUpGame)
-            .onDisappear(perform: {
-                stopDecrementing()
-            })
             
 
 //            .navigationDestination(for: String.self) { value in
@@ -67,6 +76,13 @@ struct PlatformView: View {
 //                        }
         }
         .navigationBarBackButtonHidden(true)
+        .alert("Out of Energy", isPresented: $showAlert) {
+                        Button("OK") {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    } message: {
+                        Text("Please go back")
+                    }
     }
     
     // MARK: - Game Setup
@@ -84,7 +100,7 @@ struct PlatformView: View {
                 DispatchQueue.main.async {
                     isRunning = false // Stop when the value reaches 0 or is manually stopped
                     if energyManager.energies[0].amount <= 0 {
-                        goHome = true // Trigger navigation to home
+                        showAlert = true // Trigger navigation to home
                     }
                 }
             }
@@ -141,7 +157,7 @@ struct PlatformView: View {
                         }
                     }
                 }
-                HStack {
+                HStack{
                     ForEach(itemManager.items, id: \.id) { item in
                         VStack {
                             Image(item.name)
@@ -163,25 +179,28 @@ struct PlatformView: View {
                     }
 
                 }
-                .padding()
                 Spacer()
                 ZStack{
+                    
                     Rectangle()
                         .fill(Color(white: 0.6))
-                        .clipShape(RoundedRectangle(cornerRadius: 19))
-                        .frame(width: 250, height: 50)
+                        .clipShape(RoundedRectangle(cornerRadius: 40))
+                        .frame(width: geometryForPlatform * 0.3, height: geometryForPlatform2 * 0.15)
                     HStack{
                         let result = Double(energyManager.energies[0].amount) * 2
-                        Image(systemName: "bolt.fill")
+                        
+                        Image("bolt")
+                            .resizable()
+                            .frame(width: geometryForPlatform * 0.04, height: geometryForPlatform * 0.04)
                         ZStack(alignment: .leading){
                             Rectangle()
                                 .fill(Color(.white))
-                                .frame(width: 200, height: 35)
-                                .clipShape(RoundedRectangle(cornerRadius: 14))
+                                .frame(width: geometryForPlatform * 0.25, height: geometryForPlatform2 * 0.1)
+                                .clipShape(RoundedRectangle(cornerRadius: 40))
                             Rectangle()
                                 .fill(Color(.yellow))
-                                .frame(width: CGFloat(result), height: 35)
-                                .clipShape(RoundedRectangle(cornerRadius: 14))
+                                .frame(width: CGFloat(result) * geometryForPlatform * 0.0013, height: geometryForPlatform2 * 0.1)
+                                .clipShape(RoundedRectangle(cornerRadius: 40))
                         }
                     }
                     
@@ -307,7 +326,7 @@ struct PlatformView: View {
         handleBoulderPush()
         updateBoulders()
         // Check if the player has reached the level endpoint
-        if player.position.x >= 750 {
+        if player.position.x >= geometryForPlatform {
 //            path.removeLast(path.count)
 //            path.append("NextLevelView")
             isSecondView = true

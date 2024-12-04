@@ -87,7 +87,7 @@ struct HomePage: View {
                                             HStack {
                                                 Image("\(itemManager.items[index].name)") 
                                                     .resizable()
-                                                    .frame(width: geometry.size.width * 0.05, height: geometry.size.height * 0.05) //
+                                                    .frame(width: geometry.size.width * 0.04, height: geometry.size.height * 0.05) //
                                                     
                                                 Text("\(itemManager.items[index].amount)")
                                                     .font(.system(size: geometry.size.width > 1024 ? 20 : 10))
