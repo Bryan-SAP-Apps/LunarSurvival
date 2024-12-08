@@ -15,6 +15,7 @@ struct DeathView: View {
     @StateObject var itemManager = ItemManager()
     @AppStorage("daysForRescue") var daysForRescue = 3
     @AppStorage("eat") var eat = 0
+    @AppStorage("dayOrDays") private var dayOrDays = "DAY"
     var body: some View {
         NavigationStack{
             Group{
@@ -26,21 +27,19 @@ struct DeathView: View {
                             .font(.largeTitle)
                             .bold()
                         
-                        Text("YOU SURVIVED FOR \(day - 1) DAYS")
+                        Text("YOU SURVIVED FOR \(day) \(dayOrDays)")
                       
                         Button(action: {
-                            daysForRescue = 3
                             day = 1
-                            eat = 0
                             showAlert = true
-                            buildingManager.clearImageNames()
-                            energyManager.clearEnergyAmount()
-                            itemManager.resetItemAmounts()
+                            
                         }, label: {
                             Text("Restart")
-                                .padding()
+                                .padding(.vertical, 20)
+                                .padding(.horizontal, 72)
                                 .background(Color.red)
                                 .foregroundColor(.white)
+                                
                                 .cornerRadius(15)
                         })
                         // Automatically trigger alert as soon as the view appears
@@ -52,6 +51,17 @@ struct DeathView: View {
                 }
             }
         }
+        .onAppear(perform: {
+            if day > 1{
+                dayOrDays = "DAYS"
+            } else{
+                dayOrDays = "DAY"
+            }
+        })
+        .onDisappear(perform: {
+            day -= day
+            day += 1
+        })
     }
     
     //struct DeathView_Previews: PreviewProvider {

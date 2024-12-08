@@ -28,7 +28,6 @@ struct EndCutsceneShow: View {
                     Color.black.edgesIgnoringSafeArea(.all) // Background color
                     if let currentImage = images[safe: currentIndex] {
                         AsyncImage(name: currentImage) // Lazy-loaded image
-                            .scaledToFill()
                             .edgesIgnoringSafeArea(.all)
                             .transition(.opacity)
                     }

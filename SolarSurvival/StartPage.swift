@@ -36,14 +36,16 @@ struct StartView: View {
                                             .background(Color.blue)
                                             .foregroundStyle(.white)
                                             .font(.caption2)
+                                            
                                     }
+                                
                                     .background(Color.blue)
                                     .cornerRadius(10)
-                                    .padding(.top, 40)
                                     Spacer()
                                 }
                                 Spacer()
                             }
+                            .padding()
                         }
                         .background {
                             AnimatedImage(name:"Homepage.gif", isAnimating: $isAnimated)
@@ -101,6 +103,7 @@ struct StartView: View {
                                         .cornerRadius(10)
                                 }
                             }
+                            .padding(.trailing)
                         }
                     }
                     

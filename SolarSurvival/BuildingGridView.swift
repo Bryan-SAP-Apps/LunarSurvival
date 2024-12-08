@@ -9,20 +9,27 @@ import SwiftUI
 
 struct BuildingGridView: View {
     @EnvironmentObject var buildingManager: BuildingManager
-
-    let columns = [GridItem(.fixed(100)), GridItem(.fixed(100)), GridItem(.fixed(100))]
-
+    
+    
+    
     var body: some View {
-        LazyVGrid(columns: columns, spacing: 10) {
-            ForEach(buildingManager.buildings) { building in
-                ZStack {
-                    Rectangle()
-                        .fill(Color(white: 0.7))
-                        .clipShape(RoundedRectangle(cornerRadius: 21.6))
-                        .frame(width: 100, height: 100)
-                    Image("\(building.imageName)")
-                        .resizable()
-                        .frame(width: 100, height: 100)
+        GeometryReader{  geometry in
+            let spacing = geometry.size.width * 0.2// Adjust multiplier for smaller spacing
+                        
+                        // Define columns with equal flexibility
+            let columns = [GridItem(.fixed(CGFloat(spacing))), GridItem(.fixed(CGFloat(spacing))), GridItem(.fixed(CGFloat(spacing)))]
+            LazyVGrid(columns: columns, spacing: geometry.size.width * 0.02) {
+                ForEach(buildingManager.buildings) { building in
+                    ZStack {
+                        Rectangle()
+                            .fill(Color(white: 0.7))
+                            .clipShape(RoundedRectangle(cornerRadius: 21.6))
+                            .frame(width: geometry.size.width * 0.20, height: geometry.size.width * 0.20)
+                        Image("\(building.imageName)")
+                            .resizable()
+                            .frame(width: geometry.size.width * 0.15, height: geometry.size.width * 0.15)
+//
+                    }
                 }
             }
         }

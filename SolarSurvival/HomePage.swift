@@ -24,8 +24,10 @@ struct HomePage: View {
     @State private var alertTriggered = false
     @AppStorage("rescue") var rescued = false
     @AppStorage("daysForRescue") var daysForRescue = 3
+    @AppStorage("justDied") var justDied = false
+    @State private var dayOrDays = "DAY"
     
-
+    
     var items = [
         Item(name: "metal", amount: 0),
         Item(name: "regolith", amount: 0),
@@ -44,308 +46,247 @@ struct HomePage: View {
     @EnvironmentObject var player: Player
     
     var body: some View {
-        
-        
-        NavigationStack{
-            NavigationLink(destination: AstronautHandbookView(), isActive: $isPresented){
-                EmptyView()
-            }
-            ZStack{
-                VStack{
-                    HStack{
-                        ZStack{
-                            ZStack{
+        GeometryReader { geometry in
+            NavigationStack {
+                NavigationLink(destination: AstronautHandbookView(), isActive: $isPresented) {
+                    EmptyView()
+                }
+                ZStack {
+                    Image("moon surface img")
+                        .resizable()
+                        .ignoresSafeArea()
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                    VStack {
+                        Spacer()
+                        HStack {
+                            
+                            ZStack {
+                                // Adjust widths based on screen size
                                 Rectangle()
                                     .fill(Color(white: 0.6))
-                                    .clipShape(RoundedRectangle(cornerRadius: 19))
-                                    .frame(width: 540, height: 50)
+                                    .clipShape(RoundedRectangle(cornerRadius: 40))
+                                    .frame(width: geometry.size.width * 0.65, height: geometry.size.height * 0.15)
+                                // Adjust proportionally
                                 
-                                HStack{
+                                HStack {
                                     ZStack{
-                                        Rectangle()
-                                            .fill(Color(white: 0.8))
-                                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                                            .frame(width: 68, height: 40)
-                                        HStack{
-                                            Image("glass")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 30, height: 60)
-                                            Text("\(itemManager.items[2].amount)")
-                                                .font(.system(size: 10))
+                                        Circle()
+                                            .fill(Color(white: 0.4))
+                                            .frame(width: geometry.size.width * 0.1)
+                                        Image("inventory")
+                                            .resizable()
+                                            .frame(width: geometry.size.width * 0.08, height: geometry.size.width * 0.08)
+                                        
+                                    }
+                                    ForEach(0..<6, id: \.self) { index in
+                                        ZStack {
+                                            Rectangle()
+                                                .fill(Color(white: 0.8))
+                                                .clipShape(RoundedRectangle(cornerRadius: 20))
+                                                .frame(width: geometry.size.width * 0.08, height: geometry.size.height * 0.15) // Proportional width
+                                            HStack {
+                                                Image("\(itemManager.items[index].name)") 
+                                                    .resizable()
+                                                    .frame(width: geometry.size.width * 0.04, height: geometry.size.height * 0.05) //
+                                                    
+                                                Text("\(itemManager.items[index].amount)")
+                                                    .font(.system(size: geometry.size.width > 1024 ? 20 : 10))
+                                            }
                                         }
                                     }
-                                    ZStack{
-                                        Rectangle()
-                                            .fill(Color(white: 0.8))
-                                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                                            .frame(width: 72, height: 40)
-                                        HStack{
-                                            Image("metal")
-                                                .resizable()
-                                                .frame(width: 20, height: 32)
-                                            Text("\(itemManager.items[0].amount)")
-                                                .font(.system(size: 10))
-                                        }
-                                        .frame(width:50)
-                                    }
-                                    ZStack{
-                                        Rectangle()
-                                            .fill(Color(white: 0.8))
-                                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                                            .frame(width: 72, height: 40)
-                                        HStack{
-                                            Image("plastic")
-                                                .resizable()
-                                                .frame(width: 20, height: 30)
-                                            Text("\(itemManager.items[4].amount)")
-                                                .font(.system(size: 10))
-                                        }
-                                        .frame(width:50)
-                                    }
-                                    ZStack{
-                                        Rectangle()
-                                            .fill(Color(white: 0.8))
-                                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                                            .frame(width: 72, height: 40)
-                                        HStack{
-                                            Image("rubber")
-                                                .resizable()
-                                                .frame(width: 20, height: 40)
-                                            Text("\(itemManager.items[3].amount)")
-                                                .font(.system(size: 10))
-                                        }
-                                        .frame(width:50)
-                                    }
-                                    ZStack{
-                                        Rectangle()
-                                            .fill(Color(white: 0.8))
-                                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                                            .frame(width: 72, height: 40)
-                                        HStack{
-                                            Image("regolith")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 20, height: 40)
-                                            Text("\(itemManager.items[1].amount)")
-                                                .font(.system(size: 10))
-                                        }
-                                        .frame(width:50)
-                                    }
-                                    ZStack{
-                                        Rectangle()
-                                            .fill(Color(white: 0.8))
-                                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                                            .frame(width: 72, height: 40)
-                                        //                                            .padding(.trailing, 92)
-                                        HStack{
-                                            Image("electronics")
-                                                .resizable()
-                                                .frame(width: 20, height: 16)
-                                            Text("\(itemManager.items[5].amount)")
-                                                .font(.system(size: 10))
-                                            
-                                        }.frame(width:50)
-                                    }
-                                    
                                 }
                             }
-                            HStack{
-                                ZStack{
-                                    Circle()
-                                        .fill(Color(white: 0.4))
-                                        .frame(width: 60)
-                                    Image("inventory")
-                                        .frame(width: 32)
+                            ZStack{
+                                
+                                Rectangle()
+                                    .fill(Color(white: 0.6))
+                                    .clipShape(RoundedRectangle(cornerRadius: 40))
+                                    .frame(width: geometry.size.width * 0.335, height: geometry.size.height * 0.15)
+                                HStack{
+                                    let result = Double(energyManager.energies[0].amount) * 2
                                     
+                                    Image("bolt")
+                                        .resizable()
+                                        .frame(width: geometry.size.width * 0.04, height: geometry.size.width * 0.04)
+                                    ZStack(alignment: .leading){
+                                        Rectangle()
+                                            .fill(Color(.white))
+                                            .frame(width: geometry.size.width * 0.25, height: geometry.size.height * 0.1)
+                                            .clipShape(RoundedRectangle(cornerRadius: 40))
+                                        Rectangle()
+                                            .fill(Color(.yellow))
+                                            .frame(width: CGFloat(result) * geometry.size.width * 0.0013, height: geometry.size.height * 0.1)
+                                            .clipShape(RoundedRectangle(cornerRadius: 40))
+                                    }
                                 }
-                                Spacer()
-                                Spacer()
-                            }.padding(.trailing, 520)
+                                
+                            }
                         }
-                        
-                        ZStack{
-                            Rectangle()
-                                .fill(Color(white: 0.6))
-                                .clipShape(RoundedRectangle(cornerRadius: 19))
-                                .frame(width: 250, height: 50)
-                            HStack{
-                                let result = Double(energyManager.energies[0].amount) * 2
-                                Image(systemName: "bolt.fill")
-                                ZStack(alignment: .leading){
-                                    Rectangle()
-                                        .fill(Color(.white))
-                                        .frame(width: 200, height: 35)
-                                        .clipShape(RoundedRectangle(cornerRadius: 14))
-                                    Rectangle()
-                                        .fill(Color(.yellow))
-                                        .frame(width: CGFloat(result), height: 35)
-                                        .clipShape(RoundedRectangle(cornerRadius: 14))
-                                }
+                        Spacer()
+                        // Dynamic grid view
+                        HStack {
+                            VStack{
+                                Button(action: {
+                                    isPresented = true
+                                }, label: {
+                                    Image("manual")
+                                        .resizable()
+                                        .frame(width: geometry.size.height * 0.2, height: geometry.size.height * 0.2)
+                                })
+                                Spacer()
+                                
                             }
                             
+                            BuildingGridView()
+                                .environmentObject(buildingManager)
+                                .frame(width: geometry.size.width * 0.7)
+                            
+                            
+                            VStack {
+                                Text("Day \(day)")
+                                    .font(.title)
+                                    .bold()
+                                    .foregroundColor(.white)
+                                    .padding()
+                                Spacer()
+                            }
                         }
-                    }.padding(.top, 92)
-                    HStack{
-                        HStack{
-                            Button(action: {
-                                isPresented = true
-                            }, label: {
-                               Image("manual")
-                                    .resizable()
-                                    .frame(width: 72, height: 72)
-//                                    .padding(.top, 12)
-                            })
-                            Spacer()
-                            Spacer()
-                        }
-                        .padding(.bottom, 160)
                         
-                        //Squares
-                        BuildingGridView()
-                            .environmentObject(buildingManager)
-                            .padding(.trailing, 180)
-                       
-                        //end of squares
+                        // Buttons
                         Spacer()
-                        VStack{
-                            Text("Day \(day)")
-                                .font(.title2)
-                                .bold()
-                                .foregroundColor(.white)
-                                .padding(.bottom, 180)
-                            Spacer()
-                            Spacer()
-                        }
-                    }
-                    HStack{
-                        
-                        ZStack{
-                            Rectangle()
-                                .fill(Color(white: 0.7))
-                                .clipShape(RoundedRectangle(cornerRadius: 21.6))
-                                .frame(width: 550, height: 70)
-                            HStack{
-                                NavigationLink(destination: PlatformHolder()) {
-                                    Text("Scavenge")
-                                        .frame(width:140, height: 30)
-                                        .font(.title)
-                                        .bold()
-                                        .padding()
-                                        .background(Color.blue)
-                                        .foregroundColor(.white)
-                                        .clipShape(RoundedRectangle(cornerRadius: 19))
-                                    
-                                }
-                                NavigationLink(destination: InfrastructureBuildingChoices()) {
-                                    Text("Build")
-                                        .frame(width:140, height: 30)
-                                        .font(.title)
-                                        .bold()
-                                        .padding()
-                                        .background(Color.blue)
-                                        .foregroundColor(.white)
-                                        .clipShape(RoundedRectangle(cornerRadius: 19))
-                                    
-                                }
-                                Button(action: {
-                                    eat += toEat
-                                    if energyManager.energies[0].amount == 100{
-                                        alertManager.triggerAlert(title: "You are too full", message: "You cannot eat anymore")
-                                    } else{
-                                        if eat > 3{
-                                            alertManager.triggerAlert(title: "You are too full", message: "You cannot eat anymore")
-                                            toEat = 0
-                                        } else{
-                                            energyManager.energies[0].amount += 10
-                                            eatenTooMuch = false
-                                        }
+                        HStack {
+                            ZStack {
+                                Rectangle()
+                                
+                                    .fill(Color(white: 0.7))
+                                    .frame(width: geometry.size.width * 0.78, height: geometry.size.height * 0.15)
+                                    .clipShape(RoundedRectangle(cornerRadius: 40))
+                                
+                                HStack {
+                                    NavigationLink(destination: PlatformHolder()) {
+                                        Text("Scavenge")
+                                            .frame(width: geometry.size.width * 0.2, height: geometry.size.height * 0.05)
+                                            .font(.title2)
+                                            .bold()
+                                            .padding()
+                                            .background(Color.blue)
+                                            .foregroundColor(.white)
+                                            .clipShape(RoundedRectangle(cornerRadius: 19))
                                     }
-                                    
-                                }, label: {
-                                    Text("Eat")
-                                        .frame(width:140, height: 30)
-                                        .font(.title)
+                                    NavigationLink(destination: InfrastructureBuildingChoices()) {
+                                        Text("Build")
+                                            .frame(width: geometry.size.width * 0.2, height: geometry.size.height * 0.05)
+                                            .font(.title2)
+                                            .bold()
+                                            .padding()
+                                            .background(Color.blue)
+                                            .foregroundColor(.white)
+                                            .clipShape(RoundedRectangle(cornerRadius: 19))
+                                    }
+                                    Button(action:{
+                                        eat += toEat
+                                        if energyManager.energies[0].amount == 100{
+                                            alertManager.triggerAlert(title: "You are too full", message: "You cannot eat anymore")
+                                        } else{
+                                            if eat > 3{
+                                                alertManager.triggerAlert(title: "You are too full", message: "You cannot eat anymore")
+                                                toEat = 0
+                                            } else{
+                                                energyManager.energies[0].amount += 10
+                                                eatenTooMuch = false
+                                            }
+                                        }
+                                        
+                                    },
+                                           label: {
+                                        Text("Eat")
+                                            .frame(width: geometry.size.width * 0.2, height: geometry.size.height * 0.05)
+                                            .font(.title2)
+                                            .bold()
+                                            .padding()
+                                            .background(Color.blue)
+                                            .foregroundColor(.white)
+                                            .clipShape(RoundedRectangle(cornerRadius: 19))
+                                    })
+                                }
+                            }
+                            NavigationLink(destination: DayTransitionCutscene( onFinish: {}), isActive: $showCutscene) {
+                                Button(action: {
+                                    afterEnd = true
+                                    showCutscene = true
+                                    survived = false
+                                    rescued = false
+                                    energyManager.energies[0].amount += 50
+                                }
+                                       , label: {
+                                    Text("End Day")
+                                        .frame(width: geometry.size.width * 0.15, height: geometry.size.height * 0.1)
+                                        .font(.title2)
                                         .bold()
                                         .padding()
-                                        .background(Color.blue)
+                                        .background(Color.green)
                                         .foregroundColor(.white)
                                         .clipShape(RoundedRectangle(cornerRadius: 19))
                                 })
                                 
                             }
-                        }
-                        
-                        
-                        NavigationLink(destination: DayTransitionCutscene( onFinish: {}), isActive: $showCutscene) {
-                            Button(action: {
-                                afterEnd = true
-                                showCutscene = true
-                                survived = false
-                                rescued = false
-                                energyManager.energies[0].amount += 50
-                            }
-                                   , label: {
-                                Text("End Day")
-                                    .frame(width:150,height: 50)
-                                    .font(.title)
-                                    .bold()
-                                    .padding()
-                                    .background(Color.green)
-                                    .foregroundColor(.white)
-                                    .clipShape(RoundedRectangle(cornerRadius: 19))
-                            })
                             
                         }
-                        
-                        
-                        
-                    }.padding(.bottom, 68)
-                    Spacer()
-                    Spacer()
+                    }
+                    .background {
+                        Image("moon surface img")
+                            .resizable()
+                            .ignoresSafeArea()
+                            .frame(width: geometry.size.width, height: geometry.size.height)
+                    }
+                    .alert(
+                        alertManager.alertTitle,
+                        isPresented: $alertManager.isAlertPresented
+                    ) {
+                        Button("OK", role: .cancel) {
+                            alertManager.resetAlert()
+                        }
+                    } message: {
+                        Text(alertManager.alertMessage)
+                    }
+                    
                 }
-                .background() {
-                    Image("moon surface img")
-                }
-                .alert(
-                                alertManager.alertTitle,
-                                isPresented: $alertManager.isAlertPresented
-                            ) {
-                                Button("OK", role: .cancel) {
-                                    alertManager.resetAlert()
-                                }
-                            } message: {
-                                Text(alertManager.alertMessage)
-                            }
-
+                .navigationBarBackButtonHidden()
+                .onAppear(perform: {
+                    if justDied == true{
+                        day = 1
+                    }
+                    if survived == true{
+                        alertManager.triggerAlert(title: "Congratulations", message: "You survived")
+                        survived = false
+                    }
+                    if rescued == true{
+                        alertManager.triggerAlert(title: "Help is on the way!", message: "Survive for \(daysForRescue + 1) \(dayOrDays) more")
+                        rescued = false
+                    }
+                    if daysForRescue + 1 == 1{
+                        dayOrDays = "day"
+                    } else{
+                        dayOrDays = "days"
+                    }
+                })
+                //            .alert(isPresented: .constant(activeAlert == .alert2)) {
+                //                Alert(
+                //                    title: Text("Congratulations"),
+                //                    message: Text("You survived!"),
+                //                    dismissButton: .default(Text("Ok"), action: {
+                //                        survived = false
+                //                        activeAlert = .none
+                //                    })
+                //                )
+                //            }
             }
-            .navigationBarBackButtonHidden()
-            .onAppear(perform: {
-                if survived == true{
-                    alertManager.triggerAlert(title: "Congratulations", message: "You survived")
-                    survived = false
-                }
-                if rescued == true{
-                    alertManager.triggerAlert(title: "Help is on the way!", message: "Survive for \(daysForRescue + 1) days more")
-                    rescued = false
-                }
-            })
-//            .alert(isPresented: .constant(activeAlert == .alert2)) {
-//                Alert(
-//                    title: Text("Congratulations"),
-//                    message: Text("You survived!"),
-//                    dismissButton: .default(Text("Ok"), action: {
-//                        survived = false
-//                        activeAlert = .none
-//                    })
-//                )
-//            }
+            .environmentObject(gameState)   // Inject gameState instance here to Pass GameState to child views
+            .environmentObject(player) // Inject player instance here to Pass GameState to child views
         }
-        .environmentObject(gameState)   // Inject gameState instance here to Pass GameState to child views
-        .environmentObject(player) // Inject player instance here to Pass GameState to child views
     }
-    
 }
+
 
 
 

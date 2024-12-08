@@ -98,8 +98,9 @@ struct CongratView: View {
                             buildingManager.clearImageNames()
                             energyManager.clearEnergyAmount()
                             itemManager.resetItemAmounts()
+                            
                         }) {
-                            Text("Restart game")
+                            Text("Restart Game")
                                 .font(.title)
                                 .padding()
                                 .padding(.trailing, 20)

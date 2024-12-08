@@ -11,12 +11,15 @@ struct DayTransitionCutscene: View {
     let onFinish: () -> Void // Callback for when the slideshow ends
 //    @StateObject var alertManager = AlertManager()
     @EnvironmentObject var buildingManager: BuildingManager
+    @EnvironmentObject var itemManager: ItemManager
+    @EnvironmentObject var energyManager: EnergyManager
     @EnvironmentObject var alertManager: AlertManager
     @State private var goGood = false
     @State private var goDie = false
     @State private var goEnd = false
-    
+    @AppStorage("eat") var eat = 0
     @State private var currentIndex = 0
+    @AppStorage("justDied") var justDied = false
     @AppStorage("survived") var survived = false
     @State private var showNextView = false
     @State private var view = ""
@@ -61,8 +64,8 @@ struct DayTransitionCutscene: View {
                         Color.black.edgesIgnoringSafeArea(.all) // Background color
                         if let currentImage = images[safe: currentIndex] {
                             AsyncImage(name: currentImage) // Lazy-loaded image
-                                .scaledToFill()
                                 .edgesIgnoringSafeArea(.all)
+                                
                                 .transition(.opacity)
                         }
                     }
@@ -98,7 +101,12 @@ struct DayTransitionCutscene: View {
                    checkRescueOrEnd()
                    liveOrDie()
                    onFinish()
-                   day += 1
+            if justDied == true{
+                day = 1
+            } else{
+                day += 1
+            }
+                   
                    return
                }
         let displayTime = Double.random(in: minTime...maxTime)
@@ -118,6 +126,17 @@ struct DayTransitionCutscene: View {
             startSlideshow()
         }
     }
+    private func restart(){
+        
+        daysForRescue = 3
+        day = 1
+        eat = 0
+        justDied = true
+        buildingManager.clearImageNames()
+        energyManager.clearEnergyAmount()
+        itemManager.resetItemAmounts()
+        print(itemManager.items)
+    }
     private func liveOrDie() {
         switch day {
         case 1:
@@ -126,13 +145,17 @@ struct DayTransitionCutscene: View {
                 survived = true// Triggers the alert
                 goGood = true
             } else {
+                restart()
                 goDie = true
+                // to initialise death even if user quits game at next page
+                
             }
         case 2:
             if buildingManager.buildings.contains { $0.imageName.contains("co2filter") } {
                 survived = true
                 goGood = true
             } else {
+                restart()
                 goDie = true
             }
         case 3:
@@ -141,9 +164,11 @@ struct DayTransitionCutscene: View {
                 electricstable = true
                 goGood = true
             } else {
+                restart()
                 goDie = true
             }
         case 7...:
+            restart()
             goDie = true
         default:
             survived = true
